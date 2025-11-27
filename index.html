@@ -654,71 +654,75 @@
       }
     }
 
-    async function loadFilms() {
-      const ul = document.getElementById("filmList");
-      if (!ul) return;
+   async function loadFilms() {
+  const ul = document.getElementById("filmList");
+  if (!ul) return;
 
-      if (!FILM_CSV_URL || FILM_CSV_URL.includes("https://docs.google.com/spreadsheets/d/e/2PACX-1vRAqY-h7oSB53H-vCubXzvU3oLQuyWqSiBoblplMGWN5hTPFOfq4oHBKPKsbujUAr9nMmoMYdRfL0Dg/pub?output=csv")) {
-        ul.innerHTML = `
-        return;
-      }
+  if (!FILM_CSV_URL || FILM_CSV_URL.includes("INSERISCI_QUI_IL_LINK_CSV_DI_GOOGLE_SHEETS")) {
+    ul.innerHTML = `
+      <li>
+        <span class="title">Configura prima il link CSV di Google Sheets nel codice.</span>
+        <span class="rating"></span>
+      </li>
+    `;
+    return;
+  }
 
+  ul.innerHTML = `
+    <li>
+      <span class="title">Caricamento...</span>
+      <span class="rating"></span>
+    </li>
+  `;
+
+  try {
+    const res = await fetch(FILM_CSV_URL);
+    const text = await res.text();
+
+    const rows = text.trim().split("\n").slice(1); // salta intestazione
+    ul.innerHTML = "";
+
+    rows.forEach(row => {
+      const cols = row.split(",");
+      const titolo = (cols[0] || "").trim();
+      const anno = (cols[1] || "").trim();
+      const voto = (cols[2] || "").trim();
+
+      if (!titolo) return;
+
+      const li = document.createElement("li");
+
+      const spanTitle = document.createElement("span");
+      spanTitle.className = "title";
+      spanTitle.textContent = anno ? `${titolo} (${anno})` : titolo;
+
+      const spanRating = document.createElement("span");
+      spanRating.className = "rating";
+      spanRating.textContent = voto ? `Voto medio: ${voto}` : "";
+
+      li.appendChild(spanTitle);
+      li.appendChild(spanRating);
+      ul.appendChild(li);
+    });
+
+    if (!ul.children.length) {
       ul.innerHTML = `
         <li>
-          <span class="title">Caricamento...</span>
+          <span class="title">Nessun film ancora registrato.</span>
           <span class="rating"></span>
         </li>
       `;
-
-      try {
-        const res = await fetch(FILM_CSV_URL);
-        const text = await res.text();
-
-        const rows = text.trim().split("\n").slice(1); // salta intestazione
-        ul.innerHTML = "";
-
-        rows.forEach(row => {
-          const cols = row.split(",");
-          const titolo = (cols[0] || "").trim();
-          const anno = (cols[1] || "").trim();
-          const voto = (cols[2] || "").trim();
-
-          if (!titolo) return;
-
-          const li = document.createElement("li");
-
-          const spanTitle = document.createElement("span");
-          spanTitle.className = "title";
-          spanTitle.textContent = anno ? `${titolo} (${anno})` : titolo;
-
-          const spanRating = document.createElement("span");
-          spanRating.className = "rating";
-          spanRating.textContent = voto ? `Voto medio: ${voto}` : "";
-
-          li.appendChild(spanTitle);
-          li.appendChild(spanRating);
-          ul.appendChild(li);
-        });
-
-        if (!ul.children.length) {
-          ul.innerHTML = `
-            <li>
-              <span class="title">Nessun film ancora registrato.</span>
-              <span class="rating"></span>
-            </li>
-          `;
-        }
-      } catch (e) {
-        console.error(e);
-        ul.innerHTML = `
-          <li>
-            <span class="title">Errore nel caricare i dati.</span>
-            <span class="rating"></span>
-          </li>
-        `;
-      }
     }
-
+  } catch (e) {
+    console.error(e);
+    ul.innerHTML = `
+      <li>
+        <span class="title">Errore nel caricare i dati.</span>
+        <span class="rating"></span>
+      </li>
+    `;
+  }
+}
     // Carica subito i film se il CSV è configurato
     document.addEventListener("DOMContentLoaded", () => {
       loadFilms();
