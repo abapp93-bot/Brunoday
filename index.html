@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>BrunoDay – Fan Club & Horror Nights</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts per vibe anni '90 -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bd-blue: #1687c8;   /* blu logo */
+      --bd-yellow: #f7c744; /* giallo logo */
+      --bd-red: #d3132f;    /* rosso sangue */
+      --bd-dark: #050914;
+      --bd-light: #f5f1da;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #101528 0, #020308 55%, #000 100%);
+      color: var(--bd-light);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+
+    a {
+      color: var(--bd-yellow);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      border-bottom: 2px solid rgba(247, 199, 68, 0.25);
+      padding-bottom: 16px;
+    }
+
+    .logo-box {
+      flex: 0 0 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-box img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .hero-title {
+      font-family: "Anton", sans-serif;
+      font-size: clamp(2.6rem, 4vw, 3.6rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bd-yellow);
+      text-shadow: -2px 2px 0 #000, 0 0 18px rgba(0, 0, 0, 0.9);
+      margin-bottom: 8px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        var(--bd-red) 15%,
+        var(--bd-red) 70%,
+        transparent 100%
+      );
+      transform: skewX(-12deg);
+      box-shadow: 0 0 12px rgba(211, 19, 47, 0.9);
+    }
+
+    .hero-subtitle {
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--bd-blue);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-tagline {
+      font-size: 0.98rem;
+      color: #ddd8bf;
+      max-width: 520px;
+    }
+
+    .slasher-label {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 10px;
+      background: var(--bd-red);
+      color: var(--bd-light);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      transform: skewX(-10deg);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    }
+
+    section {
+      margin-top: 32px;
+    }
+
+    .section-title {
+      font-family: "Anton", sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--bd-yellow);
+      text-shadow: -1px 1px 0 #000;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::before {
+      content: "";
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      width: 6px;
+      height: 110%;
+      background: var(--bd-red);
+      transform: translateY(-50%) skewY(-10deg);
+      box-shadow: 0 0 12px rgba(211, 19, 47, 0.9);
+    }
+
+    .card {
+      background: radial-gradient(circle at top, #12213a 0, #050914 55%);
+      border-radius: 14px;
+      border: 1px solid rgba(247, 199, 68, 0.22);
+      padding: 18px 18px 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -40px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 2px solid rgba(209, 19, 47, 0.6);
+      opacity: 0.3;
+    }
+
+    .card + .card {
+      margin-top: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.75);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.17em;
+      color: var(--bd-light);
+      margin-bottom: 8px;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--bd-red);
+      box-shadow: 0 0 8px rgba(211, 19, 47, 0.9);
+    }
+
+    .next-film-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+      gap: 18px;
+    }
+
+    .film-title {
+      font-family: "Anton", sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bd-yellow);
+      margin-bottom: 4px;
+    }
+
+    .film-meta {
+      font-size: 0.9rem;
+      color: #d5cfb5;
+      margin-bottom: 10px;
+    }
+
+    .splatter {
+      display: inline-block;
+      padding: 4px 8px;
+      background: radial-gradient(circle at top left, #ff3355 0, var(--bd-red) 40%, #5a020f 100%);
+      border-radius: 10px 40px 25px 50px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    li {
+      margin-bottom: 4px;
+      font-size: 0.92rem;
+    }
+
+    .rules-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .rules-highlight {
+      background: linear-gradient(135deg, rgba(22, 135, 200, 0.2), rgba(5, 9, 20, 0.8));
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(22, 135, 200, 0.5);
+    }
+
+    .film-list {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .film-list li {
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(5, 9, 20, 0.85);
+      border: 1px solid rgba(247, 199, 68, 0.12);
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .film-list span.title {
+      color: var(--bd-yellow);
+      font-weight: 600;
+    }
+
+    .film-list span.rating {
+      font-size: 0.85rem;
+      color: #f2d77c;
+      white-space: nowrap;
+    }
+
+    .cta-fanclub {
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.3fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    .cta-text p {
+      font-size: 0.95rem;
+    }
+
+    .fancard-mock {
+      background: var(--bd-blue);
+      border-radius: 14px;
+      padding: 14px 16px;
+      color: #021323;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #000;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.9);
+    }
+
+    .fancard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .fancard-title {
+      font-family: "Anton", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.95rem;
+      color: var(--bd-yellow);
+      text-shadow: -1px 1px 0 #000;
+    }
+
+    .fancard-logo {
+      font-size: 0.7rem;
+      background: #000;
+      color: var(--bd-yellow);
+      padding: 4px 6px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .fancard-body {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .fancard-lines {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .fancard-line-label {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .fancard-line {
+      height: 1px;
+      background: #000;
+      margin-bottom: 8px;
+    }
+
+    .qr-placeholder {
+      width: 70px;
+      height: 70px;
+      background: #f5f1da;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.55rem;
+      text-align: center;
+      padding: 4px;
+    }
+
+    /* Area Membri */
+    .member-input-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .member-input-wrap input {
+      flex: 1;
+      min-width: 180px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(247, 199, 68, 0.6);
+      background: rgba(5, 9, 20, 0.9);
+      color: var(--bd-light);
+      font-size: 0.9rem;
+    }
+
+    .member-input-wrap button {
+      padding: 7px 14px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      background: var(--bd-red);
+      color: var(--bd-light);
+      box-shadow: 0 0 10px rgba(211, 19, 47, 0.9);
+    }
+
+    .member-input-wrap button:hover {
+      filter: brightness(1.1);
+    }
+
+    .member-hint {
+      font-size: 0.8rem;
+      color: #c4bba5;
+      margin-top: 4px;
+    }
+
+    .member-secret {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(247, 199, 68, 0.4);
+      display: none;
+    }
+
+    .secret-title {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      margin-bottom: 6px;
+      color: var(--bd-yellow);
+    }
+
+    .vote-button {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(247, 199, 68, 0.7);
+      background: rgba(5, 9, 20, 0.9);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.8rem;
+      color: #9b9380;
+      text-align: center;
+    }
+
+    footer span {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 0.78rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 780px) {
+      .next-film-grid,
+      .rules-columns,
+      .cta-fanclub {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      header {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      .hero-title::after {
+        left: 50%;
+        transform: translateX(-50%) skewX(-12deg);
+      }
+
+      .logo-box {
+        flex: 0 0 90px;
+      }
+
+      .fancard-body {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <header>
+      <div class="logo-box">
+        <!-- Cambia src con il nome del tuo file logo, se diverso -->
+        <img src="logo-brunoday.png" alt="BrunoDay Logo" />
+      </div>
+      <div class="hero-text">
+        <div class="hero-subtitle">Horror Night Weekly Ritual</div>
+        <h1 class="hero-title">BrunoDay</h1>
+        <p class="hero-tagline">
+          Una sera a settimana, la tana dell’orso si chiude, le luci si spengono
+          e parte il film horror. Se sei qui, fai parte del cerchio.
+        </p>
+        <div class="slasher-label">Fan club ufficiale • ingresso su invito</div>
+      </div>
+    </header>
+
+    <!-- Prossima proiezione -->
+    <section id="next">
+      <h2 class="section-title">Prossima Proiezione</h2>
+      <div class="card">
+        <div class="badge"><span class="badge-dot"></span> settimana in corso</div>
+        <div class="next-film-grid">
+          <div>
+            <div class="splatter">Film della settimana</div>
+            <h3 class="film-title">Titolo del Film</h3>
+            <div class="film-meta">
+              <strong>Data:</strong> Venerdì, ore 21:00 – <strong>Luogo:</strong> Tana di Bruno<br />
+              <strong>Selezionato da:</strong> Nome Membro
+            </div>
+            <p style="font-size: 0.9rem; color: #e1dac4;">
+              Breve descrizione o tagline del film. Qui puoi scrivere due righe
+              per caricare l’hype o spiegare perché lo avete scelto.
+            </p>
+          </div>
+          <div>
+            <p style="font-size: 0.88rem; color: #d5cfb5; margin-bottom: 6px;">
+              <strong>Come funziona il BrunoDay:</strong>
+            </p>
+            <ul>
+              <li>Ogni settimana un membro diverso sceglie il film.</li>
+              <li>Si vota a fine serata (da 1 a 10 “urli”).</li>
+              <li>Commenti, meme e insulti cinematografici sono benvenuti.</li>
+              <li>Presenze e vittorie vengono registrate nella Hall of Fame.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Regole -->
+    <section id="rules">
+      <h2 class="section-title">Regole del BrunoDay</h2>
+      <div class="card">
+        <div class="rules-columns">
+          <div>
+            <ul>
+              <li>Niente spoiler su finali o colpi di scena prima del film.</li>
+              <li>Chi arriva in ritardo porta gli snack alla serata successiva.</li>
+              <li>Durante le scene top: niente scroll compulsivo sul telefono.</li>
+              <li>Urla, risate e insulti al killer sono incoraggiati.</li>
+              <li>Chi si addormenta viene fotografato e finisce negli annali.</li>
+            </ul>
+          </div>
+          <div class="rules-highlight">
+            <strong>Rito di inizio serata:</strong><br />
+            luci abbassate, logo BrunoDay sullo schermo, annuncio ufficiale del
+            film. Solo dopo il “Benvenuti al BrunoDay” il play è autorizzato.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Archivio film -->
+    <section id="archive">
+      <h2 class="section-title">Archivio Film Visti</h2>
+      <div class="card">
+        <p style="font-size: 0.9rem; margin-bottom: 8px;">
+          Aggiorna questa lista man mano che il BrunoDay avanza. È la tua
+          pergamena del terrore personale.
+        </p>
+        <ul class="film-list">
+          <li>
+            <span class="title">Hereditary (2018)</span>
+            <span class="rating">Voto medio: 8.5 / 10</span>
+          </li>
+          <li>
+            <span class="title">The Conjuring (2013)</span>
+            <span class="rating">Voto medio: 8.0 / 10</span>
+          </li>
+          <li>
+            <span class="title">Scream (1996)</span>
+            <span class="rating">Voto medio: 9.0 / 10</span>
+          </li>
+        </ul>
+        <p style="font-size: 0.82rem; color: #bcb39c; margin-top: 4px;">
+          Puoi trasformare questo elenco in una tabella vera, aggiungere chi ha
+          scelto il film, la data e i commenti più assurdi del gruppo.
+        </p>
+      </div>
+    </section>
+
+    <!-- Fan club & tessera -->
+    <section id="fanclub">
+      <h2 class="section-title">Fan Club BrunoDay</h2>
+      <div class="card">
+        <div class="cta-fanclub">
+          <div class="cta-text">
+            <p>
+              Solo chi possiede la <strong>Tessera Fan BrunoDay</strong> entra
+              ufficialmente nel club: voto sul film, turno di scelta, premi a
+              fine stagione e comparsa nella Hall of Fame.
+            </p>
+            <p style="margin-top: 8px;">
+              Il <strong>QR code sulla tessera</strong> punta a questa pagina
+              (o a una versione privata con info extra): basta scannerizzarlo
+              per vedere il film della settimana, l’archivio e le regole.
+            </p>
+            <p style="margin-top: 8px; font-size: 0.86rem; color: #d0c7ae;">
+              Una volta pubblicata la pagina su GitHub Pages, usa l’URL per
+              generare un QR reale con qualsiasi generatore online e
+              inseriscilo nel design della tessera.
+            </p>
+          </div>
+
+          <div class="fancard-mock">
+            <div class="fancard-header">
+              <div class="fancard-title">Fan Club • BrunoDay</div>
+              <div class="fancard-logo">brunoday</div>
+            </div>
+            <div class="fancard-body">
+              <div class="fancard-lines">
+                <span class="fancard-line-label">Member Name</span>
+                <div class="fancard-line"></div>
+                <span class="fancard-line-label">Member No.</span>
+                <div class="fancard-line"></div>
+              </div>
+              <div class="qr-placeholder">
+                QR CODE<br />
+                (link a questa<br />
+                landing)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Area Membri con numero tessera -->
+    <section id="members">
+      <h2 class="section-title">Area Membri</h2>
+      <div class="card">
+        <p style="font-size:0.9rem;">
+          Inserisci il tuo <strong>numero tessera BrunoDay</strong> per sbloccare l’area riservata
+          ai membri: link per il voto al film della settimana e contenuti bonus.
+        </p>
+
+        <div class="member-input-wrap">
+          <input id="cardNumber" type="text" placeholder="Es. BD-001" />
+          <button type="button" onclick="checkCard()">Entra</button>
+        </div>
+        <div class="member-hint">
+          Il numero tessera è scritto sul fronte della tua card Fan Club (formato: BD-001, BD-002, ecc.).
+        </div>
+
+        <!-- Contenuto segreto: appare solo se il numero tessera è valido -->
+        <div id="memberSecret" class="member-secret">
+          <div class="secret-title">Zona Riservata Sbloccata</div>
+          <p style="font-size:0.9rem;">
+            Qui puoi votare il film della settimana e vedere i contenuti dedicati ai membri del BrunoDay.
+          </p>
+
+          <!-- Sostituisci # con il link al tuo Google Form -->
+          <a href="#" target="_blank" class="vote-button">
+            Vota il film della settimana
+          </a>
+
+          <p style="margin-top:8px; font-size:0.82rem; color:#c4bba5;">
+            Suggerimento: crea un Google Form con i campi "Numero tessera", "Voto (1–10)" e "Commento", e incolla qui il link.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      BrunoDay – Horror Night Fan Club<br />
+      <span>“Se senti un rumore in corridoio… è solo qualcuno che arriva in ritardo con gli snack.”</span>
+    </footer>
+  </div>
+
+  <script>
+    // Elenco delle tessere valide: personalizza con i tuoi numeri
+    const validCards = [
+      "BD-001",
+      "BD-002",
+      "BD-003",
+      "BD-004",
+      "BD-005"
+      // aggiungi qui altri numeri tessera
+    ];
+
+    function checkCard() {
+      const input = document.getElementById("cardNumber");
+      const secret = document.getElementById("memberSecret");
+
+      const value = input.value.trim().toUpperCase();
+
+      if (validCards.includes(value)) {
+        secret.style.display = "block";
+      } else {
+        secret.style.display = "none";
+        alert("Numero tessera non valido 😈");
+      }
+    }
+  </script>
+</body>
+</html>
