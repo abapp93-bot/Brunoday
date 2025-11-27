@@ -413,6 +413,26 @@
         justify-items: flex-start;
       }
     }
+    .photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.photo-grid img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid rgba(247, 199, 68, 0.3);
+  box-shadow: 0 0 14px rgba(0,0,0,0.6);
+  transition: transform 0.2s ease;
+}
+
+.photo-grid img:hover {
+  transform: scale(1.04);
+}
+
   </style>
 </head>
 <body>
@@ -522,6 +542,24 @@
         </ul>
       </div>
     </section>
+<!-- Galleria Foto -->
+<section id="photos">
+  <h2 class="section-title">Foto del BrunoDay</h2>
+  <div class="card">
+    <p style="font-size:0.9rem; margin-bottom:12px;">
+      Momenti immortali delle nostre serate horror. Urla, pop-corn e scatti rubati.
+    </p>
+
+    <div class="photo-grid">
+      <!-- Sostituisci questi src con le tue foto -->
+      <img src="foto1.jpg" alt="Foto BrunoDay 1" />
+      <img src="foto2.jpg" alt="Foto BrunoDay 2" />
+      <img src="foto3.jpg" alt="Foto BrunoDay 3" />
+      <img src="foto4.jpg" alt="Foto BrunoDay 4" />
+      <!-- aggiungi quante ne vuoi -->
+    </div>
+  </div>
+</section>
 
     <!-- Fan club & tessera -->
     <section id="fanclub">
