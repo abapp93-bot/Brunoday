@@ -5,41 +5,28 @@
   <title>BrunoDay – Fan Club & Horror Nights</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Fonts per vibe anni '90 -->
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bd-blue: #1687c8;   /* blu logo */
-      --bd-yellow: #f7c744; /* giallo logo */
-      --bd-red: #d3132f;    /* rosso sangue */
+      --bd-blue: #1687c8;
+      --bd-yellow: #f7c744;
+      --bd-red: #d3132f;
       --bd-dark: #050914;
       --bd-light: #f5f1da;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: radial-gradient(circle at top, #101528 0, #020308 55%, #000 100%);
       color: var(--bd-light);
       line-height: 1.6;
-      padding: 0;
-      margin: 0;
     }
 
-    a {
-      color: var(--bd-yellow);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
+    a { color: var(--bd-yellow); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
     .page-wrap {
       max-width: 1100px;
@@ -70,10 +57,7 @@
       box-shadow: 0 0 18px rgba(0, 0, 0, 0.8);
     }
 
-    .hero-text {
-      flex: 1;
-      min-width: 260px;
-    }
+    .hero-text { flex: 1; min-width: 260px; }
 
     .hero-title {
       font-family: "Anton", sans-serif;
@@ -90,17 +74,9 @@
     .hero-title::after {
       content: "";
       position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(
-        to right,
-        transparent 0%,
-        var(--bd-red) 15%,
-        var(--bd-red) 70%,
-        transparent 100%
-      );
+      bottom: -4px; left: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(to right, transparent 0%, var(--bd-red) 15%, var(--bd-red) 70%, transparent 100%);
       transform: skewX(-12deg);
       box-shadow: 0 0 12px rgba(211, 19, 47, 0.9);
     }
@@ -133,9 +109,7 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
     }
 
-    section {
-      margin-top: 32px;
-    }
+    section { margin-top: 32px; }
 
     .section-title {
       font-family: "Anton", sans-serif;
@@ -152,10 +126,8 @@
     .section-title::before {
       content: "";
       position: absolute;
-      left: -10px;
-      top: 50%;
-      width: 6px;
-      height: 110%;
+      left: -10px; top: 50%;
+      width: 6px; height: 110%;
       background: var(--bd-red);
       transform: translateY(-50%) skewY(-10deg);
       box-shadow: 0 0 12px rgba(211, 19, 47, 0.9);
@@ -165,26 +137,10 @@
       background: radial-gradient(circle at top, #12213a 0, #050914 55%);
       border-radius: 14px;
       border: 1px solid rgba(247, 199, 68, 0.22);
-      padding: 18px 18px 20px;
+      padding: 18px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
       position: relative;
       overflow: hidden;
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      right: -60px;
-      top: -40px;
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      border: 2px solid rgba(209, 19, 47, 0.6);
-      opacity: 0.3;
-    }
-
-    .card + .card {
-      margin-top: 18px;
     }
 
     .badge {
@@ -202,8 +158,7 @@
     }
 
     .badge-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--bd-red);
       box-shadow: 0 0 8px rgba(211, 19, 47, 0.9);
@@ -241,15 +196,8 @@
       margin-bottom: 10px;
     }
 
-    ul {
-      padding-left: 18px;
-      margin-top: 6px;
-    }
-
-    li {
-      margin-bottom: 4px;
-      font-size: 0.92rem;
-    }
+    ul { padding-left: 18px; margin-top: 6px; }
+    li { margin-bottom: 4px; font-size: 0.92rem; }
 
     .rules-columns {
       display: grid;
@@ -282,26 +230,14 @@
       gap: 12px;
     }
 
-    .film-list span.title {
-      color: var(--bd-yellow);
-      font-weight: 600;
-    }
-
-    .film-list span.rating {
-      font-size: 0.85rem;
-      color: #f2d77c;
-      white-space: nowrap;
-    }
+    .film-list span.title { color: var(--bd-yellow); font-weight: 600; }
+    .film-list span.rating { font-size: 0.85rem; color: #f2d77c; white-space: nowrap; }
 
     .cta-fanclub {
       display: grid;
       grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.3fr);
       gap: 18px;
       align-items: center;
-    }
-
-    .cta-text p {
-      font-size: 0.95rem;
     }
 
     .fancard-mock {
@@ -354,20 +290,11 @@
       letter-spacing: 0.14em;
     }
 
-    .fancard-line-label {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .fancard-line {
-      height: 1px;
-      background: #000;
-      margin-bottom: 8px;
-    }
+    .fancard-line-label { display: block; margin-bottom: 4px; }
+    .fancard-line { height: 1px; background: #000; margin-bottom: 8px; }
 
     .qr-placeholder {
-      width: 70px;
-      height: 70px;
+      width: 70px; height: 70px;
       background: #f5f1da;
       border-radius: 4px;
       display: flex;
@@ -411,9 +338,7 @@
       box-shadow: 0 0 10px rgba(211, 19, 47, 0.9);
     }
 
-    .member-input-wrap button:hover {
-      filter: brightness(1.1);
-    }
+    .member-input-wrap button:hover { filter: brightness(1.1); }
 
     .member-hint {
       font-size: 0.8rem;
@@ -474,18 +399,14 @@
         text-align: center;
       }
 
-      .hero-text {
-        text-align: center;
-      }
+      .hero-text { text-align: center; }
 
       .hero-title::after {
         left: 50%;
         transform: translateX(-50%) skewX(-12deg);
       }
 
-      .logo-box {
-        flex: 0 0 90px;
-      }
+      .logo-box { flex: 0 0 90px; }
 
       .fancard-body {
         grid-template-columns: minmax(0, 1fr);
@@ -498,7 +419,7 @@
   <div class="page-wrap">
     <header>
       <div class="logo-box">
-        <!-- Cambia src con il nome del tuo file logo, se diverso -->
+        <!-- Assicurati che il file esista nel repo con questo nome -->
         <img src="logo-brunoday.png" alt="BrunoDay Logo" />
       </div>
       <div class="hero-text">
@@ -534,7 +455,7 @@
               <strong>Come funziona il BrunoDay:</strong>
             </p>
             <ul>
-              <li>Ogni settimana si sceglie un film, horror</li>
+              <li>Ogni settimana si sceglie un film, horror.</li>
               <li>Commenti, meme e insulti cinematografici sono benvenuti.</li>
               <li>Presenze e vittorie vengono registrate nella Hall of Fame.</li>
             </ul>
@@ -559,7 +480,7 @@
           </div>
           <div class="rules-highlight">
             <strong>Rito di inizio serata:</strong><br />
-            ok google, spegni le luci, logo BrunoDay sulla maglia, pop corn, birra e vino per claudio
+            ok google, spegni le luci, logo BrunoDay sulla maglia, pop corn, birra e vino per Claudio.
           </div>
         </div>
       </div>
@@ -582,20 +503,20 @@
             <span class="title">The Strangers - Capitolo 1 (2024)</span>
             <span class="rating">Voto medio: 5.0 / 10</span>
           </li>
-            <li>
+          <li>
             <span class="title">Non Dormire nel Bosco Stanotte (2020)</span>
             <span class="rating">Voto medio: 5.5 / 10</span>
           </li>
-            <li>
+          <li>
             <span class="title">La Dimora del Male (2021)</span>
             <span class="rating">Voto medio: 4.0 / 10</span>
           </li>
-            <li>
+          <li>
             <span class="title">In a Violent Nature (2024)</span>
             <span class="rating">Voto medio: 4.5 / 10</span>
           </li>
-            <li>
-            <span class="title">Nessuno ne uscirà vivo(2021)</span>
+          <li>
+            <span class="title">Nessuno ne uscirà vivo (2021)</span>
             <span class="rating">Voto medio: 3.5 / 10</span>
           </li>
         </ul>
@@ -607,7 +528,7 @@
       <h2 class="section-title">Fan Club BrunoDay</h2>
       <div class="card">
         <div class="cta-fanclub">
-          <div class="cta-text">
+          <div>
             <p>
               Solo chi possiede la <strong>Tessera Fan BrunoDay</strong> entra
               ufficialmente nel club: voto sul film, turno di scelta, premi a
@@ -638,7 +559,7 @@
       </div>
     </section>
 
-    <!-- Area Membri con numero tessera -->
+    <!-- Area Membri -->
     <section id="members">
       <h2 class="section-title">Area Membri</h2>
       <div class="card">
@@ -655,20 +576,19 @@
           Il numero tessera è scritto sul fronte della tua card Fan Club (formato: BD-001, BD-002, ecc.).
         </div>
 
-        <!-- Contenuto segreto: appare solo se il numero tessera è valido -->
         <div id="memberSecret" class="member-secret">
           <div class="secret-title">Zona Riservata Sbloccata</div>
           <p style="font-size:0.9rem;">
             Qui puoi votare il film della settimana e vedere i contenuti dedicati ai membri del BrunoDay.
           </p>
 
-          <!-- Sostituisci # con il link al tuo Google Form -->
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSckWE29uiRrQvdX0_L54_-jdCFbFInrg8zgbKIILYFsJPCm1Q/viewform?usp=header" target="_blank" class="vote-button">
+          <!-- QUI metti il link reale del Google Form -->
+          <a href="LINK_GOOGLE_FORM" target="_blank" class="vote-button">
             Vota il film della settimana
           </a>
 
           <p style="margin-top:8px; font-size:0.82rem; color:#c4bba5;">
-            Suggerimento: crea un Google Form con i campi "Numero tessera", "Voto (1–10)" e "Commento", e incolla qui il link.
+            Assicurati che nel modulo inseriscano lo stesso numero tessera usato qui.
           </p>
         </div>
       </div>
@@ -681,7 +601,6 @@
   </div>
 
   <script>
-    // Elenco delle tessere valide: personalizza con i tuoi numeri
     const validCards = [
       "BD-001",
       "BD-002",
@@ -689,19 +608,18 @@
       "BD-004",
       "BD-005",
       "BD-006",
-    "BD-007",
-    "BD-008",
-    "BD-009",
-    "BD-010",
-    "BD-011",
-    "BD-012"
-      // aggiungi qui altri numeri tessera
+      "BD-007",
+      "BD-008",
+      "BD-009",
+      "BD-010",
+      "BD-011",
+      "BD-012"
+      // aggiungi qui altre tessere se servono
     ];
 
     function checkCard() {
       const input = document.getElementById("cardNumber");
       const secret = document.getElementById("memberSecret");
-
       const value = input.value.trim().toUpperCase();
 
       if (validCards.includes(value)) {
