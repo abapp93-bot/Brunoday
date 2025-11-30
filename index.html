@@ -434,6 +434,64 @@
         justify-items: flex-start;
       }
     }
+/* Banner evento speciale */
+.event-banner {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.event-banner-link {
+  display: block;
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(211,19,47,0.85), rgba(22,135,200,0.75));
+  box-shadow: 0 18px 35px rgba(0,0,0,0.8);
+  text-decoration: none;
+  color: var(--bd-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.event-banner-link::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 50%;
+  height: 180%;
+  background: radial-gradient(circle at center, rgba(247,199,68,0.6), transparent 60%);
+  opacity: 0.7;
+}
+
+.event-banner-pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.75);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.event-banner-title {
+  font-family: "Anton", sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: -1px 1px 0 #000;
+}
+
+.event-banner-sub {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.event-banner-hint {
+  font-size: 0.8rem;
+  margin-top: 6px;
+  opacity: 0.9;
+}
   </style>
 </head>
 <body>
@@ -453,7 +511,21 @@
         <div class="slasher-label">Fan club ufficiale • ingresso su invito</div>
       </div>
     </header>
+</header>
 
+<!-- Banner Evento Speciale -->
+<div class="event-banner">
+  <a href="evento.html" class="event-banner-link">
+    <div class="event-banner-pill">Special Event • Coming Soon</div>
+    <div class="event-banner-title">Bruno Christmas Event</div>
+    <div class="event-banner-sub">
+      Un maxi evento natalizio con lotteria premi, sorprese e terrore sotto l’albero.
+    </div>
+    <div class="event-banner-hint">
+      Clicca per scoprire cosa bolle in pentola... o cosa striscia nel buio. 🎄💀
+    </div>
+  </a>
+</div>
     <!-- Prossima proiezione -->
     <section id="next">
       <h2 class="section-title">Prossima Proiezione</h2>
@@ -526,21 +598,36 @@
 
     <!-- Galleria Foto -->
     <section id="photos">
-      <h2 class="section-title">Foto del BrunoDay</h2>
-      <div class="card">
-        <p style="font-size:0.9rem; margin-bottom:12px;">
-          Momenti immortali delle nostre serate horror. Urla, pop-corn e scatti rubati.
-        </p>
+  <h2 class="section-title">Foto del BrunoDay</h2>
+  <div class="card">
+    <p style="font-size:0.9rem; margin-bottom:12px;">
+      Momenti immortali delle nostre serate horror. Clicca sulle foto per vedere altre immagini.
+    </p>
 
-        <div class="photo-grid">
-          <!-- Assicurati di avere questi file nel repo -->
-          <img src="Maglietta.png" alt="Foto BrunoDay 1" />
-          <img src="Disagio.jpeg" alt="Foto BrunoDay 2" />
-          <img src="foto3.jpg" alt="Foto BrunoDay 3" />
-          <img src="foto4.jpg" alt="Foto BrunoDay 4" />
-        </div>
-      </div>
-    </section>
+    <div class="photo-grid">
+      <!-- FOTO 1 -->
+      <a href="LINK_GOOGLE_DRIVE_FOTO1" target="_blank" class="photo-link">
+        <img src="Maglietta.png" alt="Foto BrunoDay 1" />
+      </a>
+
+      <!-- FOTO 2 -->
+      <a href="LINK_GOOGLE_DRIVE_FOTO2" target="_blank" class="photo-link">
+        <img src="Disagio.jpeg" alt="Foto BrunoDay 2" />
+      </a>
+
+      <!-- FOTO 3 (quando la aggiungi) -->
+      <a href="LINK_GOOGLE_DRIVE_FOTO3" target="_blank" class="photo-link">
+        <img src="foto3.jpg" alt="Foto BrunoDay 3" />
+      </a>
+
+      <!-- FOTO 4 (quando la aggiungi) -->
+      <a href="LINK_GOOGLE_DRIVE_FOTO4" target="_blank" class="photo-link">
+        <img src="foto4.jpg" alt="Foto BrunoDay 4" />
+      </a>
+    </div>
+  </div>
+</section>
+
 
     <!-- Fan club & tessera -->
     <section id="fanclub">
