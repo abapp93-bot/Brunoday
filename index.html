@@ -492,6 +492,50 @@
   margin-top: 6px;
   opacity: 0.9;
 }
+    /* Banner evento natalizio / horror */
+.event-banner {
+  display: block;
+  margin: 20px auto 30px;
+  padding: 16px 20px;
+  text-align: center;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--bd-light);
+  font-family: "Anton", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 1.3rem;
+  border: 2px solid var(--bd-yellow);
+  background: rgba(0,0,0,0.45);
+  box-shadow: 0 0 18px rgba(255,255,255,0.15);
+  animation: bannerGlow 1.8s infinite ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.event-banner-sub {
+  font-family: "Roboto";
+  text-transform: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+
+/* Animazione luci alternate */
+@keyframes bannerGlow {
+  0%   { box-shadow: 0 0 12px var(--bd-yellow); border-color: var(--bd-yellow); }
+  33%  { box-shadow: 0 0 12px var(--bd-red);    border-color: var(--bd-red); }
+  66%  { box-shadow: 0 0 12px var(--bd-blue);   border-color: var(--bd-blue); }
+  100% { box-shadow: 0 0 12px var(--bd-yellow); border-color: var(--bd-yellow); }
+}
+
+/* Effetto hover */
+.event-banner:hover {
+  filter: brightness(1.15);
+  transform: scale(1.02);
+  transition: 0.2s;
+}
+
   </style>
 </head>
 <body>
@@ -512,6 +556,13 @@
       </div>
     </header>
 </header>
+<!-- Banner Evento Christmas -->
+<a href="evento.html" class="event-banner">
+  <div class="event-banner-content">
+    🎄 BRUNODAY CHRISTMAS EVENT – CLICCA QUI 🎁<br>
+    <span class="event-banner-sub">Registrati alla lotteria premi! 🔪✨</span>
+  </div>
+</a>
 
 <!-- Banner Evento Speciale -->
 <div class="event-banner">
