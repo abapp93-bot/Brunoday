@@ -392,64 +392,115 @@
     ma il Bruno apprezza chi si impegna (e forse sarà più buono in estrazione 😈).
   </p>
 
-  <div class="crossword-grid">
-    <!-- 6x6 semplice, celle nere = blocchi.
-         Puoi usarlo liberamente per scrivere le risposte, non è controllato dal codice. -->
+<div class="crossword-section">
+  <div class="crossword-title">Mini Cruciverba Bruno Christmas</div>
+  <p class="crossword-sub">
+    Completa il cruciverba… e scopri se sopravvivi allo spirito del Bruno 🎅🔪
+  </p>
+
+  <div class="crossword-grid" id="cwGrid">
+    <!-- Griglia 7 x 8, completa e coerente -->
+
+    <!-- Riga 1: DIC  / BRUNO (inizio), SPORCO (inizio), VISCIDO (inizio) -->
     <div class="cross-row">
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="D" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="I" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="C" /></div>
       <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell"><input maxlength="1" data-s="B" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="S" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="V" /></div>
     </div>
+
+    <!-- Riga 2: FILM -->
     <div class="cross-row">
-      <div class="cross-cell"><input maxlength="1" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="F" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="I" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="L" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="M" /></div>
       <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="R" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="P" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="I" /></div>
     </div>
+
+    <!-- Riga 3: BIRRA -->
     <div class="cross-row">
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell block"></div>
+      <div class="cross-cell"><input maxlength="1" data-s="B" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="I" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="R" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="R" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="A" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="U" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="O" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="S" /></div>
     </div>
+
+    <!-- Riga 4: parte centrale (N R C), incroci SPORCO / VISCIDO / BRUNO -->
     <div class="cross-row">
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
       <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell"><input maxlength="1" data-s="N" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="R" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="C" /></div>
     </div>
+
+    <!-- Riga 5: chiusura BRUNO, SPORCO, VISCIDO -->
     <div class="cross-row">
       <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
       <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell"><input maxlength="1" data-s="O" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="C" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="I" /></div>
     </div>
+
+    <!-- Riga 6: parte finale SPORCO / VISCIDO -->
     <div class="cross-row">
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
       <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
-      <div class="cross-cell"><input maxlength="1" /></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell"><input maxlength="1" data-s="O" /></div>
+      <div class="cross-cell"><input maxlength="1" data-s="D" /></div>
+    </div>
+
+    <!-- Riga 7: ultima lettera VISCIDO -->
+    <div class="cross-row">
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell block"></div>
+      <div class="cross-cell"><input maxlength="1" data-s="O" /></div>
     </div>
   </div>
 
-  <div class="crossword-clues">
+  <button id="checkCrossword" style="
+    margin-top:12px;padding:7px 14px;
+    background:var(--bd-red);color:var(--bd-light);
+    border:none;border-radius:6px;cursor:pointer;
+    box-shadow:0 0 10px rgba(211,19,47,0.9);
+    text-transform:uppercase;letter-spacing:0.14em;
+  ">Verifica Risposte</button>
+
+  <p id="cwResult" style="margin-top:10px;font-size:0.9rem;"></p>
+
+  <div class="crossword-clues" style="margin-top:18px;">
     <div>
       <strong>Orizzontali</strong>
       <ol>
-        <li><strong>1.</strong> Il mese dell’evento (es. DIC) – 3 lettere</li>
+        <li><strong>1.</strong> Il mese dell’evento (DIC) – 3 lettere</li>
         <li><strong>3.</strong> Quello che guardiamo al BrunoDay (FILM) – 4 lettere</li>
         <li><strong>4.</strong> Bevanda spesso presente sul tavolo (BIRRA) – 5 lettere</li>
       </ol>
@@ -458,13 +509,41 @@
       <strong>Verticali</strong>
       <ol>
         <li><strong>1.</strong> Lui dà il nome alle serate (BRUNO) – 5 lettere</li>
-        <li><strong>2.</strong> Lo è DeLu (viscido) – 7 lettere</li>
+        <li><strong>2.</strong> Lo è DeLu (VISCIDO) – 7 lettere</li>
         <li><strong>5.</strong> Un aggettivo per Fede (SPORCO) – 6 lettere</li>
       </ol>
     </div>
   </div>
 </div>
-    <a href="index.html" class="back-link">Torna al BrunoDay</a>
+  <script>
+  document.getElementById("checkCrossword").addEventListener("click", () => {
+    const cells = [...document.querySelectorAll('#cwGrid [data-s]')];
+    let errors = 0;
+
+    cells.forEach(c => {
+      const expected = (c.dataset.s || "").toUpperCase();
+      const val = (c.value || "").toUpperCase();
+
+      if (val !== expected) {
+        c.style.background = "rgba(211,19,47,0.6)"; // rosso errore
+        errors++;
+      } else {
+        c.style.background = "rgba(22,135,200,0.35)"; // blu corretto
+      }
+    });
+
+    const result = document.getElementById("cwResult");
+
+    if (errors === 0) {
+      result.innerHTML = "🎉 <strong>Perfetto!</strong> Il Bruno ti concede un sorriso… inquietante.";
+      result.style.color = "var(--bd-yellow)";
+    } else {
+      result.innerHTML = `😈 Hai ancora ${errors} caselle sbagliate. Il Bruno ti osserva dalle tenebre…`;
+      result.style.color = "var(--bd-red)";
+    }
+  });
+</script>
+       <a href="index.html" class="back-link">Torna al BrunoDay</a>
   </div>
 </body>
 </html>
