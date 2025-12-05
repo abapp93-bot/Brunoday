@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>BrunoDay – Evento Speciale</title>
+  <title>BrunoDay – Christmas Event</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
@@ -30,14 +30,13 @@
     }
 
     .event-wrap {
-      max-width: 800px;
+      max-width: 900px;
       width: 100%;
       background: radial-gradient(circle at top, #151d34 0, #050914 60%);
       border-radius: 18px;
       border: 1px solid rgba(247,199,68,0.25);
       padding: 24px 20px 26px;
       box-shadow: 0 24px 50px rgba(0,0,0,0.9);
-      text-align: center;
       position: relative;
       overflow: hidden;
     }
@@ -97,22 +96,206 @@
       margin-bottom: -4px;
     }
 
-    .event-sub {
-      margin-top: 10px;
-      font-size: 0.98rem;
+    .event-content {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
+      gap: 18px;
+    }
+
+    .event-text {
+      font-size: 0.95rem;
       color: #ded6c0;
     }
 
-    .event-sub-strong {
-      margin-top: 6px;
-      font-size: 1rem;
+    .event-text strong {
       color: var(--bd-yellow);
     }
 
-    .event-note {
-      margin-top: 16px;
+    .event-lottery {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(247,199,68,0.4);
       font-size: 0.9rem;
-      color: #bcb39f;
+    }
+
+    .event-lottery-title {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.82rem;
+      margin-bottom: 4px;
+      color: var(--bd-yellow);
+    }
+
+    .event-signup {
+      background: rgba(5,9,20,0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(247,199,68,0.4);
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .event-signup-label {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 6px;
+      color: #f0e6cd;
+    }
+
+    .event-signup p {
+      font-size: 0.86rem;
+      margin-bottom: 8px;
+      color: #e2dac6;
+    }
+
+    .signup-button-link {
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      background: var(--bd-red);
+      color: var(--bd-light);
+      box-shadow: 0 0 10px rgba(211,19,47,0.9);
+      text-decoration: none;
+    }
+
+    .signup-button-link:hover {
+      filter: brightness(1.1);
+    }
+
+    .signup-note {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #c9c0aa;
+      text-align: left;
+    }
+
+    /* Galleria premi */
+
+    .prize-gallery {
+      background: rgba(0,0,0,0.55);
+      border-radius: 12px;
+      border: 1px solid rgba(247,199,68,0.3);
+      padding: 10px 12px;
+      font-size: 0.86rem;
+    }
+
+    .prize-title {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.8rem;
+      color: var(--bd-yellow);
+      margin-bottom: 4px;
+    }
+
+    .prize-note {
+      font-size: 0.8rem;
+      color: #d9d0ba;
+      margin-bottom: 8px;
+    }
+
+    .prize-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 6px;
+    }
+
+    .prize-images img {
+      width: 100%;
+      border-radius: 6px;
+      object-fit: cover;
+      height: 80px;
+      border: 1px solid rgba(247,199,68,0.4);
+      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+
+    /* Cruciverba */
+
+    .crossword-section {
+      margin-top: 22px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .crossword-title {
+      font-family: "Anton", sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--bd-yellow);
+      text-shadow: -1px 1px 0 #000;
+      margin-bottom: 4px;
+    }
+
+    .crossword-sub {
+      font-size: 0.84rem;
+      color: #d4ccb7;
+      margin-bottom: 10px;
+    }
+
+    .crossword-grid {
+      display: inline-block;
+      padding: 8px;
+      background: rgba(0,0,0,0.65);
+      border-radius: 8px;
+      border: 1px solid rgba(247,199,68,0.3);
+    }
+
+    .cross-row {
+      display: flex;
+    }
+
+    .cross-cell {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(247,199,68,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #020613;
+    }
+
+    .cross-cell input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: transparent;
+      text-align: center;
+      color: var(--bd-light);
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .cross-cell input:focus {
+      outline: none;
+      background: rgba(22,135,200,0.35);
+    }
+
+    .cross-cell.block {
+      background: #000;
+      border-color: rgba(247,199,68,0.08);
+    }
+
+    .crossword-clues {
+      margin-top: 10px;
+      display: flex;
+      gap: 18px;
+      font-size: 0.82rem;
+      color: #d4ccb7;
+      flex-wrap: wrap;
+    }
+
+    .crossword-clues ol {
+      padding-left: 18px;
+      margin-top: 4px;
     }
 
     .back-link {
@@ -125,34 +308,163 @@
       text-decoration: none;
     }
 
-    .back-link:hover {
-      text-decoration: underline;
+    .back-link:hover { text-decoration: underline; }
+
+    @media (max-width: 780px) {
+      .event-content {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      body {
+        padding: 12px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="event-wrap">
     <div class="event-pill">BrunoDay Special</div>
-    <div class="event-title-small">Lavori in corso</div>
+    <div class="event-title-small">Evento di Natale</div>
     <div class="event-title-main">
       <span class="bruno">BRUNO</span>
       Christmas Event
     </div>
 
-    <p class="event-sub">
-      C’è qualcosa che si sta muovendo nell’ombra… un maxi evento natalizio
-      sta per abbattersi sul BrunoDay.
-    </p>
-    <p class="event-sub-strong">
-      Lotteria premi, sorprese e un regalo speciale in arrivo per alcuni di voi.
-    </p>
+    <div class="event-content">
+      <div class="event-text">
+        <p>
+          Per celebrare il Natale (alla nostra maniera poco rassicurante),
+          il BrunoDay si trasforma in un <strong>Christmas Event</strong>:
+          una serata speciale con film, lotteria premi e qualche sorpresa
+          che non vi farà dormire tranquilli.
+        </p>
+        <p style="margin-top:8px;">
+          Durante l’evento, alcuni membri del Fan Club verranno estratti per
+          ricevere <strong>regali a tema horror</strong>, bonus esclusivi e
+          forse… qualche maledizione cinematografica.
+        </p>
 
-    <p class="event-note">
-      La pagina dell’evento si sbloccherà presto.<br />
-      Torna a trovarci o tieni d’occhio il QR sulla tua Tessera Fan BrunoDay. 🎄💀
-    </p>
+        <div class="event-lottery">
+          <div class="event-lottery-title">Lotteria premi</div>
+          <p>
+            Ogni tessera valida BrunoDay registrata per l’evento partecipa alla
+            lotteria. Più presenze hai avuto durante l’anno, più il Bruno ti
+            guarda con favore.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div class="event-signup">
+          <div class="event-signup-label">Iscriviti al Christmas Event</div>
+          <p>
+            La registrazione è reale: compila il modulo ufficiale con il tuo
+            numero tessera BrunoDay e sarai inserito nella lista per la lotteria premi.
+          </p>
+          <a href="https://docs.google.com/spreadsheets/d/1c42e-8_lX_f-mdAFPe4GYgiQCiDqYNnW-wkgz4hOtmI/edit?usp=sharing"
+             target="_blank"
+             class="signup-button-link">
+            Compila il modulo di iscrizione
+          </a>
+          <p class="signup-note">
+            Assicurati di usare il <strong>numero tessera corretto</strong>.
+            Potrai verificare le iscrizioni dalla lista risposte del Google Form.
+          </p>
+        </div>
+
+        <div class="prize-gallery">
+          <div class="prize-title">Spoiler premi</div>
+          <p class="prize-note">
+            Qualche assaggio di quello che potresti trovare sotto il nostro albero distorto.
+          </p>
+          <div class="prize-images">
+            <img src="premio1.jpg" alt="Premio BrunoDay 1" />
+            <img src="premio2.jpg" alt="Premio BrunoDay 2" />
+            <img src="premio3.jpg" alt="Premio BrunoDay 3" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="crossword-section">
+      <div class="crossword-title">Mini Cruciverba Bruno Christmas</div>
+      <p class="crossword-sub">
+        Riempi il cruciverba a tema horror + Natale. Non è obbligatorio per l’iscrizione,
+        ma il Bruno apprezza chi si impegna.
+      </p>
+
+      <div class="crossword-grid">
+        <!-- 6x6 semplice, celle nere = blocchi -->
+        <div class="cross-row">
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell block"></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+        </div>
+        <div class="cross-row">
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell block"></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+        </div>
+        <div class="cross-row">
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell block"></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell block"></div>
+        </div>
+        <div class="cross-row">
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell block"></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+        </div>
+        <div class="cross-row">
+          <div class="cross-cell block"></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell block"></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+        </div>
+        <div class="cross-row">
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell block"></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+          <div class="cross-cell"><input maxlength="1" /></div>
+        </div>
+      </div>
+
+      <div class="crossword-clues">
+        <div>
+          <strong>Orizzontali</strong>
+          <ol>
+            <li><strong>1.</strong> Il mese dell’evento (es. DIC) – 3 lettere</li>
+            <li><strong>3.</strong> Quello che guardiamo al BrunoDay (FILM) – 4 lettere</li>
+            <li><strong>4.</strong> Bevanda spesso presente sul tavolo (BIRRA) – 5 lettere</li>
+          </ol>
+        </div>
+        <div>
+          <strong>Verticali</strong>
+          <ol>
+            <li><strong>1.</strong> Lui dà il nome alle serate (BRUNO) – 5 lettere</li>
+            <li><strong>2.</strong> Lo tiri per entrare a casa (CAMPANELLO) – abbrevia come CAMP – 4 lettere</li>
+          </ol>
+        </div>
+      </div>
+    </div>
 
     <a href="index.html" class="back-link">Torna al BrunoDay</a>
   </div>
 </body>
 </html>
+
