@@ -39,7 +39,7 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 16px;
-      margin-bottom: 32px;
+      margin-bottom: 16px;
       border-bottom: 2px solid rgba(247, 199, 68, 0.25);
       padding-bottom: 16px;
     }
@@ -408,6 +408,98 @@
       transform: scale(1.04);
     }
 
+    /* Banner evento natalizio / horror */
+    .event-banner {
+      display: block;
+      margin: 20px auto 30px;
+      padding: 16px 20px;
+      text-align: center;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--bd-light);
+      font-family: "Anton", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 1.2rem;
+      border: 2px solid var(--bd-yellow);
+      background: rgba(0,0,0,0.55);
+      box-shadow: 0 0 18px rgba(0,0,0,0.9);
+      animation: bannerGlow 1.8s infinite ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* “Lama di luce” che attraversa il banner */
+    .event-banner::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(247,199,68,0.45) 40%,
+        transparent 80%
+      );
+      opacity: 0.0;
+      transform: translateX(-100%);
+      animation: bannerShine 3.5s infinite;
+    }
+
+    .event-banner-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .event-banner-sub {
+      font-family: "Roboto", sans-serif;
+      text-transform: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    /* Coltello animato */
+    .event-banner-icon {
+      display: inline-block;
+      margin: 0 6px;
+      font-size: 1.4rem;
+      animation: knifeFlicker 0.9s infinite alternate;
+    }
+
+    /* Animazione luci alternate del bordo */
+    @keyframes bannerGlow {
+      0%   { box-shadow: 0 0 12px var(--bd-yellow); border-color: var(--bd-yellow); }
+      33%  { box-shadow: 0 0 14px var(--bd-red);    border-color: var(--bd-red); }
+      66%  { box-shadow: 0 0 14px var(--bd-blue);   border-color: var(--bd-blue); }
+      100% { box-shadow: 0 0 12px var(--bd-yellow); border-color: var(--bd-yellow); }
+    }
+
+    /* Luce che “taglia” il banner ogni tanto */
+    @keyframes bannerShine {
+      0%   { opacity: 0; transform: translateX(-120%); }
+      40%  { opacity: 0; }
+      55%  { opacity: 0.7; transform: translateX(160%); }
+      100% { opacity: 0; transform: translateX(160%); }
+    }
+
+    /* Coltello che trema / pulsa */
+    @keyframes knifeFlicker {
+      0%   { transform: translateY(0) rotate(0deg); text-shadow: 0 0 4px rgba(211,19,47,0.9); }
+      50%  { transform: translateY(-2px) rotate(-8deg); text-shadow: 0 0 8px rgba(211,19,47,1); }
+      100% { transform: translateY(0) rotate(5deg); text-shadow: 0 0 6px rgba(22,135,200,0.9); }
+    }
+
+    /* Effetto hover */
+    .event-banner:hover {
+      filter: brightness(1.15);
+      transform: scale(1.02);
+      transition: 0.2s;
+    }
+
     @media (max-width: 780px) {
       .next-film-grid,
       .rules-columns,
@@ -434,162 +526,12 @@
         justify-items: flex-start;
       }
     }
-/* Banner evento speciale */
-.event-banner {
-  margin-top: 16px;
-  margin-bottom: 8px;
-}
-
-.event-banner-link {
-  display: block;
-  border-radius: 14px;
-  padding: 14px 16px;
-  background: linear-gradient(135deg, rgba(211,19,47,0.85), rgba(22,135,200,0.75));
-  box-shadow: 0 18px 35px rgba(0,0,0,0.8);
-  text-decoration: none;
-  color: var(--bd-light);
-  position: relative;
-  overflow: hidden;
-}
-
-.event-banner-link::after {
-  content: "";
-  position: absolute;
-  top: -40%;
-  right: -20%;
-  width: 50%;
-  height: 180%;
-  background: radial-gradient(circle at center, rgba(247,199,68,0.6), transparent 60%);
-  opacity: 0.7;
-}
-
-.event-banner-pill {
-  display: inline-block;
-  padding: 2px 10px;
-  border-radius: 999px;
-  background: rgba(0,0,0,0.75);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-
-.event-banner-title {
-  font-family: "Anton", sans-serif;
-  font-size: 1.4rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-shadow: -1px 1px 0 #000;
-}
-
-.event-banner-sub {
-  font-size: 0.9rem;
-  margin-top: 4px;
-}
-
-.event-banner-hint {
-  font-size: 0.8rem;
-  margin-top: 6px;
-  opacity: 0.9;
-}
-   /* Banner evento natalizio / horror */
-.event-banner {
-  display: block;
-  margin: 20px auto 30px;
-  padding: 16px 20px;
-  text-align: center;
-  border-radius: 12px;
-  text-decoration: none;
-  color: var(--bd-light);
-  font-family: "Anton", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 1.2rem;
-  border: 2px solid var(--bd-yellow);
-  background: rgba(0,0,0,0.55);
-  box-shadow: 0 0 18px rgba(0,0,0,0.9);
-  animation: bannerGlow 1.8s infinite ease-in-out;
-  position: relative;
-  overflow: hidden;
-}
-
-/* “Lama di luce” che attraversa il banner */
-.event-banner::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -20%;
-  width: 40%;
-  height: 200%;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(247,199,68,0.45) 40%,
-    transparent 80%
-  );
-  opacity: 0.0;
-  transform: translateX(-100%);
-  animation: bannerShine 3.5s infinite;
-}
-
-.event-banner-content {
-  position: relative;
-  z-index: 1;
-}
-
-.event-banner-sub {
-  font-family: "Roboto", sans-serif;
-  text-transform: none;
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
-  opacity: 0.9;
-  margin-top: 4px;
-}
-
-/* Coltello animato */
-.event-banner-icon {
-  display: inline-block;
-  margin: 0 6px;
-  font-size: 1.4rem;
-  animation: knifeFlicker 0.9s infinite alternate;
-}
-
-/* Animazione luci alternate del bordo */
-@keyframes bannerGlow {
-  0%   { box-shadow: 0 0 12px var(--bd-yellow); border-color: var(--bd-yellow); }
-  33%  { box-shadow: 0 0 14px var(--bd-red);    border-color: var(--bd-red); }
-  66%  { box-shadow: 0 0 14px var(--bd-blue);   border-color: var(--bd-blue); }
-  100% { box-shadow: 0 0 12px var(--bd-yellow); border-color: var(--bd-yellow); }
-}
-
-/* Luce che “taglia” il banner ogni tanto */
-@keyframes bannerShine {
-  0%   { opacity: 0; transform: translateX(-120%); }
-  40%  { opacity: 0; }
-  55%  { opacity: 0.7; transform: translateX(160%); }
-  100% { opacity: 0; transform: translateX(160%); }
-}
-
-/* Coltello che trema / pulsa */
-@keyframes knifeFlicker {
-  0%   { transform: translateY(0) rotate(0deg); text-shadow: 0 0 4px rgba(211,19,47,0.9); }
-  50%  { transform: translateY(-2px) rotate(-8deg); text-shadow: 0 0 8px rgba(211,19,47,1); }
-  100% { transform: translateY(0) rotate(5deg); text-shadow: 0 0 6px rgba(22,135,200,0.9); }
-}
-
-/* Effetto hover */
-.event-banner:hover {
-  filter: brightness(1.15);
-  transform: scale(1.02);
-  transition: 0.2s;
-}
   </style>
 </head>
 <body>
   <div class="page-wrap">
     <header>
       <div class="logo-box">
-        <!-- Assicurati che il file esista nel repo con questo nome -->
         <img src="logo-brunoday.png" alt="BrunoDay Logo" />
       </div>
       <div class="hero-text">
@@ -602,27 +544,19 @@
         <div class="slasher-label">Fan club ufficiale • ingresso su invito</div>
       </div>
     </header>
-</header>
-<!-- Banner Evento Christmas -->
-<a href="evento.html" class="event-banner">
-  <div class="event-banner-content">
-    🎄 BRUNODAY CHRISTMAS EVENT – CLICCA QUI 🎁<br>
-    <span class="event-banner-sub">Registrati alla lotteria premi! 🔪✨</span>
-  </div>
-</a>
 
-<!-- Banner Evento Christmas -->
-<a href="evento.html" class="event-banner">
-  <div class="event-banner-content">
-    <span class="event-banner-icon">🔪</span>
-    BRUNODAY CHRISTMAS EVENT – CLICCA QUI
-    <span class="event-banner-icon">🔪</span>
-    <div class="event-banner-sub">
-      Registrati alla lotteria premi e scopri cosa c’è sotto l’albero... 🎁
-    </div>
-  </div>
-</a>
-</div>
+    <!-- Banner Evento Christmas -->
+    <a href="evento.html" class="event-banner">
+      <div class="event-banner-content">
+        <span class="event-banner-icon">🔪</span>
+        BRUNODAY CHRISTMAS EVENT – CLICCA QUI
+        <span class="event-banner-icon">🔪</span>
+        <div class="event-banner-sub">
+          Registrati alla lotteria premi e scopri cosa c’è sotto l’albero... 🎁
+        </div>
+      </div>
+    </a>
+
     <!-- Prossima proiezione -->
     <section id="next">
       <h2 class="section-title">Prossima Proiezione</h2>
@@ -682,7 +616,7 @@
       <div class="card">
         <div class="member-input-wrap" style="margin-top:0; margin-bottom:8px;">
           <button type="button" onclick="loadFilms()">Aggiorna archivio (admin)</button>
-                </div>
+        </div>
 
         <ul id="filmList" class="film-list">
           <li>
@@ -695,36 +629,31 @@
 
     <!-- Galleria Foto -->
     <section id="photos">
-  <h2 class="section-title">Foto del BrunoDay</h2>
-  <div class="card">
-    <p style="font-size:0.9rem; margin-bottom:12px;">
-      Momenti immortali delle nostre serate horror. Clicca sulle foto per vedere altre immagini.
-    </p>
+      <h2 class="section-title">Foto del BrunoDay</h2>
+      <div class="card">
+        <p style="font-size:0.9rem; margin-bottom:12px;">
+          Momenti immortali delle nostre serate horror. Clicca sulle foto per vedere altre immagini.
+        </p>
 
-    <div class="photo-grid">
-      <!-- FOTO 1 -->
-      <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
-        <img src="Maglietta.png" alt="Foto BrunoDay 1" />
-      </a>
+        <div class="photo-grid">
+          <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
+            <img src="Maglietta.png" alt="Foto BrunoDay 1" />
+          </a>
 
-      <!-- FOTO 2 -->
-      <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
-        <img src="Disagio.jpeg" alt="Foto BrunoDay 2" />
-      </a>
+          <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
+            <img src="Disagio.jpeg" alt="Foto BrunoDay 2" />
+          </a>
 
-      <!-- FOTO 3 (quando la aggiungi) -->
-      <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
-        <img src="Foto3.jpeg" alt="Foto BrunoDay 3" />
-      </a>
+          <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
+            <img src="Foto3.jpeg" alt="Foto BrunoDay 3" />
+          </a>
 
-      <!-- FOTO 4 (quando la aggiungi) -->
-      <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
-        <img src="Foto4.jpeg" alt="Foto BrunoDay 4" />
-      </a>
-    </div>
-  </div>
-</section>
-
+          <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
+            <img src="Foto4.jpeg" alt="Foto BrunoDay 4" />
+          </a>
+        </div>
+      </div>
+    </section>
 
     <!-- Fan club & tessera -->
     <section id="fanclub">
@@ -785,12 +714,50 @@
             Qui puoi votare il film della settimana e vedere i contenuti dedicati ai membri del BrunoDay.
           </p>
 
-          <!-- Link del Google Form per il voto -->
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSckWE29uiRrQvdX0_L54_-jdCFbFInrg8zgbKIILYFsJPCm1Q/viewform?usp=header"
              target="_blank" class="vote-button">
             Vota il film della settimana
           </a>
         </div>
+      </div>
+    </section>
+
+    <!-- Sezione Eco-Sostenibilità -->
+    <section id="eco">
+      <h2 class="section-title">BrunoDay è Green</h2>
+
+      <div class="card" style="text-align:left;">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:10px;">
+          <div style="
+            width:42px; height:42px; 
+            border-radius:50%; 
+            background:rgba(0,0,0,0.55);
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.4rem;
+            border:1px solid rgba(247,199,68,0.4);
+          ">
+            🌱
+          </div>
+          <h3 style="
+            font-family:'Anton', sans-serif;
+            letter-spacing:0.1em;
+            color:var(--bd-yellow);
+            text-transform:uppercase;
+            font-size:1.2rem;
+            margin:0;
+          ">Energia Pulita</h3>
+        </div>
+
+        <p style="font-size:0.95rem; color:#dcd5c2;">
+          Il BrunoDay non fa paura all’ambiente.  
+          Da quest’anno le nostre serate horror sono alimentate al <strong>100% da energia solare</strong>,
+          grazie ai pannelli installati sul covo del Bruno.
+        </p>
+
+        <p style="font-size:0.9rem; margin-top:8px; color:#c8c1ae;">
+          Tradotto: quando urli per un jumpscare, stai urlando a emissioni zero.  
+          🎬⚡ <strong>BrunoDay diventa sostenibile</strong>, una serata alla volta.
+        </p>
       </div>
     </section>
 
@@ -801,25 +768,11 @@
   </div>
 
   <script>
-    // URL CSV di Google Sheets per l'archivio film – DA COMPILARE TU
-    // Esempio: "https://docs.google.com/spreadsheets/d/e/XXXX/pub?output=csv"
     const FILM_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRAqY-h7oSB53H-vCubXzvU3oLQuyWqSiBoblplMGWN5hTPFOfq4oHBKPKsbujUAr9nMmoMYdRfL0Dg/pub?output=csv";
 
-    // Tessere valide
     const validCards = [
-      "BD-001",
-      "BD-002",
-      "BD-003",
-      "BD-004",
-      "BD-005",
-      "BD-006",
-      "BD-007",
-      "BD-008",
-      "BD-009",
-      "BD-010",
-      "BD-011",
-      "BD-012"
-      // aggiungi qui altre tessere se servono
+      "BD-001","BD-002","BD-003","BD-004","BD-005","BD-006",
+      "BD-007","BD-008","BD-009","BD-010","BD-011","BD-012"
     ];
 
     function checkCard() {
@@ -835,80 +788,79 @@
       }
     }
 
-   async function loadFilms() {
-  const ul = document.getElementById("filmList");
-  if (!ul) return;
+    async function loadFilms() {
+      const ul = document.getElementById("filmList");
+      if (!ul) return;
 
-  if (!FILM_CSV_URL || FILM_CSV_URL.includes("INSERISCI_QUI_IL_LINK_CSV_DI_GOOGLE_SHEETS")) {
-    ul.innerHTML = `
-      <li>
-        <span class="title">Configura prima il link CSV di Google Sheets nel codice.</span>
-        <span class="rating"></span>
-      </li>
-    `;
-    return;
-  }
+      if (!FILM_CSV_URL || FILM_CSV_URL.includes("INSERISCI_QUI_IL_LINK_CSV_DI_GOOGLE_SHEETS")) {
+        ul.innerHTML = `
+          <li>
+            <span class="title">Configura prima il link CSV di Google Sheets nel codice.</span>
+            <span class="rating"></span>
+          </li>
+        `;
+        return;
+      }
 
-  ul.innerHTML = `
-    <li>
-      <span class="title">Caricamento...</span>
-      <span class="rating"></span>
-    </li>
-  `;
-
-  try {
-    const res = await fetch(FILM_CSV_URL);
-    const text = await res.text();
-
-    const rows = text.trim().split("\n").slice(1); // salta intestazione
-    ul.innerHTML = "";
-
-    rows.forEach(row => {
-      const cols = row.split(",");
-      const titolo = (cols[0] || "").trim();
-      const anno = (cols[1] || "").trim();
-      const voto = (cols[2] || "").trim();
-
-      if (!titolo) return;
-
-      const li = document.createElement("li");
-
-      const spanTitle = document.createElement("span");
-      spanTitle.className = "title";
-      spanTitle.textContent = anno ? `${titolo} (${anno})` : titolo;
-
-      const spanRating = document.createElement("span");
-      spanRating.className = "rating";
-      spanRating.textContent = voto ? `Voto medio: ${voto}` : "";
-
-      li.appendChild(spanTitle);
-      li.appendChild(spanRating);
-      ul.appendChild(li);
-    });
-
-    if (!ul.children.length) {
       ul.innerHTML = `
         <li>
-          <span class="title">Nessun film ancora registrato.</span>
+          <span class="title">Caricamento...</span>
           <span class="rating"></span>
         </li>
       `;
+
+      try {
+        const res = await fetch(FILM_CSV_URL);
+        const text = await res.text();
+
+        const rows = text.trim().split("\n").slice(1);
+        ul.innerHTML = "";
+
+        rows.forEach(row => {
+          const cols = row.split(",");
+          const titolo = (cols[0] || "").trim();
+          const anno = (cols[1] || "").trim();
+          const voto = (cols[2] || "").trim();
+
+          if (!titolo) return;
+
+          const li = document.createElement("li");
+
+          const spanTitle = document.createElement("span");
+          spanTitle.className = "title";
+          spanTitle.textContent = anno ? `${titolo} (${anno})` : titolo;
+
+          const spanRating = document.createElement("span");
+          spanRating.className = "rating";
+          spanRating.textContent = voto ? `Voto medio: ${voto}` : "";
+
+          li.appendChild(spanTitle);
+          li.appendChild(spanRating);
+          ul.appendChild(li);
+        });
+
+        if (!ul.children.length) {
+          ul.innerHTML = `
+            <li>
+              <span class="title">Nessun film ancora registrato.</span>
+              <span class="rating"></span>
+            </li>
+          `;
+        }
+      } catch (e) {
+        console.error(e);
+        ul.innerHTML = `
+          <li>
+            <span class="title">Errore nel caricare i dati.</span>
+            <span class="rating"></span>
+          </li>
+        `;
+      }
     }
-  } catch (e) {
-    console.error(e);
-    ul.innerHTML = `
-      <li>
-        <span class="title">Errore nel caricare i dati.</span>
-        <span class="rating"></span>
-      </li>
-    `;
-  }
-}
-    // Carica subito i film se il CSV è configurato
+
     document.addEventListener("DOMContentLoaded", () => {
       loadFilms();
     });
   </script>
 </body>
 </html>
-
