@@ -359,11 +359,11 @@
   </div>
 
   <script>
-    // 👉 Codice admin da usare per sbloccare (cambialo come vuoi)
+    // Codice admin da usare per sbloccare (puoi cambiarlo)
     const ADMIN_CODE = "BRUNO2024";
 
-    // 👉 Link CSV del foglio iscrizioni (usiamo l'export CSV del tuo file)
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/1c42e-8_lX_f-mdAFPe4GYgiQCiDqYNnW-wkgz4hOtmI/edit?usp=sharing";
+    // Link CSV del foglio iscrizioni (costruito dal tuo ID)
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/1c42e-8_lX_f-mdAFPe4GYgiQCiDqYNnW-wkgz4hOtmI/export?format=csv&gid=0";
 
     let participants = [];
     let winnersHistory = [];
@@ -431,7 +431,6 @@
       isAnimating = true;
       winnerBox.style.display = "none";
 
-      // Animazione tipo slot: scorriamo nomi a caso per ~1.5–2s
       let ticks = 0;
       const maxTicks = 20;
       const interval = setInterval(() => {
