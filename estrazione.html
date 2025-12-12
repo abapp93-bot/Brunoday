@@ -358,7 +358,7 @@
     </footer>
   </div>
 
-  <script>
+   <script>
     // Codice admin da usare per sbloccare (puoi cambiarlo)
     const ADMIN_CODE = "BRUNO2024";
 
@@ -389,22 +389,33 @@
       try {
         const res = await fetch(CSV_URL);
         const text = await res.text();
-        const rows = text.trim().split("\n").slice(1); // salta intestazione
 
-        // Struttura foglio:
-        // 0: Informazioni cronologiche
-        // 1: Numero Tessera BrunoDay
-        // 2: Nome e Cognome
-        // 3: Accetto di partecipare all'evento?
+        // Ogni riga = una risposta del form (salto intestazione)
+        const rows = text.trim().split(/\r?\n/).slice(1);
+
         participants = rows.map(row => {
-          const cols = row.split(",");
+          // Prova prima con ';' (spesso in Italia), se non basta usa ','
+          let cols = row.split(";");
+          if (cols.length < 4) {
+            cols = row.split(",");
+          }
 
-          const card = (cols[1] || "").trim();
-          const name = (cols[2] || "").trim();
-          const consent = (cols[3] || "").trim();
+          let card = (cols[1] || "").trim();
+          let name = (cols[2] || "").trim();
+          let consent = (cols[3] || "").trim();
+
+          // Togli eventuali virgolette
+          card = card.replace(/^"|"$/g, "");
+          name = name.replace(/^"|"$/g, "");
+          consent = consent.replace(/^"|"$/g, "");
 
           return { name, card, consent };
-        }).filter(p => p.name && p.card && p.consent.startsWith("Sì"));
+        }).filter(p => {
+          if (!p.name || !p.card) return false;
+          const c = (p.consent || "").toLowerCase();
+          // basta che contenga "sì"
+          return c.includes("sì");
+        });
 
         countEl.textContent = `Iscritti totali: ${participants.length}`;
       } catch (e) {
