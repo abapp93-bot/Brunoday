@@ -302,16 +302,19 @@
 
     <!-- Blocco codice admin -->
     <div class="card">
-      <h2>Accesso Admin</h2>
-      <p>
-        Inserisci il <strong>codice segreto</strong> per sbloccare l’area estrazione.
+  <h2>Accesso Admin</h2>
+  <p>
+    Inserisci il <strong>codice segreto</strong> per sbloccare l’area estrazione.
+  </p>
+  <div class="admin-row">
+    <input id="adminCode" type="password" placeholder="Inserisci codice admin" />
+    <button type="button" onclick="unlockAdmin()">Sblocca</button>
+  </div>
 
-      </p>
-      <div class="admin-row">
-        <input id="adminCode" type="password" placeholder="Inserisci codice admin" />
-        <button type="button" onclick="unlockAdmin()">Sblocca</button>
-      </div>
-    </div>
+  <div id="adminMsg" class="admin-msg">
+    Inserisci il codice per continuare.
+  </div>
+</div>
     <!-- Area estrazione (nascosta finché non sbloccata) -->
     <div id="drawArea" class="draw-card" style="display:none;">
       <div class="count" id="count">Caricamento iscritti...</div>
