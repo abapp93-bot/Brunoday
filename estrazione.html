@@ -305,17 +305,13 @@
       <h2>Accesso Admin</h2>
       <p>
         Inserisci il <strong>codice segreto</strong> per sbloccare l’area estrazione.
-        (Perfetto da mostrare solo la sera dell’evento.)
+
       </p>
       <div class="admin-row">
         <input id="adminCode" type="password" placeholder="Inserisci codice admin" />
         <button type="button" onclick="unlockAdmin()">Sblocca</button>
       </div>
-      <div id="adminMsg" class="admin-msg">
-        Suggerimento: puoi cambiare il codice direttamente nel file <code>estrazione.html</code>.
-      </div>
     </div>
-
     <!-- Area estrazione (nascosta finché non sbloccata) -->
     <div id="drawArea" class="draw-card" style="display:none;">
       <div class="count" id="count">Caricamento iscritti...</div>
