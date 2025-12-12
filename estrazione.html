@@ -359,144 +359,142 @@
   </div>
 
   <script>
-const ADMIN_CODE = "BRUNO2024";
-const CSV_URL = "https://docs.google.com/spreadsheets/d/1c42e-8_lX_f-mdAFPe4GYgiQCiDqYNnW-wkgz4hOtmI/export?format=csv&gid=0";
+    // Codice admin per sbloccare l'estrazione
+    const ADMIN_CODE = "BRUNO2024";
 
-let participants = [];
-let winnersHistory = [];
-let isAnimating = false;
+    // Link CSV pubblicato del foglio iscrizioni
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTM5zSRaJocQ5tLldZrv40hhJqQG_QbYFZNbDFTwultob88YSmZN4aDkgZGYeRcNadhzs8JM5eOH8XG/pub?output=csv";
 
-function unlockAdmin() {
-  const input = document.getElementById("adminCode");
-  const msg = document.getElementById("adminMsg");
-  const value = (input.value || "").trim();
+    let participants = [];
+    let winnersHistory = [];
+    let isAnimating = false;
 
-  if (value === ADMIN_CODE) {
-    document.getElementById("drawArea").style.display = "block";
-    msg.textContent = "Area estrazione sbloccata. Buona fortuna 😈";
-    msg.classList.remove("error");
-  } else {
-    msg.textContent = "Codice errato.";
-    msg.classList.add("error");
-  }
-}
+    function unlockAdmin() {
+      const input = document.getElementById("adminCode");
+      const msg = document.getElementById("adminMsg");
+      const value = (input.value || "").trim();
 
-async function loadParticipants() {
-  const countEl = document.getElementById("count");
-  const debug = document.getElementById("debugRaw");
-
-  try {
-    const res = await fetch(CSV_URL);
-    const text = await res.text();
-
-    // DEBUG — MOSTRIAMO IL CSV GREZZO
-    debug.innerHTML = `
-      <h3>DEBUG CSV RAW</h3>
-      <pre>${text.replace(/</g, "&lt;")}</pre>
-    `;
-
-    const rows = text.trim().split(/\r?\n/).slice(1);
-
-    // DEBUG — MOSTRA PRIMA RIGA SPLITTATA
-    if (rows[0]) {
-      const splitComma = rows[0].split(",");
-      const splitSemicolon = rows[0].split(";");
-      debug.innerHTML += `
-        <h3>DEBUG SPLIT</h3>
-        <strong>Splitting by comma:</strong>
-        <pre>${JSON.stringify(splitComma, null, 2)}</pre>
-        <strong>Splitting by semicolon:</strong>
-        <pre>${JSON.stringify(splitSemicolon, null, 2)}</pre>
-      `;
+      if (value === ADMIN_CODE) {
+        document.getElementById("drawArea").style.display = "block";
+        msg.textContent = "Area estrazione sbloccata. Buona fortuna a tutti. 😈";
+        msg.classList.remove("error");
+      } else {
+        msg.textContent = "Codice errato. Ritenta… se osi.";
+        msg.classList.add("error");
+      }
     }
 
-    participants = rows.map(row => {
-      let cols = row.split(";");
-      if (cols.length < 4) cols = row.split(",");
+    async function loadParticipants() {
+      const countEl = document.getElementById("count");
+      try {
+        const res = await fetch(CSV_URL);
+        const text = await res.text();
 
-      let card = (cols[1] || "").trim().replace(/^"|"$/g, "");
-      let name = (cols[2] || "").trim().replace(/^"|"$/g, "");
-      let consent = (cols[3] || "").trim().replace(/^"|"$/g, "");
+        // Ogni riga = una risposta (salta intestazione)
+        const rows = text.trim().split(/\r?\n/).slice(1);
 
-      return { card, name, consent };
-    }).filter(p => (p.consent || "").toLowerCase().includes("sì"));
+        participants = rows.map(row => {
+          // prova prima ; poi ,
+          let cols = row.split(";");
+          if (cols.length < 4) cols = row.split(",");
 
-    countEl.textContent = `Iscritti totali: ${participants.length}`;
-  } catch (err) {
-    console.error(err);
-    countEl.textContent = "Errore nel caricare gli iscritti";
-  }
-}
+          let card = (cols[1] || "").trim();
+          let name = (cols[2] || "").trim();
+          let consent = (cols[3] || "").trim();
 
-function drawWinner() {
-  if (isAnimating || !participants.length) return;
+          // rimuovi eventuali doppi apici
+          card = card.replace(/^"|"$/g, "");
+          name = name.replace(/^"|"$/g, "");
+          consent = consent.replace(/^"|"$/g, "");
 
-  const prizeName = document.getElementById("prizeName").value.trim() || "Premio Bruno";
+          return { name, card, consent };
+        }).filter(p => {
+          if (!p.name || !p.card) return false;
+          const c = (p.consent || "").toLowerCase();
+          return c.includes("sì"); // basta che contenga "sì"
+        });
 
-  const slotName = document.getElementById("slotName");
-  const slotCard = document.getElementById("slotCard");
+        countEl.textContent = `Iscritti totali: ${participants.length}`;
+      } catch (e) {
+        console.error(e);
+        countEl.textContent = "Errore nel caricare gli iscritti 😈";
+      }
+    }
 
-  const winnerBox = document.getElementById("winnerBox");
-  const winnerName = document.getElementById("winnerName");
-  const winnerCard = document.getElementById("winnerCard");
-  const winnerPrize = document.getElementById("winnerPrize");
+    function drawWinner() {
+      if (isAnimating) return;
+      if (!participants.length) return;
 
-  isAnimating = true;
-  winnerBox.style.display = "none";
+      const prizeInput = document.getElementById("prizeName");
+      const prizeName = (prizeInput.value || "").trim() || "Premio Bruno";
 
-  let ticks = 0;
-  const maxTicks = 20;
+      const slotName = document.getElementById("slotName");
+      const slotCard = document.getElementById("slotCard");
 
-  const interval = setInterval(() => {
-    const p = participants[Math.floor(Math.random() * participants.length)];
-    slotName.textContent = p.name;
-    slotCard.textContent = "Tessera: " + p.card;
+      const winnerBox  = document.getElementById("winnerBox");
+      const winnerName = document.getElementById("winnerName");
+      const winnerCard = document.getElementById("winnerCard");
+      const winnerPrize = document.getElementById("winnerPrize";
 
-    ticks++;
-    if (ticks >= maxTicks) {
-      clearInterval(interval);
+      isAnimating = true;
+      winnerBox.style.display = "none";
 
-      const winner = participants[Math.floor(Math.random() * participants.length)];
+      let ticks = 0;
+      const maxTicks = 20;
+      const interval = setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * participants.length);
+        const p = participants[randomIndex];
+        slotName.textContent = p.name;
+        slotCard.textContent = `Tessera: ${p.card}`;
+        ticks++;
+        if (ticks >= maxTicks) {
+          clearInterval(interval);
 
-      slotName.textContent = winner.name;
-      slotCard.textContent = "Tessera: " + winner.card;
+          const finalIndex = Math.floor(Math.random() * participants.length);
+          const winner = participants[finalIndex];
 
-      winnerName.textContent = winner.name;
-      winnerCard.textContent = "Tessera: " + winner.card;
-      winnerPrize.textContent = "Premio: " + prizeName;
+          slotName.textContent = winner.name;
+          slotCard.textContent = `Tessera: ${winner.card}`;
 
-      winnerBox.style.display = "block";
+          winnerName.textContent = winner.name;
+          winnerCard.textContent = `Tessera: ${winner.card}`;
+          winnerPrize.textContent = `Premio: ${prizeName}`;
+          winnerBox.style.display = "block";
 
-      winnersHistory.push({
-        name: winner.name,
-        card: winner.card,
-        prize: prizeName,
-        time: new Date()
+          winnersHistory.push({
+            name: winner.name,
+            card: winner.card,
+            prize: prizeName,
+            time: new Date()
+          });
+          renderWinnersHistory();
+
+          isAnimating = false;
+        }
+      }, 80);
+    }
+
+    function renderWinnersHistory() {
+      const ul = document.getElementById("winnersList");
+      ul.innerHTML = "";
+
+      if (!winnersHistory.length) {
+        ul.innerHTML = "<li>Nessuna estrazione ancora effettuata.</li>";
+        return;
+      }
+
+      winnersHistory.forEach((w, index) => {
+        const li = document.createElement("li");
+        const timeStr = w.time.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+        li.innerHTML = `<span class="prize">[${index + 1}] ${w.prize}</span> – 
+                        <span class="name">${w.name}</span> 
+                        (<span class="card">${w.card}</span>) 
+                        <span style="opacity:0.7;">@ ${timeStr}</span>`;
+        ul.appendChild(li);
       });
-
-      renderWinnersHistory();
-      isAnimating = false;
     }
-  }, 80);
-}
 
-function renderWinnersHistory() {
-  const ul = document.getElementById("winnersList");
-  ul.innerHTML = "";
-
-  winnersHistory.forEach((w, index) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <strong>[${index + 1}] ${w.prize}</strong> — 
-      ${w.name} (${w.card})
-      <span style="opacity:0.7;">@ ${w.time.toLocaleTimeString("it-IT")}</span>
-    `;
-    ul.appendChild(li);
-  });
-}
-
-document.addEventListener("DOMContentLoaded", loadParticipants);
-</script>
-
+    document.addEventListener("DOMContentLoaded", loadParticipants);
+  </script>
 </body>
 </html>
