@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Estrazione Vincitori – BrunoDay Event</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bd-blue: #1687c8;
+      --bd-yellow: #f7c744;
+      --bd-red: #d3132f;
+      --bd-dark: #050914;
+      --bd-light: #f5f1da;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Roboto", sans-serif;
+      background: radial-gradient(circle at top, #0b1022 0, #000 70%);
+      color: var(--bd-light);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 16px 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: "Anton", sans-serif;
+      letter-spacing: 0.18em;
+      color: var(--bd-yellow);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      text-shadow: -2px 2px 0 #000;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-bottom: 24px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bd-blue);
+    }
+
+    .card {
+      background: rgba(5,9,20,0.9);
+      border: 1px solid rgba(247,199,68,0.3);
+      border-radius: 16px;
+      padding: 22px 18px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.9);
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .card h2 {
+      font-family: "Anton", sans-serif;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 1rem;
+      color: var(--bd-yellow);
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #dcd5c2;
+    }
+
+    .admin-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .admin-row input {
+      flex: 1;
+      min-width: 180px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(247,199,68,0.7);
+      background: #050918;
+      color: var(--bd-light);
+      font-size: 0.9rem;
+    }
+
+    .admin-row button {
+      padding: 7px 14px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      background: var(--bd-red);
+      color: var(--bd-light);
+      box-shadow: 0 0 12px rgba(211,19,47,0.9);
+    }
+
+    .admin-row button:hover { filter: brightness(1.1); }
+
+    .admin-msg {
+      font-size: 0.8rem;
+      margin-top: 6px;
+      color: #c8c1ae;
+    }
+
+    .admin-msg.error { color: #ff7b7b; }
+
+    .draw-card {
+      background: rgba(5,9,20,0.95);
+      border-radius: 16px;
+      border: 1px solid rgba(247,199,68,0.3);
+      padding: 20px 18px;
+      box-shadow: 0 0 35px rgba(0,0,0,0.95);
+      margin-top: 18px;
+    }
+
+    .count {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      color: #dcd5c2;
+    }
+
+    .prize-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 14px;
+      align-items: center;
+    }
+
+    .prize-row label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #f0e6cd;
+    }
+
+    .prize-row input {
+      flex: 1;
+      min-width: 200px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(247,199,68,0.6);
+      background: #050918;
+      color: var(--bd-light);
+      font-size: 0.9rem;
+    }
+
+    .draw-button {
+      margin-top: 8px;
+      padding: 10px 20px;
+      font-family: "Anton", sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: var(--bd-red);
+      color: var(--bd-light);
+      box-shadow: 0 0 15px rgba(211,19,47,0.9);
+    }
+
+    .draw-button:hover { filter: brightness(1.15); }
+
+    .slot-display {
+      margin-top: 18px;
+      padding: 14px 10px;
+      border-radius: 12px;
+      border: 1px dashed rgba(247,199,68,0.6);
+      background: rgba(0,0,0,0.5);
+      text-align: center;
+      min-height: 60px;
+    }
+
+    .slot-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .slot-card {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    .winner-box {
+      margin-top: 22px;
+      padding: 16px 12px;
+      border-radius: 12px;
+      border: 2px solid var(--bd-yellow);
+      background: radial-gradient(circle at top, #3a2b10 0, #120b05 60%);
+      box-shadow: 0 0 18px rgba(0,0,0,0.9);
+      display: none;
+      text-align: center;
+    }
+
+    .winner-title {
+      font-family: "Anton", sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--bd-yellow);
+      margin-bottom: 6px;
+    }
+
+    .winner-prize {
+      font-size: 0.85rem;
+      color: #f5e2a0;
+      margin-bottom: 4px;
+    }
+
+    .winner-name {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .winner-card {
+      font-size: 0.9rem;
+      margin-top: 4px;
+      opacity: 0.9;
+    }
+
+    .history {
+      margin-top: 24px;
+    }
+
+    .history h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--bd-yellow);
+      margin-bottom: 6px;
+    }
+
+    .history ul {
+      list-style: none;
+      padding-left: 0;
+      font-size: 0.85rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .history li {
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(247,199,68,0.15);
+    }
+
+    .history span.prize {
+      color: #f7c744;
+      font-weight: 600;
+    }
+
+    .history span.name {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .history span.card {
+      color: #d0c7ad;
+    }
+
+    footer {
+      margin-top: 24px;
+      font-size: 0.75rem;
+      opacity: 0.7;
+      text-align: center;
+      color: #b9b2a1;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--bd-yellow);
+      text-decoration: none;
+    }
+    a.back-link:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .card, .draw-card {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Estrazione Vincitori</h1>
+    <div class="subtitle">BrunoDay Christmas Event 🎄</div>
+
+    <!-- Blocco codice admin -->
+    <div class="card">
+      <h2>Accesso Admin</h2>
+      <p>
+        Inserisci il <strong>codice segreto</strong> per sbloccare l’area estrazione.
+        (Perfetto da mostrare solo la sera dell’evento.)
+      </p>
+      <div class="admin-row">
+        <input id="adminCode" type="password" placeholder="Inserisci codice admin" />
+        <button type="button" onclick="unlockAdmin()">Sblocca</button>
+      </div>
+      <div id="adminMsg" class="admin-msg">
+        Suggerimento: puoi cambiare il codice direttamente nel file <code>estrazione.html</code>.
+      </div>
+    </div>
+
+    <!-- Area estrazione (nascosta finché non sbloccata) -->
+    <div id="drawArea" class="draw-card" style="display:none;">
+      <div class="count" id="count">Caricamento iscritti...</div>
+
+      <div class="prize-row">
+        <label for="prizeName">Premio:</label>
+        <input id="prizeName" type="text" placeholder="Es. Premio 1, Blu-ray Horror, Premio Speciale Bruno..." />
+      </div>
+
+      <button class="draw-button" type="button" onclick="drawWinner()">
+        🎁 Estrai Vincitore
+      </button>
+
+      <div class="slot-display">
+        <div id="slotName" class="slot-name">–</div>
+        <div id="slotCard" class="slot-card"></div>
+      </div>
+
+      <div id="winnerBox" class="winner-box">
+        <div class="winner-title">Vincitore Estratto</div>
+        <div id="winnerPrize" class="winner-prize"></div>
+        <div id="winnerName" class="winner-name"></div>
+        <div id="winnerCard" class="winner-card"></div>
+        <div style="font-size:0.8rem; margin-top:6px; opacity:0.9;">
+          (Suggerimento: fai uno screenshot di questo riquadro per salvare il risultato 👀)
+        </div>
+      </div>
+
+      <div class="history">
+        <h3>Storico Estrazioni</h3>
+        <ul id="winnersList">
+          <li>Nessuna estrazione ancora effettuata.</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      BrunoDay • Estrazione ufficiale • Powered by caos controllato<br/>
+      <a href="evento.html" class="back-link">Torna alla pagina evento</a>
+    </footer>
+  </div>
+
+  <script>
+    // 👉 Codice admin da usare per sbloccare (cambialo come vuoi)
+    const ADMIN_CODE = "BRUNO2024";
+
+    // 👉 Link CSV del foglio iscrizioni (usiamo l'export CSV del tuo file)
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/1c42e-8_lX_f-mdAFPe4GYgiQCiDqYNnW-wkgz4hOtmI/export?format=csv&gid=0";
+
+    let participants = [];
+    let winnersHistory = [];
+    let isAnimating = false;
+
+    function unlockAdmin() {
+      const input = document.getElementById("adminCode");
+      const msg = document.getElementById("adminMsg");
+      const value = (input.value || "").trim();
+
+      if (value === ADMIN_CODE) {
+        document.getElementById("drawArea").style.display = "block";
+        msg.textContent = "Area estrazione sbloccata. Buona fortuna a tutti. 😈";
+        msg.classList.remove("error");
+      } else {
+        msg.textContent = "Codice errato. Ritenta… se osi.";
+        msg.classList.add("error");
+      }
+    }
+
+    async function loadParticipants() {
+      const countEl = document.getElementById("count");
+      try {
+        const res = await fetch(CSV_URL);
+        const text = await res.text();
+        const rows = text.trim().split("\n").slice(1); // salta intestazione
+
+        // Struttura foglio:
+        // 0: Informazioni cronologiche
+        // 1: Numero Tessera BrunoDay
+        // 2: Nome e Cognome
+        // 3: Accetto di partecipare all'evento?
+        participants = rows.map(row => {
+          const cols = row.split(",");
+
+          const card = (cols[1] || "").trim();
+          const name = (cols[2] || "").trim();
+          const consent = (cols[3] || "").trim();
+
+          return { name, card, consent };
+        }).filter(p => p.name && p.card && p.consent.startsWith("Sì"));
+
+        countEl.textContent = `Iscritti totali: ${participants.length}`;
+      } catch (e) {
+        console.error(e);
+        countEl.textContent = "Errore nel caricare gli iscritti 😈";
+      }
+    }
+
+    function drawWinner() {
+      if (isAnimating) return;
+      if (!participants.length) return;
+
+      const prizeInput = document.getElementById("prizeName");
+      const prizeName = (prizeInput.value || "").trim() || "Premio Bruno";
+
+      const slotName = document.getElementById("slotName");
+      const slotCard = document.getElementById("slotCard");
+
+      const winnerBox  = document.getElementById("winnerBox");
+      const winnerName = document.getElementById("winnerName");
+      const winnerCard = document.getElementById("winnerCard");
+      const winnerPrize = document.getElementById("winnerPrize");
+
+      isAnimating = true;
+      winnerBox.style.display = "none";
+
+      // Animazione tipo slot: scorriamo nomi a caso per ~1.5–2s
+      let ticks = 0;
+      const maxTicks = 20;
+      const interval = setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * participants.length);
+        const p = participants[randomIndex];
+        slotName.textContent = p.name;
+        slotCard.textContent = `Tessera: ${p.card}`;
+        ticks++;
+        if (ticks >= maxTicks) {
+          clearInterval(interval);
+
+          const finalIndex = Math.floor(Math.random() * participants.length);
+          const winner = participants[finalIndex];
+
+          slotName.textContent = winner.name;
+          slotCard.textContent = `Tessera: ${winner.card}`;
+
+          winnerName.textContent = winner.name;
+          winnerCard.textContent = `Tessera: ${winner.card}`;
+          winnerPrize.textContent = `Premio: ${prizeName}`;
+          winnerBox.style.display = "block";
+
+          winnersHistory.push({
+            name: winner.name,
+            card: winner.card,
+            prize: prizeName,
+            time: new Date()
+          });
+          renderWinnersHistory();
+
+          isAnimating = false;
+        }
+      }, 80);
+    }
+
+    function renderWinnersHistory() {
+      const ul = document.getElementById("winnersList");
+      ul.innerHTML = "";
+
+      if (!winnersHistory.length) {
+        ul.innerHTML = "<li>Nessuna estrazione ancora effettuata.</li>";
+        return;
+      }
+
+      winnersHistory.forEach((w, index) => {
+        const li = document.createElement("li");
+        const timeStr = w.time.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+        li.innerHTML = `<span class="prize">[${index + 1}] ${w.prize}</span> – 
+                        <span class="name">${w.name}</span> 
+                        (<span class="card">${w.card}</span>) 
+                        <span style="opacity:0.7;">@ ${timeStr}</span>`;
+        ul.appendChild(li);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadParticipants);
+  </script>
+</body>
+</html>
