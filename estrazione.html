@@ -124,11 +124,32 @@
       margin-top: 18px;
     }
 
+    .top-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
     .count {
       font-size: 0.95rem;
-      margin-bottom: 10px;
       color: #dcd5c2;
     }
+
+    .fullscreen-button {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(247,199,68,0.7);
+      background: rgba(0,0,0,0.5);
+      color: var(--bd-yellow);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+    }
+    .fullscreen-button:hover { filter: brightness(1.1); }
 
     .prize-row {
       display: flex;
@@ -203,6 +224,23 @@
       box-shadow: 0 0 18px rgba(0,0,0,0.9);
       display: none;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: bloodReveal 0.8s ease-out;
+    }
+
+    .winner-box::after {
+      /* macchia di sangue sul fondo */
+      content: "";
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      width: 260px;
+      height: 120px;
+      background: radial-gradient(circle at top, rgba(211,19,47,0.8), transparent 70%);
+      transform: translateX(-50%);
+      opacity: 0.7;
+      pointer-events: none;
     }
 
     .winner-title {
@@ -211,23 +249,38 @@
       text-transform: uppercase;
       color: var(--bd-yellow);
       margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
     }
 
     .winner-prize {
       font-size: 0.85rem;
       color: #f5e2a0;
       margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
     }
 
     .winner-name {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       font-weight: bold;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 0 6px rgba(0,0,0,0.8);
+    }
+
+    .winner-name.animate {
+      animation:
+        winnerPulse 0.9s ease-in-out 2,
+        bloodGlow 1.1s ease-in-out infinite alternate;
     }
 
     .winner-card {
       font-size: 0.9rem;
       margin-top: 4px;
       opacity: 0.9;
+      position: relative;
+      z-index: 1;
     }
 
     .history {
@@ -240,6 +293,7 @@
       letter-spacing: 0.14em;
       color: var(--bd-yellow);
       margin-bottom: 6px;
+      text-align: center;
     }
 
     .history ul {
@@ -253,6 +307,10 @@
     .history li {
       padding: 4px 0;
       border-bottom: 1px solid rgba(247,199,68,0.15);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px;
     }
 
     .history span.prize {
@@ -267,6 +325,10 @@
 
     .history span.card {
       color: #d0c7ad;
+    }
+
+    .history span.time {
+      opacity: 0.75;
     }
 
     footer {
@@ -292,6 +354,28 @@
       .card, .draw-card {
         text-align: left;
       }
+      .top-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* Animazioni */
+    @keyframes bloodReveal {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes winnerPulse {
+      0%   { transform: scale(1); }
+      30%  { transform: scale(1.12) rotate(-1deg); }
+      60%  { transform: scale(0.96) rotate(1deg); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes bloodGlow {
+      0%   { text-shadow: 0 0 6px rgba(211,19,47,0.9); color: #ffe6a0; }
+      100% { text-shadow: 0 0 14px rgba(211,19,47,1); color: #ffffff; }
     }
   </style>
 </head>
@@ -317,7 +401,12 @@
 
     <!-- Area estrazione (nascosta finché non sbloccata) -->
     <div id="drawArea" class="draw-card" style="display:none;">
-      <div class="count" id="count">Caricamento iscritti...</div>
+      <div class="top-row">
+        <div class="count" id="count">Caricamento iscritti...</div>
+        <button class="fullscreen-button" type="button" onclick="toggleFullscreen()">
+          Schermo intero
+        </button>
+      </div>
 
       <div class="prize-row">
         <label for="prizeName">Premio:</label>
@@ -338,7 +427,7 @@
         <div id="winnerPrize" class="winner-prize"></div>
         <div id="winnerName" class="winner-name"></div>
         <div id="winnerCard" class="winner-card"></div>
-        <div style="font-size:0.8rem; margin-top:6px; opacity:0.9;">
+        <div style="font-size:0.8rem; margin-top:6px; opacity:0.9; position:relative; z-index:1;">
           (Suggerimento: fai uno screenshot di questo riquadro per salvare il risultato 👀)
         </div>
       </div>
@@ -346,7 +435,7 @@
       <div class="history">
         <h3>Storico Estrazioni</h3>
         <ul id="winnersList">
-          <li>Nessuna estrazione ancora effettuata.</li>
+          <li><span>Nessuna estrazione ancora effettuata.</span></li>
         </ul>
       </div>
     </div>
@@ -356,6 +445,10 @@
       <a href="evento.html" class="back-link">Torna alla pagina evento</a>
     </footer>
   </div>
+
+  <!-- Audio: metti spin.mp3 e win.mp3 nella stessa cartella -->
+  <audio id="spinSound" src="spin.mp3" preload="auto"></audio>
+  <audio id="winSound" src="win.mp3" preload="auto"></audio>
 
   <script>
     // Codice admin per sbloccare l'estrazione
@@ -367,6 +460,9 @@
     let participants = [];
     let winnersHistory = [];
     let isAnimating = false;
+
+    const spinSound = document.getElementById("spinSound");
+    const winSound = document.getElementById("winSound");
 
     function unlockAdmin() {
       const input = document.getElementById("adminCode");
@@ -380,6 +476,15 @@
       } else {
         msg.textContent = "Codice errato. Ritenta… se osi.";
         msg.classList.add("error");
+      }
+    }
+
+    function toggleFullscreen() {
+      const elem = document.documentElement;
+      if (!document.fullscreenElement) {
+        if (elem.requestFullscreen) elem.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
       }
     }
 
@@ -438,6 +543,15 @@
       isAnimating = true;
       winnerBox.style.display = "none";
 
+      // suono di spin
+      try {
+        spinSound.currentTime = 0;
+        spinSound.loop = true;
+        spinSound.play();
+      } catch (e) {
+        console.warn("Impossibile riprodurre spinSound (autoplay):", e);
+      }
+
       let ticks = 0;
       const maxTicks = 20;
       const interval = setInterval(() => {
@@ -460,6 +574,20 @@
           winnerPrize.textContent = `Premio: ${prizeName}`;
           winnerBox.style.display = "block";
 
+          // riavvia animazione sangue sul nome
+          winnerName.classList.remove("animate");
+          void winnerName.offsetWidth; // forza reflow
+          winnerName.classList.add("animate");
+
+          // ferma spin, suona vittoria
+          try {
+            spinSound.pause();
+            winSound.currentTime = 0;
+            winSound.play();
+          } catch (e) {
+            console.warn("Impossibile riprodurre winSound:", e);
+          }
+
           winnersHistory.push({
             name: winner.name,
             card: winner.card,
@@ -478,17 +606,20 @@
       ul.innerHTML = "";
 
       if (!winnersHistory.length) {
-        ul.innerHTML = "<li>Nessuna estrazione ancora effettuata.</li>";
+        ul.innerHTML = "<li><span>Nessuna estrazione ancora effettuata.</span></li>";
         return;
       }
 
       winnersHistory.forEach((w, index) => {
         const li = document.createElement("li");
         const timeStr = w.time.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
-        li.innerHTML = `<span class="prize">[${index + 1}] ${w.prize}</span> – 
-                        <span class="name">${w.name}</span> 
-                        (<span class="card">${w.card}</span>) 
-                        <span style="opacity:0.7;">@ ${timeStr}</span>`;
+        li.innerHTML = `
+          <span class="prize">[${index + 1}] ${w.prize}</span>
+          <span>–</span>
+          <span class="name">${w.name}</span>
+          <span>(</span><span class="card">${w.card}</span><span>)</span>
+          <span class="time">@ ${timeStr}</span>
+        `;
         ul.appendChild(li);
       });
     }
@@ -497,3 +628,4 @@
   </script>
 </body>
 </html>
+
