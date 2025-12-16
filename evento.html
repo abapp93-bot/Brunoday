@@ -2,607 +2,597 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>BrunoDay – Christmas Event</title>
+  <title>BrunoDay – Christmas Event (OGGI)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
 
   <style>
-    :root {
-      --bd-blue: #1687c8;
-      --bd-yellow: #f7c744;
-      --bd-red: #d3132f;
-      --bd-dark: #050914;
-      --bd-light: #f5f1da;
+    :root{
+      --bd-blue:#1687c8;
+      --bd-yellow:#f7c744;
+      --bd-red:#d3132f;
+      --bd-dark:#050914;
+      --bd-light:#f5f1da;
+      --glass: rgba(0,0,0,0.55);
+      --glass2: rgba(5,9,20,0.85);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *{ box-sizing:border-box; margin:0; padding:0; }
 
-    body {
-      font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    body{
+      font-family:"Roboto", system-ui, -apple-system, Segoe UI, sans-serif;
       background: radial-gradient(circle at top, #101528 0, #020308 55%, #000 100%);
       color: var(--bd-light);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+      padding: 18px;
     }
 
-    .event-wrap {
-      max-width: 900px;
-      width: 100%;
-      background: radial-gradient(circle at top, #151d34 0, #050914 60%);
+    a{ color: var(--bd-yellow); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* HERO */
+    .hero{
+      position: relative;
+      overflow: hidden;
       border-radius: 18px;
       border: 1px solid rgba(247,199,68,0.25);
-      padding: 24px 20px 26px;
-      box-shadow: 0 24px 50px rgba(0,0,0,0.9);
+      background: radial-gradient(circle at top, #151d34 0, #050914 60%);
+      box-shadow: 0 28px 60px rgba(0,0,0,0.92);
+      padding: 22px 18px 18px;
+    }
+
+    /* glow pulses */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(211,19,47,0.28), transparent 45%),
+        radial-gradient(circle at 80% 15%, rgba(247,199,68,0.18), transparent 40%),
+        radial-gradient(circle at 60% 80%, rgba(22,135,200,0.18), transparent 45%);
+      filter: blur(2px);
+      animation: haze 5.5s ease-in-out infinite alternate;
+      pointer-events:none;
+    }
+
+    /* blood drip */
+    .hero::after{
+      content:"";
+      position:absolute;
+      top:-10px; left:0; right:0;
+      height: 90px;
+      background:
+        radial-gradient(circle at 10% 0, rgba(211,19,47,0.95) 0 26px, transparent 27px),
+        radial-gradient(circle at 28% 0, rgba(211,19,47,0.85) 0 18px, transparent 19px),
+        radial-gradient(circle at 44% 0, rgba(211,19,47,0.75) 0 22px, transparent 23px),
+        radial-gradient(circle at 62% 0, rgba(211,19,47,0.9) 0 14px, transparent 15px),
+        radial-gradient(circle at 82% 0, rgba(211,19,47,0.8) 0 20px, transparent 21px);
+      opacity: 0.22;
+      transform: translateY(-10px);
+      pointer-events:none;
+    }
+
+    @keyframes haze{
+      0%{ transform: translateY(0) scale(1); opacity: 0.9; }
+      100%{ transform: translateY(-8px) scale(1.02); opacity: 1; }
+    }
+
+    .topbar{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.75);
+      border: 1px solid rgba(247,199,68,0.22);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .dot{
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--bd-red);
+      box-shadow: 0 0 12px rgba(211,19,47,0.95);
+      animation: dotPulse 0.9s infinite alternate;
+    }
+    @keyframes dotPulse{
+      0%{ transform: scale(1); opacity: 0.8; }
+      100%{ transform: scale(1.25); opacity: 1; }
+    }
+
+    .hero-title{
+      margin-top: 12px;
+      font-family: "Anton", sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: clamp(2.2rem, 5vw, 3.3rem);
+      color: var(--bd-yellow);
+      text-shadow: -2px 2px 0 #000, 0 0 18px rgba(0,0,0,0.85);
+      position: relative;
+      z-index: 1;
+      line-height: 1.05;
+    }
+
+    /* BRUNO scratch above */
+    .bruno-scratch{
+      display:inline-block;
+      position: relative;
+      color: var(--bd-red);
+      letter-spacing: 0.32em;
+      font-size: 0.55em;
+      transform: translateY(3px);
+    }
+
+    .bruno-scratch::after{
+      content:"";
+      position:absolute;
+      left:-6px; right:-6px;
+      top: 55%;
+      height: 6px;
+      background: linear-gradient(90deg, transparent, rgba(211,19,47,0.95), transparent);
+      transform: skewX(-18deg);
+      opacity: 0.9;
+      filter: blur(0.2px);
+    }
+
+    .hero-sub{
+      margin-top: 10px;
+      max-width: 760px;
+      color:#ded6c0;
+      font-size: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-sub strong{ color: var(--bd-yellow); }
+
+    /* Countdown */
+    .countdown{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .time-box{
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(247,199,68,0.22);
+      border-radius: 14px;
+      padding: 12px 10px;
+      text-align:center;
+      box-shadow: 0 16px 35px rgba(0,0,0,0.75);
+    }
+
+    .time-num{
+      font-family: "Anton", sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      color: var(--bd-yellow);
+      text-shadow: -1px 1px 0 #000;
+    }
+    .time-lab{
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--bd-blue);
+      margin-top: 2px;
+    }
+
+    .big-alert{
+      margin-top: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: linear-gradient(135deg, rgba(211,19,47,0.8), rgba(0,0,0,0.5));
+      border: 1px solid rgba(247,199,68,0.25);
+      border-radius: 12px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.85);
+      position: relative;
+      z-index: 1;
+      animation: flicker 1.6s infinite ease-in-out;
+    }
+
+    .big-alert span{
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    @keyframes flicker{
+      0%{ filter: brightness(1); }
+      50%{ filter: brightness(1.15); }
+      100%{ filter: brightness(1); }
+    }
+
+    /* SECTIONS */
+    .section{
+      margin-top: 18px;
+      background: var(--glass2);
+      border: 1px solid rgba(247,199,68,0.22);
+      border-radius: 16px;
+      padding: 16px 14px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.8);
+    }
+
+    .section-title{
+      font-family:"Anton", sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--bd-yellow);
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      text-shadow: -1px 1px 0 #000;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+    }
+
+    .section p{
+      color:#dcd5c2;
+      font-size: 0.95rem;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .list{
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+    .list li{ margin: 6px 0; font-size: 0.95rem; }
+
+    /* Signup closed */
+    .closed{
+      margin-top: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.55);
+      border: 1px dashed rgba(247,199,68,0.35);
       position: relative;
       overflow: hidden;
     }
 
-    .event-wrap::before {
-      content: "";
-      position: absolute;
-      top: -40px; left: -40px;
-      width: 140px; height: 140px;
-      border-radius: 50%;
-      border: 2px solid rgba(211,19,47,0.6);
-      opacity: 0.4;
-    }
-
-    .event-wrap::after {
-      content: "";
-      position: absolute;
-      bottom: -50px; right: -50px;
-      width: 180px; height: 180px;
-      background: radial-gradient(circle at center, rgba(247,199,68,0.25), transparent 65%);
-      opacity: 0.6;
-    }
-
-    .event-pill {
-      display: inline-block;
-      padding: 3px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.8);
-      font-size: 0.8rem;
-      letter-spacing: 0.18em;
+    .closed::before{
+      content:"ISCRIZIONI CHIUSE";
+      position:absolute;
+      top: 14px;
+      left: -60px;
+      transform: rotate(-10deg);
+      background: rgba(211,19,47,0.9);
+      color: var(--bd-light);
+      padding: 6px 70px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      box-shadow: 0 0 18px rgba(0,0,0,0.8);
+      opacity: 0.95;
     }
 
-    .event-title-small {
-      font-size: 0.9rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--bd-blue);
+    .closed-inner{
+      position: relative;
+      z-index: 1;
+      padding-top: 44px;
+      color: #dcd5c2;
+      font-size: 0.92rem;
     }
 
-    .event-title-main {
-      font-family: "Anton", sans-serif;
-      font-size: clamp(2.2rem, 4.4vw, 3.2rem);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+    .closed .tiny{
+      font-size: 0.82rem;
+      opacity: 0.85;
       margin-top: 6px;
-      color: var(--bd-yellow);
-      text-shadow: -2px 2px 0 #000;
     }
 
-    .event-title-main span.bruno {
-      display: block;
-      font-size: 0.7em;
-      color: var(--bd-red);
-      letter-spacing: 0.35em;
-      margin-bottom: -4px;
-    }
-
-    .event-content {
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
-      gap: 18px;
-    }
-
-    .event-text {
-      font-size: 0.95rem;
-      color: #ded6c0;
-    }
-
-    .event-text strong {
-      color: var(--bd-yellow);
-    }
-
-    .event-lottery {
+    /* Hype banner */
+    .hype{
       margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      background: rgba(0,0,0,0.6);
-      border: 1px solid rgba(247,199,68,0.4);
-      font-size: 0.9rem;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
     }
 
-    .event-lottery-title {
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 0.82rem;
-      margin-bottom: 4px;
-      color: var(--bd-yellow);
+    .hype-card{
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(247,199,68,0.18);
+      border-radius: 14px;
+      padding: 12px 10px;
+      text-align:center;
+      position: relative;
+      overflow:hidden;
     }
 
-    .event-signup {
-      background: rgba(5,9,20,0.9);
-      border-radius: 12px;
-      border: 1px solid rgba(247,199,68,0.4);
-      padding: 12px 14px;
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-    }
-
-    .event-signup-label {
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
+    .hype-card .icon{
+      font-size: 1.5rem;
       margin-bottom: 6px;
-      color: #f0e6cd;
+      filter: drop-shadow(0 0 8px rgba(211,19,47,0.55));
     }
 
-    .event-signup p {
+    .hype-card .t{
+      font-family:"Anton", sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bd-yellow);
+      font-size: 0.95rem;
+    }
+
+    .hype-card .d{
       font-size: 0.86rem;
-      margin-bottom: 8px;
-      color: #e2dac6;
+      opacity: 0.9;
+      margin-top: 4px;
+      color:#dcd5c2;
     }
 
-    .signup-button-link {
-      display: inline-block;
-      padding: 7px 14px;
-      border-radius: 6px;
-      border: none;
-      font-size: 0.85rem;
+    /* CTA buttons */
+    .cta-row{
+      margin-top: 12px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content: center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(247,199,68,0.55);
+      background: rgba(0,0,0,0.55);
+      color: var(--bd-yellow);
       text-transform: uppercase;
       letter-spacing: 0.14em;
+      font-size: 0.82rem;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.85);
       cursor: pointer;
+    }
+    .btn:hover{ filter: brightness(1.12); }
+
+    .btn-red{
+      border: none;
       background: var(--bd-red);
       color: var(--bd-light);
-      box-shadow: 0 0 10px rgba(211,19,47,0.9);
-      text-decoration: none;
+      box-shadow: 0 0 18px rgba(211,19,47,0.85);
     }
 
-    .signup-button-link:hover {
-      filter: brightness(1.1);
-    }
-
-    .signup-note {
-      margin-top: 6px;
+    footer{
+      margin-top: 14px;
+      text-align:center;
       font-size: 0.78rem;
-      color: #c9c0aa;
-      text-align: left;
+      opacity: 0.78;
+      color:#b9b2a1;
     }
 
-    /* Galleria premi */
-
-    .prize-gallery {
-      background: rgba(0,0,0,0.55);
-      border-radius: 12px;
-      border: 1px solid rgba(247,199,68,0.3);
-      padding: 10px 12px;
-      font-size: 0.86rem;
+    @media (max-width: 820px){
+      .countdown{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .grid-2{ grid-template-columns: minmax(0,1fr); }
+      .hype{ grid-template-columns: minmax(0,1fr); }
     }
-
-    .prize-title {
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 0.8rem;
-      color: var(--bd-yellow);
-      margin-bottom: 4px;
-    }
-
-    .prize-note {
-      font-size: 0.8rem;
-      color: #d9d0ba;
-      margin-bottom: 8px;
-    }
-
-    .prize-images {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-      gap: 6px;
-    }
-
-    .prize-images img {
-      width: 100%;
-      border-radius: 6px;
-      object-fit: cover;
-      height: 80px;
-      border: 1px solid rgba(247,199,68,0.4);
-      box-shadow: 0 0 10px rgba(0,0,0,0.7);
-    }
-
-    /* Cruciverba */
-
-    .crossword-section {
-      margin-top: 22px;
-      text-align: left;
-      font-size: 0.9rem;
-    }
-
-    .crossword-title {
-      font-family: "Anton", sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--bd-yellow);
-      text-shadow: -1px 1px 0 #000;
-      margin-bottom: 4px;
-    }
-
-    .crossword-sub {
-      font-size: 0.84rem;
-      color: #d4ccb7;
-      margin-bottom: 10px;
-    }
-
-    .crossword-grid {
-      display: inline-block;
-      padding: 8px;
-      background: rgba(0,0,0,0.65);
-      border-radius: 8px;
-      border: 1px solid rgba(247,199,68,0.3);
-    }
-
-    .cross-row {
-      display: flex;
-    }
-
-    .cross-cell {
-      width: 28px;
-      height: 28px;
-      border: 1px solid rgba(247,199,68,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #020613;
-    }
-
-    .cross-cell input {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: transparent;
-      text-align: center;
-      color: var(--bd-light);
-      text-transform: uppercase;
-      font-size: 0.85rem;
-    }
-
-    .cross-cell input:focus {
-      outline: none;
-      background: rgba(22,135,200,0.35);
-    }
-
-    .cross-cell.block {
-      background: #000;
-      border-color: rgba(247,199,68,0.08);
-    }
-
-    .crossword-clues {
-      margin-top: 10px;
-      display: flex;
-      gap: 18px;
-      font-size: 0.82rem;
-      color: #d4ccb7;
-      flex-wrap: wrap;
-    }
-
-    .crossword-clues ol {
-      padding-left: 18px;
-      margin-top: 4px;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-top: 18px;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--bd-yellow);
-      text-decoration: none;
-    }
-
-    .back-link:hover { text-decoration: underline; }
-
-    @media (max-width: 780px) {
-      .event-content {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      body {
-        padding: 12px;
-      }
-    }
-    /* Banner accesso estrazione premi */
-.extraction-banner {
-  display: block;
-  margin: 22px auto 10px;
-  padding: 16px 20px;
-  text-align: center;
-  border-radius: 14px;
-  text-decoration: none;
-  color: var(--bd-light);
-  font-family: "Anton", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 1.15rem;
-  border: 2px dashed var(--bd-red);
-  background: radial-gradient(circle at top, #3a0b12 0, #000 70%);
-  box-shadow: 0 0 20px rgba(211,19,47,0.8);
-  animation: extractionPulse 1.6s infinite alternate;
-}
-
-.extraction-banner-content {
-  position: relative;
-}
-
-.extraction-sub {
-  font-family: "Roboto", sans-serif;
-  font-size: 0.85rem;
-  text-transform: none;
-  letter-spacing: 0.05em;
-  margin-top: 6px;
-  opacity: 0.9;
-}
-
-.extraction-banner .knife {
-  display: inline-block;
-  margin: 0 6px;
-  animation: knifeShake 0.8s infinite alternate;
-}
-
-@keyframes extractionPulse {
-  from { box-shadow: 0 0 14px rgba(211,19,47,0.6); }
-  to   { box-shadow: 0 0 26px rgba(247,199,68,0.9); }
-}
-
-@keyframes knifeShake {
-  from { transform: rotate(-10deg); }
-  to   { transform: rotate(10deg); }
-}
-
-.extraction-banner:hover {
-  transform: scale(1.03);
-  filter: brightness(1.2);
-}
-
   </style>
 </head>
 <body>
-  <div class="event-wrap">
-    <div class="event-pill">BrunoDay Special</div>
-    <div class="event-title-small">Evento di Natale</div>
-    <div class="event-title-main">
-      <span class="bruno">BRUNO</span>
-      Christmas Event
-    </div>
+  <div class="wrap">
 
-    <div class="event-content">
-      <div class="event-text">
-        <p>
-          Per celebrare il Natale (alla nostra maniera poco rassicurante),
-          il BrunoDay si trasforma in un <strong>Christmas Event</strong>:
-          una serata speciale con film, lotteria premi e qualche sorpresa
-          che non vi farà dormire tranquilli.
-        </p>
-        <p style="margin-top:8px;">
-          Durante l’evento, alcuni membri del Fan Club verranno estratti per
-          ricevere <strong>regali a tema horror</strong>, bonus esclusivi e
-          forse… qualche maledizione cinematografica.
-        </p>
-
-        <div class="event-lottery">
-          <div class="event-lottery-title">Lotteria premi</div>
-          <p>
-            Ogni tessera valida BrunoDay registrata per l’evento partecipa alla
-            lotteria. Più presenze hai avuto durante l’anno, più il Bruno ti
-            guarda con favore.
-          </p>
-        </div>
+    <section class="hero">
+      <div class="topbar">
+        <div class="pill"><span class="dot"></span> OGGI • START 21:00</div>
+        <div class="pill">🎄 modalità: slasher natalizio</div>
       </div>
 
-      <div>
-        <div class="event-signup">
-          <div class="event-signup-label">Iscriviti al Christmas Event</div>
+      <div class="hero-title">
+        <span class="bruno-scratch">BRUNO</span><br/>
+        Christmas Event
+      </div>
+
+      <p class="hero-sub">
+        Questa sera la tana si chiude, le luci si spengono e parte il rituale:
+        <strong>film</strong>, <strong>lotteria</strong>, premi e caos controllato.
+        Se senti un rumore… non è Santa.
+      </p>
+
+      <div class="big-alert">
+        <span>⚠️ Evento LIVE questa sera dalle <strong>21:00</strong> • preparati</span>
+      </div>
+
+      <div class="countdown" aria-label="countdown">
+        <div class="time-box">
+          <div id="cdH" class="time-num">--</div>
+          <div class="time-lab">Ore</div>
+        </div>
+        <div class="time-box">
+          <div id="cdM" class="time-num">--</div>
+          <div class="time-lab">Minuti</div>
+        </div>
+        <div class="time-box">
+          <div id="cdS" class="time-num">--</div>
+          <div class="time-lab">Secondi</div>
+        </div>
+        <div class="time-box">
+          <div id="cdState" class="time-num">👁</div>
+          <div class="time-lab">Stato</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">🔪 Programma della serata</div>
+
+      <div class="grid-2">
+        <div>
           <p>
-            La registrazione è reale: compila il modulo ufficiale con il tuo
-            numero tessera BrunoDay e sarai inserito nella lista per la lotteria premi.
+            <strong>Orario:</strong> dalle 21:00 in poi (finché il Bruno non decide).
           </p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_Njsl4dGTsYhWTBZKEZJ2f7MFag6a5q36UpLzclIPEGLjzQ/viewform?usp=header"
-             target="_blank"
-             class="signup-button-link">
-            Compila il modulo di iscrizione
-          </a>
-          <p class="signup-note">
-            Assicurati di usare il <strong>numero tessera corretto</strong>.
-          </p>
+          <ul class="list">
+            <li>🎬 Apertura covo + setup luci</li>
+            <li>🍿 Snack, bevande, commenti indegni</li>
+            <li>🩸 Film horror + urla regolamentari</li>
+            <li>🎁 Lotteria premi BrunoDay (a sorpresa)</li>
+          </ul>
         </div>
 
-        <div class="prize-gallery">
-          <div class="prize-title">Spoiler premi</div>
-          <p class="prize-note">
-            Qualche assaggio di quello che potresti trovare sotto il nostro albero distorto.
+        <div>
+          <p>
+            <strong>Regola d’oro:</strong> niente spoiler. Chi ne fa uno…
+            viene scelto come “vittima” nelle prossime votazioni.
           </p>
-          <div class="prize-images">
-            <img src="Premio1.gif" alt="Premio BrunoDay 1" />
-            <img src="Premio2.jpeg" alt="Premio BrunoDay 2" />
-            <img src="Premio3.jpeg" alt="Premio BrunoDay 3" />
+          <div class="hype">
+            <div class="hype-card">
+              <div class="icon">🎁</div>
+              <div class="t">Premi</div>
+              <div class="d">Regali a tema horror & bonus Bruno</div>
+            </div>
+            <div class="hype-card">
+              <div class="icon">🩸</div>
+              <div class="t">Rituale</div>
+              <div class="d">Luci off + “ok google…” + inizio</div>
+            </div>
+            <div class="hype-card">
+              <div class="icon">👀</div>
+              <div class="t">Suspense</div>
+              <div class="d">Estrazione live davanti a tutti</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-<a href="estrazione.html" class="extraction-banner">
-  <div class="extraction-banner-content">
-    <span class="knife">🔪</span>
-    Area Estrazione Premi
-    <span class="knife">🔪</span>
-    <div class="extraction-sub">
-      Solo per il Bruno e i suoi accoliti 🎁
-    </div>
-  </div>
-</a>
-<div class="crossword-section">
-  <div class="crossword-title">Mini Cruciverba Bruno Christmas</div>
-   <p class="crossword-sub">
-    Riempi il cruciverba a tema horror + Natale. Non è obbligatorio per l’iscrizione,
-    ma il Bruno apprezza chi si impegna (e forse sarà più buono in estrazione 😈).
-  </p>
-  <p class="crossword-sub">
-    Completa il cruciverba… e scopri se sopravvivi allo spirito del Bruno 🎅🔪
-  </p>
 
-  <div class="crossword-grid" id="cwGrid">
-    <!-- Griglia 7 x 8, completa e coerente -->
+      <div class="cta-row">
+        <a class="btn" href="index.html">⬅️ torna al BrunoDay</a>
+        <a class="btn btn-red" href="estrazione.html">🎲 area estrazione (admin)</a>
+      </div>
+    </section>
 
-    <!-- Riga 1: DIC  / BRUNO (inizio), SPORCO (inizio), VISCIDO (inizio) -->
-    <div class="cross-row">
-      <div class="cross-cell"><input maxlength="1" data-s="D" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="I" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="C" /></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" data-s="B" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="S" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="V" /></div>
-    </div>
+    <section class="section">
+      <div class="section-title">🧾 Iscrizioni</div>
 
-    <!-- Riga 2: FILM -->
-    <div class="cross-row">
-      <div class="cross-cell"><input maxlength="1" data-s="F" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="I" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="L" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="M" /></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" data-s="R" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="P" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="I" /></div>
-    </div>
+      <div class="closed">
+        <div class="closed-inner">
+          <p>
+            <strong>Le iscrizioni sono chiuse.</strong><br/>
+            Ci vediamo questa sera: chi è dentro… è dentro. Chi è fuori… porta gli snack.
+          </p>
+          <div class="tiny">
+            Se hai dubbi sulla tua tessera, parla col Bruno prima che inizi il film 😈
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- Riga 3: BIRRA -->
-    <div class="cross-row">
-      <div class="cross-cell"><input maxlength="1" data-s="B" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="I" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="R" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="R" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="A" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="U" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="O" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="S" /></div>
-    </div>
+    <section class="section">
+      <div class="section-title">🔥 Hype Meter</div>
+      <p>
+        L’evento è pronto. Il Bruno pure.  
+        <strong>Ora l’unica cosa che manca… sei tu alle 21:00.</strong>
+      </p>
+      <div class="cta-row">
+        <button class="btn" type="button" onclick="boomHype()">🩸 alza il livello</button>
+        <button class="btn" type="button" onclick="goFullscreen()">📺 modalità TV</button>
+      </div>
+    </section>
 
-    <!-- Riga 4: parte centrale (N R C), incroci SPORCO / VISCIDO / BRUNO -->
-    <div class="cross-row">
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" data-s="N" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="R" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="C" /></div>
-    </div>
+    <footer>
+      BrunoDay • Christmas Event • “Se senti un campanellino… scappa.” 🎄🔪
+    </footer>
 
-    <!-- Riga 5: chiusura BRUNO, SPORCO, VISCIDO -->
-    <div class="cross-row">
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" data-s="O" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="C" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="I" /></div>
-    </div>
-
-    <!-- Riga 6: parte finale SPORCO / VISCIDO -->
-    <div class="cross-row">
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" data-s="O" /></div>
-      <div class="cross-cell"><input maxlength="1" data-s="D" /></div>
-    </div>
-
-    <!-- Riga 7: ultima lettera VISCIDO -->
-    <div class="cross-row">
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell block"></div>
-      <div class="cross-cell"><input maxlength="1" data-s="O" /></div>
-    </div>
   </div>
 
-  <button id="checkCrossword" style="
-    margin-top:12px;padding:7px 14px;
-    background:var(--bd-red);color:var(--bd-light);
-    border:none;border-radius:6px;cursor:pointer;
-    box-shadow:0 0 10px rgba(211,19,47,0.9);
-    text-transform:uppercase;letter-spacing:0.14em;
-  ">Verifica Risposte</button>
-
-  <p id="cwResult" style="margin-top:10px;font-size:0.9rem;"></p>
-
-  <div class="crossword-clues" style="margin-top:18px;">
-    <div>
-      <strong>Orizzontali</strong>
-      <ol>
-        <li><strong>1.</strong> Il mese dell’evento (DIC) – 3 lettere</li>
-        <li><strong>3.</strong> Quello che guardiamo al BrunoDay (FILM) – 4 lettere</li>
-        <li><strong>4.</strong> Bevanda spesso presente sul tavolo (BIRRA) – 5 lettere</li>
-      </ol>
-    </div>
-    <div>
-      <strong>Verticali</strong>
-      <ol>
-        <li><strong>1.</strong> Lui dà il nome alle serate (BRUNO) – 5 lettere</li>
-        <li><strong>2.</strong> Lo è DeLu (VISCIDO) – 7 lettere</li>
-        <li><strong>5.</strong> Un aggettivo per Fede (SPORCO) – 6 lettere</li>
-      </ol>
-    </div>
-  </div>
-</div>
   <script>
-  document.getElementById("checkCrossword").addEventListener("click", () => {
-    const cells = [...document.querySelectorAll('#cwGrid [data-s]')];
-    let errors = 0;
+    // Countdown alle 21:00 di OGGI (tempo locale del dispositivo)
+    function pad(n){ return String(n).padStart(2,'0'); }
 
-    cells.forEach(c => {
-      const expected = (c.dataset.s || "").toUpperCase();
-      const val = (c.value || "").toUpperCase();
+    function updateCountdown(){
+      const now = new Date();
+      const target = new Date(now);
+      target.setHours(21,0,0,0); // oggi 21:00
 
-      if (val !== expected) {
-        c.style.background = "rgba(211,19,47,0.6)"; // rosso errore
-        errors++;
-      } else {
-        c.style.background = "rgba(22,135,200,0.35)"; // blu corretto
+      const diff = target - now;
+
+      const cdH = document.getElementById("cdH");
+      const cdM = document.getElementById("cdM");
+      const cdS = document.getElementById("cdS");
+      const cdState = document.getElementById("cdState");
+
+      if (diff <= 0){
+        cdH.textContent = "00";
+        cdM.textContent = "00";
+        cdS.textContent = "00";
+        cdState.textContent = "LIVE";
+        return;
       }
-    });
 
-    const result = document.getElementById("cwResult");
+      const totalSeconds = Math.floor(diff/1000);
+      const h = Math.floor(totalSeconds/3600);
+      const m = Math.floor((totalSeconds%3600)/60);
+      const s = totalSeconds%60;
 
-    if (errors === 0) {
-      result.innerHTML = "🎉 <strong>Perfetto!</strong> Il Bruno ti concede un sorriso… inquietante.";
-      result.style.color = "var(--bd-yellow)";
-    } else {
-      result.innerHTML = `😈 Hai ancora ${errors} caselle sbagliate. Il Bruno ti osserva dalle tenebre…`;
-      result.style.color = "var(--bd-red)";
+      cdH.textContent = pad(h);
+      cdM.textContent = pad(m);
+      cdS.textContent = pad(s);
+
+      // stato scenico
+      if (h >= 3) cdState.textContent = "…";
+      else if (h >= 1) cdState.textContent = "⚠️";
+      else if (m >= 30) cdState.textContent = "👀";
+      else cdState.textContent = "🩸";
     }
-  });
-</script>
-       <a href="index.html" class="back-link">Torna al BrunoDay</a>
-  </div>
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // micro-hype: piccolo shake + flash
+    function boomHype(){
+      const el = document.querySelector(".hero");
+      if (!el) return;
+      el.animate([
+        { transform: "translateX(0)" },
+        { transform: "translateX(-2px)" },
+        { transform: "translateX(2px)" },
+        { transform: "translateX(-1px)" },
+        { transform: "translateX(0)" }
+      ], { duration: 380, easing: "ease-in-out" });
+
+      // flash blood
+      document.body.animate([
+        { filter: "brightness(1)" },
+        { filter: "brightness(1.15)" },
+        { filter: "brightness(1)" }
+      ], { duration: 420, easing: "ease-in-out" });
+    }
+
+    function goFullscreen(){
+      const elem = document.documentElement;
+      if (!document.fullscreenElement) {
+        elem.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    }
+  </script>
 </body>
 </html>
-
