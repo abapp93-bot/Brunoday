@@ -526,7 +526,206 @@
         justify-items: flex-start;
       }
     }
-  </style>
+    <style>
+  /* === BrunoDay POPUP === */
+  .bd-modal-overlay{
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.78);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    z-index: 9999;
+  }
+
+  .bd-modal{
+    width: min(920px, 96vw);
+    background: radial-gradient(circle at top, #151d34 0, #050914 60%);
+    border: 2px solid rgba(247,199,68,0.35);
+    border-radius: 18px;
+    box-shadow: 0 28px 70px rgba(0,0,0,0.95);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bd-modal::before{
+    content:"";
+    position:absolute; inset:-40%;
+    background:
+      radial-gradient(circle at 25% 20%, rgba(211,19,47,0.25), transparent 45%),
+      radial-gradient(circle at 80% 25%, rgba(247,199,68,0.18), transparent 45%),
+      radial-gradient(circle at 55% 85%, rgba(22,135,200,0.16), transparent 48%);
+    filter: blur(2px);
+    opacity: 0.9;
+    animation: bdHaze 6s ease-in-out infinite alternate;
+    pointer-events:none;
+  }
+  @keyframes bdHaze{
+    0%{ transform: translateY(0) scale(1); }
+    100%{ transform: translateY(-10px) scale(1.02); }
+  }
+
+  .bd-modal-header{
+    position: relative;
+    z-index: 1;
+    padding: 14px 14px 10px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(247,199,68,0.18);
+    background: rgba(0,0,0,0.35);
+  }
+
+  .bd-modal-title{
+    font-family: "Anton", sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--bd-yellow);
+    text-shadow: -2px 2px 0 #000;
+    font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+    display:flex;
+    align-items:center;
+    gap: 10px;
+  }
+
+  .bd-modal-title .pulse-dot{
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--bd-red);
+    box-shadow: 0 0 14px rgba(211,19,47,0.95);
+    animation: bdPulse 0.9s infinite alternate;
+  }
+  @keyframes bdPulse{
+    0%{ transform: scale(1); opacity: 0.75; }
+    100%{ transform: scale(1.25); opacity: 1; }
+  }
+
+  .bd-modal-close{
+    appearance: none;
+    border: 1px solid rgba(247,199,68,0.35);
+    background: rgba(0,0,0,0.55);
+    color: var(--bd-yellow);
+    border-radius: 999px;
+    padding: 8px 12px;
+    cursor: pointer;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+  .bd-modal-close:hover{ filter: brightness(1.12); }
+
+  .bd-modal-body{
+    position: relative;
+    z-index: 1;
+    padding: 14px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .bd-announce{
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(247,199,68,0.18);
+    border-radius: 16px;
+    padding: 14px 14px 12px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.75);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bd-announce::after{
+    content:"";
+    position:absolute; top:-40%; left:-30%;
+    width: 60%; height: 200%;
+    background: linear-gradient(120deg, transparent 0%, rgba(247,199,68,0.35) 40%, transparent 80%);
+    opacity: 0;
+    transform: translateX(-120%);
+    animation: bdShine 3.6s infinite;
+    pointer-events:none;
+  }
+  @keyframes bdShine{
+    0%{ opacity:0; transform: translateX(-120%); }
+    45%{ opacity:0; }
+    60%{ opacity:0.7; transform: translateX(180%); }
+    100%{ opacity:0; transform: translateX(180%); }
+  }
+
+  .bd-announce h3{
+    margin: 0 0 6px;
+    font-family: "Anton", sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bd-yellow);
+    text-shadow: -1px 1px 0 #000;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    font-size: 1.1rem;
+  }
+
+  .bd-announce p{
+    margin: 0;
+    color: #ded6c0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .bd-announce .tag{
+    display:inline-block;
+    margin-top: 10px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--bd-red);
+    color: var(--bd-light);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    box-shadow: 0 0 14px rgba(211,19,47,0.85);
+  }
+
+  .bd-modal-footer{
+    position: relative;
+    z-index: 1;
+    padding: 12px 14px 14px;
+    border-top: 1px solid rgba(247,199,68,0.18);
+    background: rgba(0,0,0,0.28);
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .bd-modal-footer small{
+    color: #b9b2a1;
+    opacity: 0.85;
+  }
+
+  .bd-modal-btn{
+    border: none;
+    border-radius: 999px;
+    padding: 10px 14px;
+    cursor: pointer;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    background: var(--bd-blue);
+    color: #021323;
+    font-weight: 800;
+  }
+  .bd-modal-btn:hover{ filter: brightness(1.08); }
+
+  .bd-modal-btn.secondary{
+    background: rgba(0,0,0,0.55);
+    color: var(--bd-yellow);
+    border: 1px solid rgba(247,199,68,0.35);
+    font-weight: 700;
+  }
+
+  @media (max-width: 820px){
+    .bd-modal-body{ grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
   <div class="page-wrap">
@@ -988,5 +1187,72 @@
       loadFilms();
     });
   </script>
+  <div id="bdModalOverlay" class="bd-modal-overlay" role="dialog" aria-modal="true" aria-label="Avvisi BrunoDay">
+  <div class="bd-modal">
+    <div class="bd-modal-header">
+      <div class="bd-modal-title">
+        <span class="pulse-dot"></span>
+        Avvisi BrunoDay
+      </div>
+      <button class="bd-modal-close" type="button" onclick="bdCloseModal(true)">Chiudi</button>
+    </div>
+
+    <div class="bd-modal-body">
+      <div class="bd-announce">
+        <h3>🏖️ BrunoDay va in vacanza</h3>
+        <p>
+          Il covo chiude, l’orso prende la valigia e ci rivediamo nel <strong>2026</strong>.<br>
+          Nel frattempo… <strong>resta sintonizzato</strong>: nuove idee, nuovi riti, nuovo caos.
+        </p>
+        <span class="tag">STANDBY FINO AL 2026</span>
+      </div>
+
+      <div class="bd-announce">
+        <h3>🔥 Stasera: grigliata BrunoDay</h3>
+        <p>
+          Niente paura (per ora): questa sera si va di <strong>costine</strong>, fuoco e risate.<br>
+          Poi si torna a urlare al prossimo horror.
+        </p>
+        <span class="tag">GRIGLIATA LIVE</span>
+      </div>
+    </div>
+
+    <div class="bd-modal-footer">
+      <small>Tip: puoi farlo comparire una sola volta (non romperà le scatole).</small>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="bd-modal-btn secondary" type="button" onclick="bdCloseModal(false)">Chiudi (ricordamelo)</button>
+        <button class="bd-modal-btn" type="button" onclick="bdCloseModal(true)">Ok, visto ✅</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // Mostra il popup appena atterra sulla home.
+  // Se l’utente clicca "Ok, visto", non lo rivedrà (finché non cambi la VERSIONE).
+  const BD_POPUP_VERSION = "2025-standby+bbq-v1"; // cambia questa stringa per farlo ricomparire a tutti
+  const BD_POPUP_KEY = "bdPopupSeen:" + BD_POPUP_VERSION;
+
+  function bdOpenModal() {
+    const overlay = document.getElementById("bdModalOverlay");
+    if (!overlay) return;
+    overlay.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  }
+
+  // persist=true => non mostrarlo più
+  function bdCloseModal(persist) {
+    const overlay = document.getElementById("bdModalOverlay");
+    if (!overlay) return;
+    overlay.style.display = "none";
+    document.body.style.overflow = "";
+    if (persist) localStorage.setItem(BD_POPUP_KEY, "1");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const seen = localStorage.getItem(BD_POPUP_KEY);
+    if (!seen) bdOpenModal();
+  });
+</script>
+
 </body>
 </html>
