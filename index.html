@@ -213,20 +213,244 @@
       border: 1px solid rgba(22, 135, 200, 0.5);
     }
 
-    .film-list { list-style: none; margin-top: 8px; padding-left: 0; }
+    /* ====== ARCHIVIO FILM (Top/Flop + lista espandibile) ====== */
+    .archive-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .mini-box {
+      border-radius: 12px;
+      border: 1px solid rgba(247,199,68,0.18);
+      background: rgba(0,0,0,0.28);
+      padding: 12px 12px 10px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.55);
+    }
+
+    .mini-title {
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .mini-title h3 {
+      margin: 0;
+      font-family: "Anton", sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 1.0rem;
+      color: var(--bd-yellow);
+    }
+
+    .mini-pill {
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      border: 1px solid rgba(247,199,68,0.22);
+      background: rgba(0,0,0,0.45);
+      color: #e9e2c9;
+    }
+
+    .mini-pill .ico { font-size: 1rem; }
+
+    .film-list {
+      list-style: none;
+      margin-top: 6px;
+      padding-left: 0;
+    }
+
     .film-list li {
-      padding: 6px 10px;
-      border-radius: 8px;
+      padding: 8px 10px;
+      border-radius: 10px;
       background: rgba(5, 9, 20, 0.85);
       border: 1px solid rgba(247, 199, 68, 0.12);
-      margin-bottom: 6px;
-      font-size: 0.9rem;
+      margin-bottom: 7px;
+      font-size: 0.92rem;
       display: flex;
       justify-content: space-between;
       gap: 12px;
+      align-items: center;
     }
-    .film-list span.title { color: var(--bd-yellow); font-weight: 600; }
-    .film-list span.rating { font-size: 0.85rem; color: #f2d77c; white-space: nowrap; }
+
+    .film-list span.title { color: var(--bd-yellow); font-weight: 650; }
+    .film-list span.rating { font-size: 0.86rem; color: #f2d77c; white-space: nowrap; }
+
+    .details-wrap {
+      margin-top: 14px;
+      border-top: 1px dashed rgba(247,199,68,0.35);
+      padding-top: 12px;
+    }
+
+    details {
+      border-radius: 12px;
+      border: 1px solid rgba(247,199,68,0.18);
+      background: rgba(0,0,0,0.22);
+      padding: 10px 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      font-family: "Anton", sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bd-yellow);
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    .summary-right {
+      font-family: "Roboto", sans-serif;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      font-size: 0.82rem;
+      opacity: 0.9;
+      color: #ded6c0;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+    }
+
+    .admin-row {
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .admin-row button {
+      padding: 7px 14px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      background: var(--bd-red);
+      color: var(--bd-light);
+      box-shadow: 0 0 10px rgba(211, 19, 47, 0.9);
+    }
+    .admin-row button:hover { filter: brightness(1.1); }
+
+    .archive-note {
+      font-size: 0.82rem;
+      color: #c8c1ae;
+      margin-top: 6px;
+    }
+
+    /* Galleria foto */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 2px solid rgba(247, 199, 68, 0.3);
+      box-shadow: 0 0 14px rgba(0,0,0,0.6);
+      transition: transform 0.2s ease;
+    }
+
+    .photo-grid img:hover {
+      transform: scale(1.04);
+    }
+
+    /* Banner evento natalizio / horror */
+    .event-banner {
+      display: block;
+      margin: 20px auto 30px;
+      padding: 16px 20px;
+      text-align: center;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--bd-light);
+      font-family: "Anton", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 1.2rem;
+      border: 2px solid var(--bd-yellow);
+      background: rgba(0,0,0,0.55);
+      box-shadow: 0 0 18px rgba(0,0,0,0.9);
+      animation: bannerGlow 1.8s infinite ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-banner::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(120deg, transparent 0%, rgba(247,199,68,0.45) 40%, transparent 80%);
+      opacity: 0.0;
+      transform: translateX(-100%);
+      animation: bannerShine 3.5s infinite;
+    }
+
+    .event-banner-content { position: relative; z-index: 1; }
+
+    .event-banner-sub {
+      font-family: "Roboto", sans-serif;
+      text-transform: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .event-banner-icon {
+      display: inline-block;
+      margin: 0 6px;
+      font-size: 1.4rem;
+      animation: knifeFlicker 0.9s infinite alternate;
+    }
+
+    @keyframes bannerGlow {
+      0%   { box-shadow: 0 0 12px var(--bd-yellow); border-color: var(--bd-yellow); }
+      33%  { box-shadow: 0 0 14px var(--bd-red);    border-color: var(--bd-red); }
+      66%  { box-shadow: 0 0 14px var(--bd-blue);   border-color: var(--bd-blue); }
+      100% { box-shadow: 0 0 12px var(--bd-yellow); border-color: var(--bd-yellow); }
+    }
+
+    @keyframes bannerShine {
+      0%   { opacity: 0; transform: translateX(-120%); }
+      40%  { opacity: 0; }
+      55%  { opacity: 0.7; transform: translateX(160%); }
+      100% { opacity: 0; transform: translateX(160%); }
+    }
+
+    @keyframes knifeFlicker {
+      0%   { transform: translateY(0) rotate(0deg); text-shadow: 0 0 4px rgba(211,19,47,0.9); }
+      50%  { transform: translateY(-2px) rotate(-8deg); text-shadow: 0 0 8px rgba(211,19,47,1); }
+      100% { transform: translateY(0) rotate(5deg); text-shadow: 0 0 6px rgba(22,135,200,0.9); }
+    }
+
+    .event-banner:hover {
+      filter: brightness(1.15);
+      transform: scale(1.02);
+      transition: 0.2s;
+    }
 
     .cta-fanclub {
       display: grid;
@@ -368,117 +592,36 @@
       letter-spacing: 0.13em;
     }
 
-    /* Galleria foto */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-top: 10px;
-    }
-    .photo-grid img {
-      width: 100%;
-      border-radius: 8px;
-      object-fit: cover;
-      border: 2px solid rgba(247, 199, 68, 0.3);
-      box-shadow: 0 0 14px rgba(0,0,0,0.6);
-      transition: transform 0.2s ease;
-    }
-    .photo-grid img:hover { transform: scale(1.04); }
-
-    /* Banner evento natalizio / horror */
-    .event-banner {
-      display: block;
-      margin: 20px auto 30px;
-      padding: 16px 20px;
+    footer {
+      margin-top: 40px;
+      font-size: 0.8rem;
+      color: #9b9380;
       text-align: center;
-      border-radius: 12px;
-      text-decoration: none;
-      color: var(--bd-light);
-      font-family: "Anton", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 1.2rem;
-      border: 2px solid var(--bd-yellow);
-      background: rgba(0,0,0,0.55);
-      box-shadow: 0 0 18px rgba(0,0,0,0.9);
-      animation: bannerGlow 1.8s infinite ease-in-out;
-      position: relative;
-      overflow: hidden;
     }
 
-    .event-banner::after {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -20%;
-      width: 40%;
-      height: 200%;
-      background: linear-gradient(120deg, transparent 0%, rgba(247,199,68,0.45) 40%, transparent 80%);
-      opacity: 0.0;
-      transform: translateX(-100%);
-      animation: bannerShine 3.5s infinite;
-    }
-
-    .event-banner-content { position: relative; z-index: 1; }
-
-    .event-banner-sub {
-      font-family: "Roboto", sans-serif;
-      text-transform: none;
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
-      opacity: 0.9;
+    footer span {
+      display: inline-block;
       margin-top: 4px;
+      font-size: 0.78rem;
+      opacity: 0.8;
     }
 
-    .event-banner-icon {
-      display: inline-block;
-      margin: 0 6px;
-      font-size: 1.4rem;
-      animation: knifeFlicker 0.9s infinite alternate;
+    @media (max-width: 900px) {
+      .archive-grid { grid-template-columns: minmax(0,1fr); }
     }
 
-    @keyframes bannerGlow {
-      0%   { box-shadow: 0 0 12px var(--bd-yellow); border-color: var(--bd-yellow); }
-      33%  { box-shadow: 0 0 14px var(--bd-red);    border-color: var(--bd-red); }
-      66%  { box-shadow: 0 0 14px var(--bd-blue);   border-color: var(--bd-blue); }
-      100% { box-shadow: 0 0 12px var(--bd-yellow); border-color: var(--bd-yellow); }
+    @media (max-width: 780px) {
+      .next-film-grid,
+      .rules-columns,
+      .cta-fanclub { grid-template-columns: minmax(0, 1fr); }
+      header { justify-content: center; text-align: center; }
+      .hero-text { text-align: center; }
+      .hero-title::after { left: 50%; transform: translateX(-50%) skewX(-12deg); }
+      .logo-box { flex: 0 0 90px; }
+      .fancard-body { grid-template-columns: minmax(0, 1fr); justify-items: flex-start; }
     }
 
-    @keyframes bannerShine {
-      0%   { opacity: 0; transform: translateX(-120%); }
-      40%  { opacity: 0; }
-      55%  { opacity: 0.7; transform: translateX(160%); }
-      100% { opacity: 0; transform: translateX(160%); }
-    }
-
-    @keyframes knifeFlicker {
-      0%   { transform: translateY(0) rotate(0deg); text-shadow: 0 0 4px rgba(211,19,47,0.9); }
-      50%  { transform: translateY(-2px) rotate(-8deg); text-shadow: 0 0 8px rgba(211,19,47,1); }
-      100% { transform: translateY(0) rotate(5deg); text-shadow: 0 0 6px rgba(22,135,200,0.9); }
-    }
-
-    .event-banner:hover {
-      filter: brightness(1.15);
-      transform: scale(1.02);
-      transition: 0.2s;
-    }
-
-    /* === Countdown 2026 box === */
-    .countdown-2026 {
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px dashed rgba(247,199,68,0.45);
-      background: rgba(0,0,0,0.45);
-      display: inline-block;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      color: #e9e2c9;
-    }
-    .countdown-2026 strong { color: var(--bd-yellow); }
-    .countdown-2026 .skull { margin-right: 6px; }
-
-    /* ===== POPUP (doppio) ===== */
+    /* ===== POPUP VACANZA (fino al 6 gennaio) ===== */
     .bd-pop-overlay{
       position: fixed;
       inset: 0;
@@ -491,7 +634,7 @@
     }
 
     .bd-pop{
-      width: min(520px, 96vw);
+      width: min(560px, 96vw);
       background: radial-gradient(circle at top, #151d34 0, #050914 70%);
       border: 2px solid rgba(247,199,68,0.45);
       border-radius: 16px;
@@ -555,7 +698,7 @@
     .bd-pop-body{
       padding: 12px;
       display:grid;
-      grid-template-columns: 140px minmax(0,1fr);
+      grid-template-columns: 160px minmax(0,1fr);
       gap: 12px;
       align-items: center;
     }
@@ -627,81 +770,37 @@
       box-shadow: none;
     }
 
-    @media (max-width: 780px) {
-      .next-film-grid, .rules-columns, .cta-fanclub { grid-template-columns: minmax(0, 1fr); }
-      header { justify-content: center; text-align: center; }
-      .hero-text { text-align: center; }
-      .hero-title::after { left: 50%; transform: translateX(-50%) skewX(-12deg); }
-      .logo-box { flex: 0 0 90px; }
-      .fancard-body { grid-template-columns: minmax(0, 1fr); justify-items: flex-start; }
+    @media (max-width: 520px){
       .bd-pop-body{ grid-template-columns: 1fr; text-align: center; }
       .bd-pop-img{ max-width: 240px; margin: 0 auto; }
-    }
-
-    footer {
-      margin-top: 40px;
-      font-size: 0.8rem;
-      color: #9b9380;
-      text-align: center;
-    }
-
-    footer span {
-      display: inline-block;
-      margin-top: 4px;
-      font-size: 0.78rem;
-      opacity: 0.8;
+      .bd-pop-foot{ justify-content: center; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- POPUP 1: VACANZA -->
+  <!-- POPUP VACANZA (FINO AL 6 GENNAIO) -->
   <div id="bdPopVacanza" class="bd-pop-overlay" role="dialog" aria-modal="true">
     <div class="bd-pop">
       <div class="bd-pop-head">
         <div class="bd-pop-title"><span class="pulse"></span> BrunoDay News</div>
-        <button class="bd-pop-close" type="button" onclick="bdClosePopup('bdPopVacanza', true)">Chiudi</button>
+        <button class="bd-pop-close" type="button" onclick="bdCloseVacanza()">Chiudi</button>
       </div>
       <div class="bd-pop-body">
         <img class="bd-pop-img" src="vacanza.png" alt="BrunoDay va in vacanza">
         <div class="bd-pop-text">
           <h3>BrunoDay va in vacanza</h3>
           <p>
-            Il covo chiude, l’orso prende la valigia e ci rivediamo nel <strong>2026</strong>.<br>
-            Stay tuned… 😈
+            Il covo chiude, l’orso prende la valigia…<br>
+            ci rivediamo nel <strong>2026</strong>. Stay tuned 😈
           </p>
           <span class="bd-pop-tag">STANDBY FINO AL 2026</span>
         </div>
       </div>
       <div class="bd-pop-foot">
-        <button class="bd-pop-btn secondary" type="button" onclick="bdClosePopup('bdPopVacanza', false)">Chiudi (ricordamelo)</button>
-        <button class="bd-pop-btn" type="button" onclick="bdClosePopup('bdPopVacanza', true)">Ok, visto ✅</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- POPUP 2: BBQ -->
-  <div id="bdPopBBQ" class="bd-pop-overlay" role="dialog" aria-modal="true">
-    <div class="bd-pop">
-      <div class="bd-pop-head">
-        <div class="bd-pop-title"><span class="pulse"></span> BrunoDay News</div>
-        <button class="bd-pop-close" type="button" onclick="bdClosePopup('bdPopBBQ', true)">Chiudi</button>
-      </div>
-      <div class="bd-pop-body">
-        <img class="bd-pop-img" src="bbq.png" alt="Grigliata BrunoDay">
-        <div class="bd-pop-text">
-          <h3>Stasera: Grigliata BrunoDay</h3>
-          <p>
-            Horror spento (per ora). Brace accesa. Costine in arrivo 🍖🔥<br>
-            Il Bruno approva.
-          </p>
-          <span class="bd-pop-tag">BBQ MODE</span>
-        </div>
-      </div>
-      <div class="bd-pop-foot">
-        <button class="bd-pop-btn secondary" type="button" onclick="bdClosePopup('bdPopBBQ', false)">Chiudi (ricordamelo)</button>
-        <button class="bd-pop-btn" type="button" onclick="bdClosePopup('bdPopBBQ', true)">Ok, visto ✅</button>
+        <button class="bd-pop-btn secondary" type="button" onclick="bdCloseVacanza()">Ok 😈</button>
+        <button class="bd-pop-btn" type="button" onclick="bdCloseVacanza()">Capito ✅</button>
       </div>
     </div>
   </div>
@@ -722,14 +821,14 @@
       </div>
     </header>
 
-    <!-- Banner Evento (rimane com'è) -->
+    <!-- Banner Eventi -->
     <a href="evento.html" class="event-banner">
       <div class="event-banner-content">
         <span class="event-banner-icon">🔪</span>
         BRUNODAY EVENTI – CLICCA QUI
         <span class="event-banner-icon">🔪</span>
         <div class="event-banner-sub">
-          Pagina eventi speciali: in standby… ma mai per sempre 👀
+          Eventi speciali, lotterie e caos controllato.
         </div>
       </div>
     </a>
@@ -739,7 +838,6 @@
       <h2 class="section-title">Prossima Proiezione</h2>
       <div class="card">
         <div class="badge"><span class="badge-dot"></span> settimana in corso</div>
-
         <div class="next-film-grid">
           <div>
             <div class="splatter">Film della settimana</div>
@@ -751,14 +849,7 @@
             <p style="font-size: 0.9rem; color: #e1dac4;">
               Sicuramente un film Horror, sicuramente un film Brutto.
             </p>
-
-            <!-- COUNTDOWN AL 2026 -->
-            <div id="countdown2026" class="countdown-2026">
-              <span class="skull">💀</span>
-              Countdown al <strong>ritorno nel 2026</strong>: calcolo in corso...
-            </div>
           </div>
-
           <div>
             <p style="font-size: 0.88rem; color: #d5cfb5; margin-bottom: 6px;">
               <strong>Come funziona il BrunoDay:</strong>
@@ -795,24 +886,59 @@
       </div>
     </section>
 
-    <!-- Archivio film (da Google Sheets) -->
+    <!-- Archivio film (TOP/FLOP + lista espandibile) -->
     <section id="archive">
       <h2 class="section-title">Archivio Film Visti</h2>
       <div class="card">
-        <div class="member-input-wrap" style="margin-top:0; margin-bottom:8px;">
-          <button type="button" onclick="loadFilms()">Aggiorna archivio (admin)</button>
+
+        <div class="admin-row">
+          <button type="button" onclick="loadFilms()">Aggiorna archivio</button>
+          <div id="archiveStatus" class="archive-note">Caricamento archivio…</div>
         </div>
 
-        <ul id="filmList" class="film-list">
-          <li>
-            <span class="title">Caricamento...</span>
-            <span class="rating"></span>
-          </li>
-        </ul>
+        <div class="archive-grid">
+          <div class="mini-box">
+            <div class="mini-title">
+              <h3>Top 3</h3>
+              <span class="mini-pill"><span class="ico">🏆</span> migliori</span>
+            </div>
+            <ul id="topList" class="film-list">
+              <li><span class="title">Caricamento…</span><span class="rating"></span></li>
+            </ul>
+          </div>
+
+          <div class="mini-box">
+            <div class="mini-title">
+              <h3>Flop 3</h3>
+              <span class="mini-pill"><span class="ico">💀</span> peggiori</span>
+            </div>
+            <ul id="flopList" class="film-list">
+              <li><span class="title">Caricamento…</span><span class="rating"></span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="details-wrap">
+          <details id="allFilmsDetails">
+            <summary>
+              Elenco completo (click per aprire)
+              <span class="summary-right">
+                <span id="allCount">0</span> film • 📜
+              </span>
+            </summary>
+
+            <div style="margin-top:10px;">
+              <ul id="allList" class="film-list">
+                <li><span class="title">Caricamento…</span><span class="rating"></span></li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
       </div>
     </section>
 
-    <!-- Foto -->
+    <!-- Galleria Foto -->
     <section id="photos">
       <h2 class="section-title">Foto del BrunoDay</h2>
       <div class="card">
@@ -824,12 +950,15 @@
           <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
             <img src="Maglietta.png" alt="Foto BrunoDay 1" />
           </a>
+
           <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
             <img src="Disagio.jpeg" alt="Foto BrunoDay 2" />
           </a>
+
           <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
             <img src="Foto3.jpeg" alt="Foto BrunoDay 3" />
           </a>
+
           <a href="https://photos.app.goo.gl/gsHsE5QKE69jXmNv8" target="_blank" class="photo-link">
             <img src="Foto4.jpeg" alt="Foto BrunoDay 4" />
           </a>
@@ -837,7 +966,7 @@
       </div>
     </section>
 
-    <!-- Fan club -->
+    <!-- Fan club & tessera -->
     <section id="fanclub">
       <h2 class="section-title">Fan Club BrunoDay</h2>
       <div class="card">
@@ -904,7 +1033,7 @@
       </div>
     </section>
 
-    <!-- Eco -->
+    <!-- Sezione Eco-Sostenibilità -->
     <section id="eco">
       <h2 class="section-title">BrunoDay è Green</h2>
 
@@ -945,57 +1074,25 @@
 
     <footer>
       BrunoDay – Horror Night Fan Club<br />
-      <span>“Se senti un rumore… è solo il Bruno che si prepara al 2026.”</span>
+      <span>“Se senti un rumore… è solo il Bruno che prepara il 2026.”</span>
     </footer>
   </div>
 
   <script>
-    // ===================== CONFIG =====================
-    const FILM_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRAqY-h7oSB53H-vCubXzvU3oLQuyWqSiBoblplMGWN5hTPFOfq4oHBKPKsbujUAr9nMmoMYdRfL0Dg/pub?output=csv";
+    // ========= LINK CSV ARCHIVIO FILM =========
+    const FILM_CSV_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vRAqY-h7oSB53H-vCubXzvU3oLQuyWqSiBoblplMGWN5hTPFOfq4oHBKPKsbujUAr9nMmoMYdRfL0Dg/pub?output=csv";
 
+    // ========= TESSERE =========
     const validCards = [
       "BD-001","BD-002","BD-003","BD-004","BD-005","BD-006",
-      "BD-007","BD-008","BD-009","BD-010","BD-011","BD-012", "BD-013",
-      "BD-014","BD-015","BD-016","BD-017","BD-018","BD-019", "BD-020","BD-100"
+      "BD-007","BD-008","BD-009","BD-010","BD-011","BD-012"
     ];
 
-    // ===================== POPUP LOGIC (2 step) =====================
-    const BD_POPUP_VERSION = "vacanza+bbq-v1";
-    const KEY_VAC = "bdSeenVacanza:" + BD_POPUP_VERSION;
-    const KEY_BBQ = "bdSeenBBQ:" + BD_POPUP_VERSION;
-
-    function bdOpenPopup(id){
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    }
-
-    // persist=true => non mostrarlo più
-    function bdClosePopup(id, persist){
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      el.style.display = "none";
-      document.body.style.overflow = "";
-
-      if (id === "bdPopVacanza" && persist) localStorage.setItem(KEY_VAC, "1");
-      if (id === "bdPopBBQ" && persist) localStorage.setItem(KEY_BBQ, "1");
-
-      // dopo vacanza, mostra BBQ se non visto
-      if (id === "bdPopVacanza") {
-        const bbqSeen = localStorage.getItem(KEY_BBQ);
-        if (!bbqSeen) {
-          setTimeout(() => bdOpenPopup("bdPopBBQ"), 220);
-        }
-      }
-    }
-
-    // ===================== MEMBERS =====================
     function checkCard() {
       const input = document.getElementById("cardNumber");
       const secret = document.getElementById("memberSecret");
-      const value = input.value.trim().toUpperCase();
+      const value = (input.value || "").trim().toUpperCase();
 
       if (validCards.includes(value)) {
         secret.style.display = "block";
@@ -1005,114 +1102,206 @@
       }
     }
 
-    // ===================== FILMS (CSV) =====================
-    async function loadFilms() {
-      const ul = document.getElementById("filmList");
-      if (!ul) return;
+    // ========= CSV PARSER (supporta virgole dentro "quotes") =========
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cur = "";
+      let inQuotes = false;
 
-      ul.innerHTML = `
-        <li>
-          <span class="title">Caricamento...</span>
-          <span class="rating"></span>
-        </li>
-      `;
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        const next = text[i + 1];
+
+        if (ch === '"' && inQuotes && next === '"') {
+          cur += '"';
+          i++;
+          continue;
+        }
+
+        if (ch === '"') {
+          inQuotes = !inQuotes;
+          continue;
+        }
+
+        if (!inQuotes && (ch === "," || ch === ";")) {
+          row.push(cur);
+          cur = "";
+          continue;
+        }
+
+        if (!inQuotes && (ch === "\n" || ch === "\r")) {
+          if (cur.length || row.length) {
+            row.push(cur);
+            rows.push(row);
+            row = [];
+            cur = "";
+          }
+          continue;
+        }
+
+        cur += ch;
+      }
+
+      if (cur.length || row.length) {
+        row.push(cur);
+        rows.push(row);
+      }
+
+      return rows.map(r => r.map(c => (c || "").trim()));
+    }
+
+    function toNumberVote(v) {
+      if (!v) return null;
+      // accetta "7", "7.5", "7,5"
+      const s = String(v).replace(",", ".").trim();
+      const n = Number(s);
+      return Number.isFinite(n) ? n : null;
+    }
+
+    function renderFilmLi(title, year, vote, extraIcon) {
+      const li = document.createElement("li");
+
+      const spanTitle = document.createElement("span");
+      spanTitle.className = "title";
+      spanTitle.textContent = `${extraIcon ? extraIcon + " " : ""}${year ? `${title} (${year})` : title}`;
+
+      const spanRating = document.createElement("span");
+      spanRating.className = "rating";
+      spanRating.textContent = (vote !== null && vote !== undefined && vote !== "")
+        ? `Voto: ${vote}`
+        : "";
+
+      li.appendChild(spanTitle);
+      li.appendChild(spanRating);
+      return li;
+    }
+
+    async function loadFilms() {
+      const status = document.getElementById("archiveStatus");
+      const topUl = document.getElementById("topList");
+      const flopUl = document.getElementById("flopList");
+      const allUl = document.getElementById("allList");
+      const allCount = document.getElementById("allCount");
+
+      // placeholders
+      topUl.innerHTML = `<li><span class="title">Caricamento…</span><span class="rating"></span></li>`;
+      flopUl.innerHTML = `<li><span class="title">Caricamento…</span><span class="rating"></span></li>`;
+      allUl.innerHTML = `<li><span class="title">Caricamento…</span><span class="rating"></span></li>`;
+      if (status) status.textContent = "Caricamento archivio…";
 
       try {
-        const res = await fetch(FILM_CSV_URL);
+        const res = await fetch(FILM_CSV_URL, { cache: "no-store" });
         const text = await res.text();
 
-        const rows = text.trim().split("\n").slice(1);
-        ul.innerHTML = "";
+        const table = parseCSV(text);
+        if (!table.length) throw new Error("CSV vuoto");
 
-        rows.forEach(row => {
-          const cols = row.split(",");
-          const titolo = (cols[0] || "").trim();
-          const anno = (cols[1] || "").trim();
-          const voto = (cols[2] || "").trim();
+        // rimuove header
+        const data = table.slice(1);
 
-          if (!titolo) return;
+        const films = data
+          .map(cols => {
+            const titolo = (cols[0] || "").trim();
+            const anno = (cols[1] || "").trim();
+            const votoRaw = (cols[2] || "").trim();
+            const votoNum = toNumberVote(votoRaw);
+            return { titolo, anno, votoRaw, votoNum };
+          })
+          .filter(f => f.titolo);
 
-          const li = document.createElement("li");
+        allCount.textContent = String(films.length);
 
-          const spanTitle = document.createElement("span");
-          spanTitle.className = "title";
-          spanTitle.textContent = anno ? `${titolo} (${anno})` : titolo;
+        // top/flop solo tra quelli con voto valido
+        const rated = films.filter(f => f.votoNum !== null);
 
-          const spanRating = document.createElement("span");
-          spanRating.className = "rating";
-          spanRating.textContent = voto ? `Voto medio: ${voto}` : "";
+        const top = [...rated].sort((a,b) => b.votoNum - a.votoNum).slice(0,3);
+        const flop = [...rated].sort((a,b) => a.votoNum - b.votoNum).slice(0,3);
 
-          li.appendChild(spanTitle);
-          li.appendChild(spanRating);
-          ul.appendChild(li);
+        // render TOP
+        topUl.innerHTML = "";
+        if (!top.length) {
+          topUl.innerHTML = `<li><span class="title">Nessun voto disponibile.</span><span class="rating"></span></li>`;
+        } else {
+          top.forEach((f, idx) => {
+            const icon = idx === 0 ? "🏆" : (idx === 1 ? "🥈" : "🥉");
+            topUl.appendChild(renderFilmLi(f.titolo, f.anno, f.votoRaw, icon));
+          });
+        }
+
+        // render FLOP
+        flopUl.innerHTML = "";
+        if (!flop.length) {
+          flopUl.innerHTML = `<li><span class="title">Nessun voto disponibile.</span><span class="rating"></span></li>`;
+        } else {
+          flop.forEach((f, idx) => {
+            const icon = idx === 0 ? "💀" : (idx === 1 ? "🪦" : "🧟");
+            flopUl.appendChild(renderFilmLi(f.titolo, f.anno, f.votoRaw, icon));
+          });
+        }
+
+        // render ALL (ordinato per data? qui: come nel foglio, così com’è)
+        allUl.innerHTML = "";
+        films.forEach(f => {
+          allUl.appendChild(renderFilmLi(f.titolo, f.anno, f.votoRaw, "🎬"));
         });
 
-        if (!ul.children.length) {
-          ul.innerHTML = `
-            <li>
-              <span class="title">Nessun film ancora registrato.</span>
-              <span class="rating"></span>
-            </li>
-          `;
-        }
+        if (status) status.textContent = `Archivio aggiornato ✅ (${films.length} film)`;
+
       } catch (e) {
         console.error(e);
-        ul.innerHTML = `
-          <li>
-            <span class="title">Errore nel caricare i dati.</span>
-            <span class="rating"></span>
-          </li>
-        `;
+        if (status) status.textContent = "Errore nel caricare l’archivio 😈";
+
+        topUl.innerHTML = `<li><span class="title">Errore caricamento.</span><span class="rating"></span></li>`;
+        flopUl.innerHTML = `<li><span class="title">Errore caricamento.</span><span class="rating"></span></li>`;
+        allUl.innerHTML = `<li><span class="title">Errore caricamento.</span><span class="rating"></span></li>`;
       }
     }
 
-    // ===================== COUNTDOWN 2026 =====================
-    function pad2(n){ return String(n).padStart(2,"0"); }
+    // ========= POPUP VACANZA fino al 6 Gennaio =========
+    function bdAnyPopupOpen(){
+      const el = document.getElementById("bdPopVacanza");
+      return !!(el && getComputedStyle(el).display !== "none");
+    }
 
-    function updateCountdown2026(){
-      const el = document.getElementById("countdown2026");
+    function bdSyncScrollLock(){
+      document.body.style.overflow = bdAnyPopupOpen() ? "hidden" : "";
+    }
+
+    function bdOpenVacanza(){
+      const el = document.getElementById("bdPopVacanza");
       if (!el) return;
-
-      // Target: 1 Gen 2026, ore 21:00 (locale)
-      const target = new Date(2026, 0, 1, 21, 0, 0, 0);
-      const now = new Date();
-      const diff = target - now;
-
-      if (diff <= 0){
-        el.innerHTML = `<span class="skull">💀</span> Siamo nel <strong>2026</strong>. Il BrunoDay è tornato.`;
-        return;
-      }
-
-      const total = Math.floor(diff/1000);
-      const days = Math.floor(total / (3600*24));
-      const hours = Math.floor((total % (3600*24)) / 3600);
-      const mins = Math.floor((total % 3600) / 60);
-      const secs = total % 60;
-
-      el.innerHTML = `<span class="skull">💀</span>
-        Countdown al <strong>ritorno nel 2026</strong>: ${days}g ${pad2(hours)}h ${pad2(mins)}m ${pad2(secs)}s`;
+      el.style.display = "flex";
+      bdSyncScrollLock();
     }
 
-    // ===================== INIT =====================
+    function bdCloseVacanza(){
+      const el = document.getElementById("bdPopVacanza");
+      if (!el) return;
+      el.style.display = "none";
+      bdSyncScrollLock();
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && bdAnyPopupOpen()) bdCloseVacanza();
+    });
+
+    // ========= INIT =========
     document.addEventListener("DOMContentLoaded", () => {
-      // Films
       loadFilms();
 
-      // Countdown
-      updateCountdown2026();
-      setInterval(updateCountdown2026, 1000);
+      // Mostra popup fino al 6 gennaio (incluso)
+      // Nota: mese in JS è 0-based => Gennaio = 0
+      const now = new Date();
+      const end = new Date(2026, 0, 6, 23, 59, 59); // 6 Gen 2026 fine giornata
 
-      // Popup sequence (Vacanza -> BBQ)
-      const vacSeen = localStorage.getItem(KEY_VAC);
-      const bbqSeen = localStorage.getItem(KEY_BBQ);
-
-      if (!vacSeen) {
-        bdOpenPopup("bdPopVacanza");
-      } else if (!bbqSeen) {
-        bdOpenPopup("bdPopBBQ");
+      if (now <= end) {
+        bdOpenVacanza();
+      } else {
+        bdCloseVacanza();
       }
     });
   </script>
-
 </body>
 </html>
+
