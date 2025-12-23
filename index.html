@@ -1086,7 +1086,9 @@
     // ========= TESSERE =========
     const validCards = [
       "BD-001","BD-002","BD-003","BD-004","BD-005","BD-006",
-      "BD-007","BD-008","BD-009","BD-010","BD-011","BD-012"
+      "BD-007","BD-008","BD-009","BD-010","BD-011","BD-012",
+      "BD-013","BD-014","BD-015","BD-016","BD-017","BD-018",
+      "BD-019","BD-020","BD-021","BD-022","BD-023","BD-100"
     ];
 
     function checkCard() {
@@ -1152,13 +1154,16 @@
     }
 
     function toNumberVote(v) {
-      if (!v) return null;
-      // accetta "7", "7.5", "7,5"
-      const s = String(v).replace(",", ".").trim();
-      const n = Number(s);
-      return Number.isFinite(n) ? n : null;
-    }
+  if (!v) return null;
 
+  // prende il primo numero che trova (es. "7.0 / 10" -> 7.0, "Voto medio: 5,5" -> 5.5)
+  const s = String(v).trim().replace(",", ".");
+  const m = s.match(/-?\d+(?:\.\d+)?/);
+
+  if (!m) return null;
+  const n = Number(m[0]);
+  return Number.isFinite(n) ? n : null;
+}
     function renderFilmLi(title, year, vote, extraIcon) {
       const li = document.createElement("li");
 
