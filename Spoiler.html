@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BrunoDay — Spoiler</title>
+  <style>
+    :root{
+      --bg:#05050a;
+      --ink:#f0eff6;
+      --muted:#b7b1c8;
+      --danger:#ff1744;
+      --violet:#7c4dff;
+      --card: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 22px 70px rgba(0,0,0,.70);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(1100px 800px at 20% 15%, rgba(255,23,68,.18), transparent 55%),
+        radial-gradient(900px 700px at 78% 85%, rgba(124,77,255,.16), transparent 55%),
+        linear-gradient(180deg, #04040a, #060612 40%, #04040a);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .noise{
+      pointer-events:none;
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+      opacity:.35;
+      mix-blend-mode:overlay;
+      animation: flicker 5.5s infinite linear;
+    }
+    @keyframes flicker{ 0%,100%{opacity:.28} 50%{opacity:.42} }
+    .wrap{ max-width:980px; margin:0 auto; padding:46px 18px 90px; }
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; margin-bottom:20px;
+    }
+    .brand{ display:flex; align-items:center; gap:12px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(124,77,255,.95), rgba(255,23,68,.72));
+      box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 18px 40px rgba(0,0,0,.55);
+    }
+    .topActions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    a.btn, button.btn{
+      appearance:none;
+      border:none;
+      background: rgba(255,255,255,.06);
+      color: var(--ink);
+      border:1px solid rgba(255,255,255,.16);
+      padding:12px 14px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:900;
+      letter-spacing:.02em;
+      text-decoration:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+      display:inline-flex; align-items:center; gap:10px; justify-content:center;
+    }
+    a.btn:hover, button.btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.09);
+      border-color: rgba(255,255,255,.28);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(255,23,68,.85), rgba(124,77,255,.62));
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .hero{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:26px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(900px 420px at 10% 0%, rgba(255,23,68,.18), transparent 55%),
+                  radial-gradient(900px 420px at 90% 100%, rgba(124,77,255,.16), transparent 55%);
+      filter: blur(12px);
+      opacity:.95;
+    }
+    .hero > *{ position:relative; }
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height:1.05;
+    }
+    .sub{
+      margin:0 0 18px;
+      color: var(--muted);
+      line-height:1.7;
+      max-width: 70ch;
+    }
+    .warning{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px 14px;
+      border-radius:16px;
+      background: rgba(255,23,68,.08);
+      border:1px solid rgba(255,23,68,.22);
+      color: rgba(240,239,246,.92);
+      margin: 14px 0 8px;
+    }
+    .warning b{ color:#fff; }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:18px;
+    }
+    .card{
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      opacity:.95;
+    }
+    .card p{ margin:0; color: var(--muted); line-height:1.75; }
+    .tagRow{ margin-top:12px; display:flex; flex-wrap:wrap; gap:8px; }
+    .tag{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(240,239,246,.85);
+      white-space:nowrap;
+    }
+    .tag.red{ border-color: rgba(255,23,68,.28); background: rgba(255,23,68,.10); }
+    .tag.violet{ border-color: rgba(124,77,255,.28); background: rgba(124,77,255,.10); }
+
+    /* lock + reveal */
+    .locked{
+      filter: blur(6px) saturate(.7);
+      opacity:.35;
+      pointer-events:none;
+      transform: translateY(6px);
+    }
+    .reveal{
+      animation: reveal .42s ease-out both;
+    }
+    @keyframes reveal{
+      0%{ transform: translateY(10px); opacity:0; filter: blur(10px); }
+      100%{ transform: translateY(0); opacity:1; filter: blur(0); }
+    }
+
+    /* glitch flash */
+    .glitchFlash{
+      position:absolute; inset:-2px;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(255,23,68,.08),
+        rgba(255,23,68,.08) 6px,
+        rgba(124,77,255,.06) 6px,
+        rgba(124,77,255,.06) 12px
+      );
+      mix-blend-mode: overlay;
+      opacity:0;
+      pointer-events:none;
+    }
+    .flashOn{ animation: flash .25s steps(2,end); }
+    @keyframes flash{
+      0%{opacity:0}
+      35%{opacity:.65}
+      100%{opacity:0}
+    }
+
+    .controls{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:14px;
+    }
+    .footer{
+      margin-top:18px;
+      font-size:12px;
+      color: rgba(184,178,201,.92);
+      opacity:.86;
+    }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="wrap">
+
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>BrunoDay</div>
+      </div>
+
+      <div class="topActions">
+        <a class="btn" href="./standby.html">⟵ Standby</a>
+        <button class="btn" id="unlockAll">🔓 Sblocca tutto</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="glitchFlash" id="flash"></div>
+
+      <h1>Vuoi davvero sapere cosa sta arrivando?</h1>
+      <p class="sub">
+        Se sei arrivato fin qui, non possiamo più garantire il ritorno indietro.
+        Il BrunoDay sta cambiando forma: <b>più notti</b>, <b>più universi</b>, <b>più Bruno</b>.
+      </p>
+
+      <div class="warning">
+        <div>⚠️</div>
+        <div>
+          <b>Spoiler attivi.</b> Le sezioni si sbloccano una alla volta.
+          Se senti un rumore… probabilmente è solo Bruno.
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn primary" id="unlockNext">👁️ Sblocca il prossimo</button>
+        <button class="btn" id="reset">🧽 Reset</button>
+      </div>
+
+      <div class="grid" style="margin-top:18px">
+
+        <article class="card" data-step="1">
+          <h2>Protocollo Bruno Horror</h2>
+          <p>
+            Arriva una nuova serie di serate: atmosfera, luci, intro “da pelle d’oca” e momenti
+            che non sono solo cinema.
+          </p>
+          <div class="tagRow">
+            <span class="tag red">Horror Nights</span>
+            <span class="tag">Esperienze</span>
+            <span class="tag">Sorprese live</span>
+          </div>
+        </article>
+
+        <article class="card locked" data-step="2">
+          <h2>La Chiamata</h2>
+          <p>
+            Una maschera. Una regola. Una voce al telefono.
+            Sì: <b>Scream</b> entra nel mondo BrunoDay.
+          </p>
+          <div class="tagRow">
+            <span class="tag red">Scream</span>
+            <span class="tag">Maratona</span>
+            <span class="tag">Gioco/rituale</span>
+          </div>
+        </article>
+
+        <article class="card locked" data-step="3">
+          <h2>Mini Shop BrunoDay</h2>
+          <p>
+            Primo mini shop ufficiale: gadget BrunoDay, oggetti a tema, edizioni limitate.
+            Quando finiscono… finiscono davvero.
+          </p>
+          <div class="tagRow">
+            <span class="tag violet">Shop</span>
+            <span class="tag">Limited</span>
+            <span class="tag">Merch</span>
+          </div>
+        </article>
+
+        <article class="card locked" data-step="4">
+          <h2>La Spezia</h2>
+          <p>
+            Non solo paura: arriva una serata “sporca di sabbia”.
+            <b>Dune</b> si avvicina.
+          </p>
+          <div class="tagRow">
+            <span class="tag violet">Dune</span>
+            <span class="tag">Sci-Fi</span>
+            <span class="tag">Evento speciale</span>
+          </div>
+        </article>
+
+        <article class="card locked" data-step="5">
+          <h2>Codice: “Altro”</h2>
+          <p class="mono">
+            + saghe in arrivo<br/>
+            + ospiti / cameo / giochi<br/>
+            + one-night only<br/>
+            + “non dirlo a nessuno”
+          </p>
+          <div class="tagRow">
+            <span class="tag">???</span>
+            <span class="tag red">Solo Bruno</span>
+            <span class="tag">Molto altro</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="footer">© BrunoDay — spoiler controllati, caos garantito.</div>
+    </section>
+  </div>
+
+  <script>
+    const cards = [...document.querySelectorAll(".card")].sort((a,b)=>
+      (+a.dataset.step) - (+b.dataset.step)
+    );
+    const flash = document.getElementById("flash");
+    const btnNext = document.getElementById("unlockNext");
+    const btnAll = document.getElementById("unlockAll");
+    const btnReset = document.getElementById("reset");
+
+    function doFlash(){
+      flash.classList.remove("flashOn");
+      void flash.offsetWidth; // reflow
+      flash.classList.add("flashOn");
+    }
+
+    function unlock(step){
+      const el = cards.find(c => +c.dataset.step === step);
+      if(!el) return false;
+      if(!el.classList.contains("locked")) return true;
+
+      doFlash();
+      el.classList.remove("locked");
+      el.classList.add("reveal");
+      setTimeout(()=> el.classList.remove("reveal"), 600);
+      return true;
+    }
+
+    function nextLockedStep(){
+      const locked = cards.find(c => c.classList.contains("locked"));
+      return locked ? +locked.dataset.step : null;
+    }
+
+    function unlockNext(){
+      const step = nextLockedStep();
+      if(step === null){
+        doFlash();
+        btnNext.textContent = "✅ Tutto sbloccato";
+        btnNext.disabled = true;
+        btnNext.style.opacity = .7;
+        return;
+      }
+      unlock(step);
+      // scroll gentle
+      const el = cards.find(c => +c.dataset.step === step);
+      el.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+
+    function unlockAll(){
+      doFlash();
+      for(const c of cards){
+        c.classList.remove("locked");
+      }
+      // animate a bit
+      cards.forEach((c,i)=>{
+        c.classList.add("reveal");
+        setTimeout(()=> c.classList.remove("reveal"), 650 + i*30);
+      });
+      btnNext.textContent = "✅ Tutto sbloccato";
+      btnNext.disabled = true;
+      btnNext.style.opacity = .7;
+    }
+
+    function resetAll(){
+      doFlash();
+      cards.forEach(c=>{
+        const s = +c.dataset.step;
+        if(s === 1){
+          c.classList.remove("locked");
+        }else{
+          c.classList.add("locked");
+        }
+      });
+      btnNext.textContent = "👁️ Sblocca il prossimo";
+      btnNext.disabled = false;
+      btnNext.style.opacity = 1;
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    btnNext.addEventListener("click", unlockNext);
+    btnAll.addEventListener("click", unlockAll);
+    btnReset.addEventListener("click", resetAll);
+  </script>
+</body>
+</html>
