@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BrunoDay — Standby</title>
+  <style>
+    :root{
+      --bg:#07060a;
+      --ink:#e9e6f2;
+      --muted:#b8b2c9;
+      --accent:#b3002d;
+      --accent2:#7c4dff;
+      --card: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 20px 60px rgba(0,0,0,.6);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 800px at 70% 20%, rgba(124,77,255,.18), transparent 55%),
+        radial-gradient(900px 700px at 25% 80%, rgba(179,0,45,.18), transparent 60%),
+        linear-gradient(180deg, #05040a, #07060a 40%, #05040a);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .noise{
+      pointer-events:none;
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      opacity:.35; mix-blend-mode:overlay;
+      animation: flicker 6s infinite linear;
+    }
+    @keyframes flicker{ 0%,100%{opacity:.28} 50%{opacity:.40} }
+    .wrap{
+      max-width:1040px;
+      margin:0 auto;
+      padding:52px 20px 80px;
+    }
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+      margin-bottom:32px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-weight:800;
+      opacity:.95;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(124,77,255,.85), rgba(179,0,45,.75));
+      box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 18px 40px rgba(0,0,0,.55);
+    }
+    .badge{
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .hero{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:34px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(900px 420px at 20% 0%, rgba(179,0,45,.18), transparent 55%),
+                  radial-gradient(900px 420px at 80% 100%, rgba(124,77,255,.18), transparent 55%);
+      filter: blur(12px);
+      opacity:.9;
+    }
+    .hero > *{position:relative}
+    h1{
+      margin:0 0 14px;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height:1.05;
+    }
+    p{
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height:1.7;
+      max-width: 62ch;
+    }
+    .ctaRow{
+      display:flex; flex-wrap:wrap; gap:12px;
+      margin-top:10px;
+    }
+    a.btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:14px 16px;
+      border-radius:14px;
+      text-decoration:none;
+      font-weight:800;
+      letter-spacing:.02em;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: var(--ink);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    a.btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.28); }
+    a.btn.primary{
+      background: linear-gradient(135deg, rgba(179,0,45,.85), rgba(124,77,255,.65));
+      border-color: rgba(255,255,255,.22);
+    }
+    .hint{
+      margin-top:18px;
+      font-size:13px;
+      color: rgba(233,230,242,.78);
+      opacity:.85;
+    }
+    .divider{
+      height:1px; background: rgba(255,255,255,.10);
+      margin: 26px 0 18px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:18px;
+    }
+    @media (min-width: 860px){
+      .grid{ grid-template-columns: 1.1fr .9fr; }
+    }
+    .mini{
+      background: rgba(0,0,0,.24);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      padding:18px;
+    }
+    .mini h3{
+      margin:0 0 8px; font-size:15px; letter-spacing:.06em; text-transform:uppercase; opacity:.9;
+    }
+    .mini ul{ margin:0; padding-left:18px; color:var(--muted); line-height:1.7; }
+    .footer{
+      margin-top:26px;
+      color: rgba(184,178,201,.9);
+      font-size: 12px;
+      opacity:.85;
+    }
+    .spark{
+      position:absolute;
+      right:-40px; top:-40px;
+      width:220px; height:220px;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 58%);
+      filter: blur(2px);
+      opacity:.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>BrunoDay</div>
+      </div>
+      <div class="badge">Work In Progress</div>
+    </header>
+
+    <section class="hero">
+      <div class="spark" aria-hidden="true"></div>
+      <h1>L’avventura si ferma…<br/>per ora.</h1>
+      <p>
+        Il viaggio nella Terra di Mezzo si è concluso.<br/>
+        Ma ogni fine è solo l’inizio di qualcosa di nuovo.
+      </p>
+      <p>
+        Il BrunoDay sta preparando <b>nuove esperienze</b>, nuove saghe e nuove notti.
+        Alcune cose… <b>non sono ancora pronte</b> per essere rivelate.
+      </p>
+
+      <div class="ctaRow">
+        <a class="btn primary" href="./spoiler.html" aria-label="Apri Spoiler">
+          👁️ Spoiler
+        </a>
+        <a class="btn" href="./index.html" aria-label="Torna alla home">
+          ⟵ Home
+        </a>
+      </div>
+
+      <div class="hint">Consiglio: non aprire “Spoiler” se non ti piace avere incubi bellissimi.</div>
+
+      <div class="divider"></div>
+
+      <div class="grid">
+        <div class="mini">
+          <h3>In arrivo</h3>
+          <ul>
+            <li>Serate a tema Horror (più Bruno, più caos)</li>
+            <li>Mini Shop BrunoDay</li>
+            <li>Nuove saghe: Scream, Dune e altro</li>
+          </ul>
+        </div>
+        <div class="mini">
+          <h3>Nota</h3>
+          <ul>
+            <li>Niente iscrizione: evento libero</li>
+            <li>Segui i canali BrunoDay per gli annunci</li>
+            <li>Gli spoiler si sbloccano “a strati”</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer">© BrunoDay — standby oggi, delirio domani.</div>
+    </section>
+  </div>
+</body>
+</html>
