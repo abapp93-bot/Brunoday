@@ -17,6 +17,7 @@
       --shadow: 0 24px 70px rgba(0,0,0,.7);
       --radius: 22px;
     }
+
     *{ box-sizing:border-box }
     body{
       margin:0;
@@ -29,6 +30,7 @@
       min-height:100vh;
       overflow-x:hidden;
     }
+
     .noise{
       pointer-events:none;
       position:fixed; inset:0;
@@ -39,6 +41,7 @@
     @keyframes flicker{ 0%,100%{opacity:.28} 50%{opacity:.42} }
 
     .wrap{ max-width:1100px; margin:0 auto; padding:44px 18px 90px; }
+
     header{
       display:flex; align-items:center; justify-content:space-between;
       gap:12px; margin-bottom:18px;
@@ -110,8 +113,9 @@
       line-height:1.7;
       max-width: 80ch;
     }
-    .pillRow{
-      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+
+    .hintRow{
+      display:flex; flex-wrap:wrap; align-items:center; gap:10px;
       margin: 10px 0 4px;
     }
     .pill{
@@ -126,32 +130,33 @@
     .pill.red{ border-color: rgba(255,23,68,.28); background: rgba(255,23,68,.10); }
     .pill.violet{ border-color: rgba(124,77,255,.28); background: rgba(124,77,255,.10); }
 
-    /* ====== FIGURINE SLIDER (1 card at a time) ====== */
-    .stage{
+    /* Figurine carousel */
+    .carouselWrap{
       margin-top:18px;
       position:relative;
-      overflow:hidden;
-      border-radius: 22px;
     }
-    .track{
+    .carousel{
       display:flex;
-      transition: transform .28s ease;
-      will-change: transform;
-      touch-action: pan-y;
-      user-select:none;
+      gap:16px;
+      overflow:auto;
+      padding: 8px 6px 18px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
     }
+    .carousel::-webkit-scrollbar{ height:10px; }
+    .carousel::-webkit-scrollbar-thumb{
+      background: rgba(255,255,255,.14);
+      border-radius: 999px;
+    }
+
     .card{
-      flex: 0 0 100%;
-      padding: 0;
-      position:relative;
-    }
-    .cardInner{
-      margin: 0 auto;
-      width: min(520px, 92vw);
+      scroll-snap-align: center;
+      flex: 0 0 min(420px, 86vw);
       background: rgba(0,0,0,.24);
       border:1px solid rgba(255,255,255,.12);
       border-radius: 22px;
       overflow:hidden;
+      position:relative;
       box-shadow: 0 18px 60px rgba(0,0,0,.6);
     }
     .cardTop{
@@ -172,8 +177,9 @@
       letter-spacing:.12em;
       font-size:12px;
     }
+
     .media{
-      height: 260px;
+      height: 240px;
       background: rgba(255,255,255,.04);
       border-top:1px solid rgba(255,255,255,.10);
       border-bottom:1px solid rgba(255,255,255,.10);
@@ -181,24 +187,30 @@
       position:relative;
       overflow:hidden;
     }
+
     .content{
       padding:14px 16px 18px;
     }
-    .content p{ margin:0; color: var(--muted); line-height:1.75; }
+    .content p{
+      margin:0;
+      color: var(--muted);
+      line-height:1.75;
+    }
 
+    /* locked overlay */
     .locked .media > * , .locked .content{
-      filter: blur(10px) saturate(.8);
-      opacity:.22;
+      filter: blur(8px) saturate(.8);
+      opacity:.25;
     }
     .lockOverlay{
       position:absolute; inset:0;
       display:flex; align-items:center; justify-content:center;
       background: linear-gradient(135deg, rgba(255,23,68,.16), rgba(124,77,255,.12));
       border:1px solid rgba(255,255,255,.10);
-      backdrop-filter: blur(7px);
+      backdrop-filter: blur(6px);
     }
     .lockBox{
-      background: rgba(0,0,0,.42);
+      background: rgba(0,0,0,.40);
       border:1px solid rgba(255,255,255,.16);
       padding:12px 14px;
       border-radius:16px;
@@ -215,21 +227,11 @@
       opacity:.9;
     }
 
-    .nav{
-      display:flex; gap:10px; justify-content:center; align-items:center;
-      margin-top:12px;
+    /* nav arrows */
+    .navArrows{
+      display:flex; gap:10px; justify-content:center; margin-top:8px;
     }
-    .counter{
-      font-size:12px;
-      color: rgba(240,239,246,.82);
-      opacity:.9;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-    }
+
     .footer{
       margin-top:14px;
       font-size:12px;
@@ -238,33 +240,13 @@
       text-align:center;
     }
 
-    /* merch mock */
-    .mockGrid{
-      display:flex; gap:16px; align-items:center; justify-content:center;
-      width:100%; height:100%;
-      padding: 12px;
+    /* small reveal anim */
+    .reveal{
+      animation: reveal .42s ease-out both;
     }
-    .mock{
-      width: min(220px, 42vw);
-      height: 220px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.30);
-      position:relative;
-      overflow:hidden;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .mock label{
-      position:absolute;
-      bottom:10px; left:10px;
-      font-size:12px;
-      padding:7px 10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(240,239,246,.86);
-      letter-spacing:.08em;
-      text-transform:uppercase;
+    @keyframes reveal{
+      0%{ transform: translateY(10px); opacity:0; filter: blur(10px); }
+      100%{ transform: translateY(0); opacity:1; filter: blur(0); }
     }
   </style>
 </head>
@@ -288,462 +270,431 @@
     </header>
 
     <section class="hero">
-      <h1>Spoiler a figurine (swipe 👉👈).</h1>
+      <h1>Spoiler “a figurine”.</h1>
       <p class="sub">
-        Una scheda alla volta. Scorri con swipe o con le frecce.
-        Le prossime sono “censurate” finché non le sblocchi. 😈
+        Scorri le schede come fossero figurine da collezione: una alla volta, un pezzo di futuro BrunoDay.
+        Alcune sono <b>censurate</b> finché non le sblocchi. 😈
       </p>
 
-      <div class="pillRow">
-        <span class="pill violet">BrunoOscar</span>
-        <span class="pill red">Shop</span>
+      <div class="hintRow">
+        <span class="pill red">Horror vibes</span>
+        <span class="pill violet">Shop</span>
         <span class="pill">Cinema sotto le stelle</span>
         <span class="pill">Saghe</span>
-        <span class="pill">Stay tuned</span>
+        <span class="pill">Molto altro</span>
       </div>
 
-      <div class="stage" id="stage">
-        <div class="track" id="track">
+      <div class="carouselWrap">
+        <div class="carousel" id="carousel">
 
-          <!-- 1 -->
+          <!-- 1) BrunoOscar -->
           <article class="card" data-step="1">
-            <div class="cardInner">
-              <div class="cardTop">
-                <div>
-                  <h2 class="cardTitle">La Notte del BrunoOscar</h2>
-                  <div class="pill violet" style="display:inline-flex; margin-top:8px;">Premi, risate, caos elegante</div>
-                </div>
-                <div class="cardNum">01/05</div>
+            <div class="cardTop">
+              <div>
+                <h2 class="cardTitle">La Notte del BrunoOscar</h2>
+                <div class="pill violet" style="display:inline-flex; margin-top:8px;">Premi, risate, caos elegante</div>
               </div>
+              <div class="cardNum">01/05</div>
+            </div>
 
-              <div class="media">
-                <!-- statuetta orso + logo -->
-                <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Statuetta orso BrunoOscar">
-                  <defs>
-                    <radialGradient id="gGold" cx="30%" cy="25%">
-                      <stop offset="0%" stop-color="#ffe6a6"/>
-                      <stop offset="55%" stop-color="#ffcc4d"/>
-                      <stop offset="100%" stop-color="#b07a00"/>
-                    </radialGradient>
-                    <linearGradient id="gBase" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0%" stop-color="#14131a"/>
-                      <stop offset="100%" stop-color="#07060a"/>
-                    </linearGradient>
-                    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
-                      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="rgba(0,0,0,.65)"/>
-                    </filter>
-                  </defs>
+            <div class="media">
+              <!-- Trophy SVG (orso + logo) -->
+              <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Statuetta orso BrunoOscar">
+                <defs>
+                  <radialGradient id="gGold" cx="30%" cy="25%">
+                    <stop offset="0%" stop-color="#ffe6a6"/>
+                    <stop offset="55%" stop-color="#ffcc4d"/>
+                    <stop offset="100%" stop-color="#b07a00"/>
+                  </radialGradient>
+                  <linearGradient id="gBase" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#14131a"/>
+                    <stop offset="100%" stop-color="#07060a"/>
+                  </linearGradient>
+                  <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="rgba(0,0,0,.65)"/>
+                  </filter>
+                </defs>
 
-                  <rect x="0" y="0" width="900" height="520" fill="rgba(0,0,0,0)"/>
-                  <g filter="url(#shadow)">
-                    <path d="M290 430 Q450 495 610 430 L590 365 Q450 410 310 365 Z" fill="url(#gBase)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
-                    <rect x="340" y="380" width="220" height="52" rx="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
-                    <text x="450" y="414" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="22" fill="rgba(240,239,246,.9)" letter-spacing="3">BRUNOOSCAR</text>
+                <rect x="0" y="0" width="900" height="520" fill="rgba(0,0,0,0)"/>
+                <g filter="url(#shadow)" transform="translate(0,0)">
+                  <!-- pedestal -->
+                  <path d="M290 430 Q450 495 610 430 L590 365 Q450 410 310 365 Z" fill="url(#gBase)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+                  <rect x="340" y="380" width="220" height="52" rx="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+                  <text x="450" y="414" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="22" fill="rgba(240,239,246,.9)" letter-spacing="3">BRUNOOSCAR</text>
 
-                    <path d="M390 330 Q450 360 510 330 Q545 260 505 210 Q450 160 395 210 Q355 260 390 330 Z"
-                          fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
-                    <path d="M330 210 Q450 80 570 210 Q560 320 450 330 Q340 320 330 210 Z"
-                          fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
-                    <path d="M320 190 Q320 125 375 130 Q400 140 395 185 Q360 205 320 190 Z" fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
-                    <path d="M580 190 Q580 125 525 130 Q500 140 505 185 Q540 205 580 190 Z" fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
+                  <!-- body -->
+                  <path d="M390 330 Q450 360 510 330 Q545 260 505 210 Q450 160 395 210 Q355 260 390 330 Z"
+                        fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
+                  <!-- head -->
+                  <path d="M330 210 Q450 80 570 210 Q560 320 450 330 Q340 320 330 210 Z"
+                        fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
+                  <!-- ears -->
+                  <path d="M320 190 Q320 125 375 130 Q400 140 395 185 Q360 205 320 190 Z" fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
+                  <path d="M580 190 Q580 125 525 130 Q500 140 505 185 Q540 205 580 190 Z" fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
 
-                    <path d="M410 240 Q450 270 490 240 Q495 300 450 302 Q405 300 410 240 Z"
-                          fill="rgba(0,0,0,.18)" stroke="rgba(0,0,0,.25)" stroke-width="4"/>
-                    <path d="M435 240 Q450 228 465 240 Q462 255 450 258 Q438 255 435 240 Z" fill="rgba(0,0,0,.55)"/>
+                  <!-- snout + nose -->
+                  <path d="M410 240 Q450 270 490 240 Q495 300 450 302 Q405 300 410 240 Z"
+                        fill="rgba(0,0,0,.18)" stroke="rgba(0,0,0,.25)" stroke-width="4"/>
+                  <path d="M435 240 Q450 228 465 240 Q462 255 450 258 Q438 255 435 240 Z" fill="rgba(0,0,0,.55)"/>
 
-                    <circle cx="450" cy="305" r="38" fill="rgba(0,0,0,.18)" stroke="rgba(255,255,255,.22)" stroke-width="2"/>
-                    <image id="logoInTrophy" href="" x="420" y="275" width="60" height="60" preserveAspectRatio="xMidYMid meet"/>
-                  </g>
+                  <!-- logo badge (uses your LogoPNG.png) -->
+                  <circle cx="450" cy="305" r="38" fill="rgba(0,0,0,.18)" stroke="rgba(255,255,255,.22)" stroke-width="2"/>
+                  <image href="../assets/LogoPNG.png" x="420" y="275" width="60" height="60" preserveAspectRatio="xMidYMid meet"/>
+                </g>
 
-                  <text x="450" y="70" text-anchor="middle"
-                        font-family="ui-sans-serif, system-ui" font-size="34"
-                        fill="rgba(240,239,246,.92)" letter-spacing="2">
-                    “Stasera non posso… c’è il BrunoOscar.”
-                  </text>
-                </svg>
-              </div>
+                <text x="450" y="70" text-anchor="middle"
+                      font-family="ui-sans-serif, system-ui" font-size="34"
+                      fill="rgba(240,239,246,.92)" letter-spacing="2">
+                  “Stasera non posso… c’è il BrunoOscar.”
+                </text>
+              </svg>
+            </div>
 
-              <div class="content">
-                <p>
-                  Serata “Oscar” in stile BrunoDay: premi improbabili, categorie assurde,
-                  e la statuetta ufficiale: <b>l’Orso d’Oro Bruno</b> 🐻✨
-                </p>
-              </div>
+            <div class="content">
+              <p>
+                Una notte “Oscar” in stile BrunoDay: premi improbabili, categorie assurde,
+                clip iconiche, e una statuetta ufficiale: <b>l’Orso d’Oro Bruno</b> 🐻✨
+              </p>
             </div>
           </article>
 
-          <!-- 2 -->
+          <!-- 2) Shop -->
           <article class="card locked" data-step="2">
-            <div class="cardInner">
-              <div class="cardTop">
-                <div>
-                  <h2 class="cardTitle">Mini Shop BrunoDay</h2>
-                  <div class="pill red" style="display:inline-flex; margin-top:8px;">Merch brandizzato in arrivo</div>
-                </div>
-                <div class="cardNum">02/05</div>
+            <div class="cardTop">
+              <div>
+                <h2 class="cardTitle">Mini Shop BrunoDay</h2>
+                <div class="pill red" style="display:inline-flex; margin-top:8px;">Materiale brandizzato in arrivo</div>
               </div>
+              <div class="cardNum">02/05</div>
+            </div>
 
-              <div class="media">
-                <div class="mockGrid">
-                  <!-- Mock MAGLIETTA -->
-                  <div class="mock">
-                    <svg width="100%" height="100%" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Maglietta BrunoDay">
-                      <defs>
-                        <filter id="ds1" x="-40%" y="-40%" width="180%" height="180%">
-                          <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="rgba(0,0,0,.55)"/>
-                        </filter>
-                      </defs>
-                      <g filter="url(#ds1)" transform="translate(40,24)">
-                        <path d="M54 56 L92 30 L148 30 L186 56 L164 84 L164 240 Q120 262 76 240 L76 84 Z"
-                              fill="#0f0f14" stroke="rgba(255,255,255,.18)" stroke-width="3"/>
-                        <rect x="92" y="112" width="56" height="56" rx="12" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
-                        <image id="bearOnTee" href="" x="96" y="116" width="48" height="48" preserveAspectRatio="xMidYMid meet"/>
-                        <text x="120" y="208" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="2">TEE</text>
-                      </g>
-                    </svg>
-                    <label>Maglietta nera</label>
-                  </div>
+            <div class="media">
+              <!-- Simple mockups: tee + cap (SVG) -->
+              <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mockup maglietta e cappellino BrunoDay">
+                <defs>
+                  <filter id="ds" x="-40%" y="-40%" width="180%" height="180%">
+                    <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="rgba(0,0,0,.65)"/>
+                  </filter>
+                </defs>
 
-                  <!-- Mock CAPPELLINO -->
-                  <div class="mock">
-                    <svg width="100%" height="100%" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cappellino BrunoDay">
-                      <defs>
-                        <filter id="ds2" x="-40%" y="-40%" width="180%" height="180%">
-                          <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="rgba(0,0,0,.55)"/>
-                        </filter>
-                      </defs>
-                      <g filter="url(#ds2)" transform="translate(10,55)">
-                        <path d="M60 128 Q95 40 180 64 Q230 78 224 132 Q160 168 92 148 Q56 140 60 128 Z"
-                              fill="#0f0f14" stroke="rgba(255,255,255,.18)" stroke-width="3"/>
-                        <path d="M40 150 Q112 142 176 160 Q214 172 248 166"
-                              fill="none" stroke="rgba(0,0,0,.55)" stroke-width="18" stroke-linecap="round"/>
-                        <path d="M40 150 Q112 142 176 160 Q214 172 248 166"
-                              fill="none" stroke="rgba(255,255,255,.10)" stroke-width="3" stroke-linecap="round"/>
-                        <circle cx="150" cy="118" r="20" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
-                        <image id="logoOnCap" href="" x="136" y="104" width="28" height="28" preserveAspectRatio="xMidYMid meet"/>
-                        <text x="150" y="238" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="2">CAP</text>
-                      </g>
-                    </svg>
-                    <label>Cappellino logo</label>
-                  </div>
-                </div>
-              </div>
+                <rect width="900" height="520" fill="rgba(0,0,0,0)"/>
 
-              <div class="content">
-                <p>
-                  Presto potrai avere materiale brandizzato BrunoDay:
-                  <b>magliette</b> (con la tua grafica), <b>cappellini</b> col logo e chicche limited.
-                </p>
-              </div>
+                <!-- T-shirt -->
+                <g filter="url(#ds)" transform="translate(130,70)">
+                  <path d="M130 70 L200 20 L280 20 L350 70 L300 120 L300 340 Q240 375 180 340 L180 120 Z"
+                        fill="#0f0f14" stroke="rgba(255,255,255,.18)" stroke-width="3" />
+                  <path d="M222 20 Q240 60 258 20" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="10" stroke-linecap="round"/>
 
-              <div class="lockOverlay">
-                <div class="lockBox">
-                  <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
-                  <div class="small">Sblocca per vedere i primi mock merch.</div>
-                </div>
+                  <!-- print (your bear image) -->
+                  <rect x="205" y="135" width="120" height="120" rx="18" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
+                  <image href="../assets/bruno-bear.png" x="212" y="142" width="106" height="106" preserveAspectRatio="xMidYMid meet"/>
+                  <text x="265" y="285" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="18" fill="rgba(240,239,246,.85)" letter-spacing="2">
+                    TEE “BRUNO”
+                  </text>
+                </g>
+
+                <!-- Cap -->
+                <g filter="url(#ds)" transform="translate(520,140)">
+                  <path d="M70 140 Q130 40 250 80 Q315 105 300 175 Q210 220 110 190 Q55 175 70 140 Z"
+                        fill="#0f0f14" stroke="rgba(255,255,255,.18)" stroke-width="3"/>
+                  <path d="M40 170 Q120 160 220 190 Q280 205 320 195"
+                        fill="none" stroke="rgba(0,0,0,.5)" stroke-width="24" stroke-linecap="round"/>
+                  <path d="M40 170 Q120 160 220 190 Q280 205 320 195"
+                        fill="none" stroke="rgba(255,255,255,.10)" stroke-width="3" stroke-linecap="round"/>
+
+                  <circle cx="175" cy="135" r="32" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
+                  <image href="../assets/LogoPNG.png" x="150" y="110" width="50" height="50" preserveAspectRatio="xMidYMid meet"/>
+                  <text x="175" y="245" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="18" fill="rgba(240,239,246,.85)" letter-spacing="2">
+                    CAP “LOGO”
+                  </text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="content">
+              <p>
+                Presto potrai prendere <b>merch BrunoDay</b>: magliette, cappellini e chicche limitate.
+                Roba da indossare quando vuoi dire: “Stasera non posso… c’è il BrunoDay.” 😎
+              </p>
+            </div>
+
+            <div class="lockOverlay">
+              <div class="lockBox">
+                <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
+                <div class="small">Sblocca per scoprire cosa arriva nel mini shop.</div>
               </div>
             </div>
           </article>
 
-          <!-- 3 -->
+          <!-- 3) Cinema sotto le stelle -->
           <article class="card locked" data-step="3">
-            <div class="cardInner">
-              <div class="cardTop">
-                <div>
-                  <h2 class="cardTitle">Cinema sotto le Stelle</h2>
-                  <div class="pill" style="display:inline-flex; margin-top:8px;">Giardino, lucine, proiettore</div>
-                </div>
-                <div class="cardNum">03/05</div>
+            <div class="cardTop">
+              <div>
+                <h2 class="cardTitle">Cinema sotto le Stelle</h2>
+                <div class="pill" style="display:inline-flex; margin-top:8px;">Giardino, lucine, proiettore</div>
               </div>
+              <div class="cardNum">03/05</div>
+            </div>
 
-              <div class="media">
-                <!-- Garden + projector (SVG) -->
-                <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cinema sotto le stelle">
-                  <defs>
-                    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0%" stop-color="#0b0b18"/>
-                      <stop offset="55%" stop-color="#070612"/>
-                      <stop offset="100%" stop-color="#04040a"/>
-                    </linearGradient>
-                    <radialGradient id="starGlow" cx="50%" cy="40%">
-                      <stop offset="0%" stop-color="rgba(255,255,255,.55)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-                    </radialGradient>
-                    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
-                      <feGaussianBlur stdDeviation="2"/>
-                    </filter>
-                  </defs>
+            <div class="media">
+              <!-- Garden + projector (SVG) -->
+              <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cinema sotto le stelle">
+                <defs>
+                  <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#0b0b18"/>
+                    <stop offset="55%" stop-color="#070612"/>
+                    <stop offset="100%" stop-color="#04040a"/>
+                  </linearGradient>
+                  <radialGradient id="starGlow" cx="50%" cy="40%">
+                    <stop offset="0%" stop-color="rgba(255,255,255,.55)"/>
+                    <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                  </radialGradient>
+                  <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="2"/>
+                  </filter>
+                </defs>
 
-                  <rect width="900" height="520" fill="url(#sky)"/>
-                  <g opacity=".9">
-                    <circle cx="120" cy="90" r="2" fill="white"/>
-                    <circle cx="220" cy="70" r="1.6" fill="white"/>
-                    <circle cx="310" cy="120" r="1.3" fill="white"/>
-                    <circle cx="430" cy="80" r="1.8" fill="white"/>
-                    <circle cx="560" cy="110" r="1.4" fill="white"/>
-                    <circle cx="710" cy="70" r="1.6" fill="white"/>
-                    <circle cx="820" cy="130" r="1.2" fill="white"/>
-                    <circle cx="760" cy="160" r="1.2" fill="white"/>
-                    <circle cx="620" cy="170" r="1.2" fill="white"/>
-                    <circle cx="190" cy="160" r="1.2" fill="white"/>
-                    <circle cx="380" cy="170" r="1.2" fill="white"/>
-                  </g>
-                  <circle cx="450" cy="140" r="140" fill="url(#starGlow)" opacity=".16"/>
+                <rect width="900" height="520" fill="url(#sky)"/>
 
-                  <path d="M0 360 Q220 310 450 350 Q700 400 900 340 L900 520 L0 520 Z" fill="#07120a"/>
+                <!-- stars -->
+                <g opacity=".9">
+                  <circle cx="120" cy="90" r="2" fill="white"/>
+                  <circle cx="220" cy="70" r="1.6" fill="white"/>
+                  <circle cx="310" cy="120" r="1.3" fill="white"/>
+                  <circle cx="430" cy="80" r="1.8" fill="white"/>
+                  <circle cx="560" cy="110" r="1.4" fill="white"/>
+                  <circle cx="710" cy="70" r="1.6" fill="white"/>
+                  <circle cx="820" cy="130" r="1.2" fill="white"/>
+                  <circle cx="760" cy="160" r="1.2" fill="white"/>
+                  <circle cx="620" cy="170" r="1.2" fill="white"/>
+                  <circle cx="190" cy="160" r="1.2" fill="white"/>
+                  <circle cx="380" cy="170" r="1.2" fill="white"/>
+                </g>
+                <circle cx="450" cy="140" r="140" fill="url(#starGlow)" opacity=".16"/>
 
-                  <path d="M120 280 Q260 240 420 275 Q560 305 720 255 Q800 230 860 250"
-                        fill="none" stroke="rgba(255,255,255,.18)" stroke-width="4" stroke-linecap="round"/>
-                  <g filter="url(#soft)">
-                    <circle cx="160" cy="272" r="7" fill="rgba(255,200,80,.9)"/>
-                    <circle cx="240" cy="252" r="7" fill="rgba(255,200,80,.9)"/>
-                    <circle cx="325" cy="260" r="7" fill="rgba(255,200,80,.9)"/>
-                    <circle cx="410" cy="275" r="7" fill="rgba(255,200,80,.9)"/>
-                    <circle cx="495" cy="286" r="7" fill="rgba(255,200,80,.9)"/>
-                    <circle cx="585" cy="292" r="7" fill="rgba(255,200,80,.9)"/>
-                    <circle cx="675" cy="270" r="7" fill="rgba(255,200,80,.9)"/>
-                    <circle cx="760" cy="246" r="7" fill="rgba(255,200,80,.9)"/>
-                    <circle cx="840" cy="252" r="7" fill="rgba(255,200,80,.9)"/>
-                  </g>
+                <!-- garden ground -->
+                <path d="M0 360 Q220 310 450 350 Q700 400 900 340 L900 520 L0 520 Z" fill="#07120a"/>
 
-                  <g>
-                    <rect x="110" y="250" width="260" height="150" rx="14" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.22)" stroke-width="3"/>
-                    <rect x="130" y="270" width="220" height="110" rx="10" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.10)"/>
-                    <text x="240" y="332" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="18" fill="rgba(240,239,246,.9)" letter-spacing="2">
-                      BRUNODAY OPEN AIR
-                    </text>
-                  </g>
+                <!-- fairy lights -->
+                <path d="M120 280 Q260 240 420 275 Q560 305 720 255 Q800 230 860 250"
+                      fill="none" stroke="rgba(255,255,255,.18)" stroke-width="4" stroke-linecap="round"/>
+                <g filter="url(#soft)">
+                  <circle cx="160" cy="272" r="7" fill="rgba(255,200,80,.9)"/>
+                  <circle cx="240" cy="252" r="7" fill="rgba(255,200,80,.9)"/>
+                  <circle cx="325" cy="260" r="7" fill="rgba(255,200,80,.9)"/>
+                  <circle cx="410" cy="275" r="7" fill="rgba(255,200,80,.9)"/>
+                  <circle cx="495" cy="286" r="7" fill="rgba(255,200,80,.9)"/>
+                  <circle cx="585" cy="292" r="7" fill="rgba(255,200,80,.9)"/>
+                  <circle cx="675" cy="270" r="7" fill="rgba(255,200,80,.9)"/>
+                  <circle cx="760" cy="246" r="7" fill="rgba(255,200,80,.9)"/>
+                  <circle cx="840" cy="252" r="7" fill="rgba(255,200,80,.9)"/>
+                </g>
 
-                  <g>
-                    <rect x="620" y="320" width="150" height="80" rx="16" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
-                    <circle cx="650" cy="360" r="18" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
-                    <circle cx="710" cy="360" r="18" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
-                    <path d="M770 350 Q860 335 900 320" fill="none" stroke="rgba(124,77,255,.25)" stroke-width="22" stroke-linecap="round"/>
-                    <path d="M770 350 Q860 335 900 320" fill="none" stroke="rgba(255,23,68,.18)" stroke-width="12" stroke-linecap="round"/>
-                  </g>
-                </svg>
-              </div>
+                <!-- screen -->
+                <g>
+                  <rect x="110" y="250" width="260" height="150" rx="14" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.22)" stroke-width="3"/>
+                  <rect x="130" y="270" width="220" height="110" rx="10" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.10)"/>
+                  <text x="240" y="332" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="18" fill="rgba(240,239,246,.9)" letter-spacing="2">
+                    BRUNODAY OPEN AIR
+                  </text>
+                </g>
 
-              <div class="content">
-                <p>
-                  Giardino, lucine, proiettore e cielo pieno di stelle.
-                  <b>Cinema Open Air</b> versione Bruno: atmosfera + vibes incredibili.
-                </p>
-              </div>
+                <!-- projector -->
+                <g>
+                  <rect x="620" y="320" width="150" height="80" rx="16" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
+                  <circle cx="650" cy="360" r="18" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
+                  <circle cx="710" cy="360" r="18" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
+                  <path d="M770 350 Q860 335 900 320" fill="none" stroke="rgba(124,77,255,.25)" stroke-width="22" stroke-linecap="round"/>
+                  <path d="M770 350 Q860 335 900 320" fill="none" stroke="rgba(255,23,68,.18)" stroke-width="12" stroke-linecap="round"/>
+                </g>
+              </svg>
+            </div>
 
-              <div class="lockOverlay">
-                <div class="lockBox">
-                  <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
-                  <div class="small">Sblocca per vedere il cinema sotto le stelle.</div>
-                </div>
+            <div class="content">
+              <p>
+                Una serata open-air: giardino, lucine, proiettore e cielo pieno di stelle.
+                Il cinema diventa atmosfera. <b>Molto Bruno. Molto wow.</b>
+              </p>
+            </div>
+
+            <div class="lockOverlay">
+              <div class="lockBox">
+                <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
+                <div class="small">Sblocca per scoprire dove “sotto le stelle”.</div>
               </div>
             </div>
           </article>
 
-          <!-- 4 -->
+          <!-- 4) Saghe -->
           <article class="card locked" data-step="4">
-            <div class="cardInner">
-              <div class="cardTop">
-                <div>
-                  <h2 class="cardTitle">Saghe in Arrivo</h2>
-                  <div class="pill red" style="display:inline-flex; margin-top:8px;">Dune, Scream… e altro</div>
-                </div>
-                <div class="cardNum">04/05</div>
+            <div class="cardTop">
+              <div>
+                <h2 class="cardTitle">Saghe in Arrivo</h2>
+                <div class="pill red" style="display:inline-flex; margin-top:8px;">Dune, Scream… e altro</div>
               </div>
+              <div class="cardNum">04/05</div>
+            </div>
 
-              <div class="media">
-                <!-- Original poster-like cards (no posters reali) -->
-                <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Saghe in arrivo">
-                  <defs>
-                    <linearGradient id="p1" x1="0" x2="1">
-                      <stop offset="0%" stop-color="rgba(255,23,68,.35)"/>
-                      <stop offset="100%" stop-color="rgba(0,0,0,.2)"/>
-                    </linearGradient>
-                    <linearGradient id="p2" x1="0" x2="1">
-                      <stop offset="0%" stop-color="rgba(124,77,255,.35)"/>
-                      <stop offset="100%" stop-color="rgba(0,0,0,.2)"/>
-                    </linearGradient>
-                  </defs>
+            <div class="media">
+              <!-- Original “poster-like” cards (no real posters) -->
+              <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Saghe in arrivo">
+                <defs>
+                  <linearGradient id="p1" x1="0" x2="1">
+                    <stop offset="0%" stop-color="rgba(255,23,68,.35)"/>
+                    <stop offset="100%" stop-color="rgba(0,0,0,.2)"/>
+                  </linearGradient>
+                  <linearGradient id="p2" x1="0" x2="1">
+                    <stop offset="0%" stop-color="rgba(124,77,255,.35)"/>
+                    <stop offset="100%" stop-color="rgba(0,0,0,.2)"/>
+                  </linearGradient>
+                </defs>
 
-                  <rect width="900" height="520" fill="rgba(0,0,0,0)"/>
-                  <g transform="translate(90,90)">
-                    <g>
-                      <rect x="0" y="0" width="220" height="320" rx="18" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
-                      <rect x="16" y="16" width="188" height="200" rx="14" fill="url(#p2)" />
-                      <text x="110" y="120" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="28" fill="rgba(240,239,246,.95)" letter-spacing="4">DUNE</text>
-                      <text x="110" y="155" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="3">SABBIA • SPEZIA • DESTINO</text>
-                      <text x="110" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="16" fill="rgba(184,178,201,.95)" letter-spacing="2">BRUNO SPECIAL</text>
-                    </g>
+                <rect width="900" height="520" fill="rgba(0,0,0,0)"/>
 
-                    <g transform="translate(250,0)">
-                      <rect x="0" y="0" width="220" height="320" rx="18" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
-                      <rect x="16" y="16" width="188" height="200" rx="14" fill="url(#p1)" />
-                      <text x="110" y="120" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="26" fill="rgba(240,239,246,.95)" letter-spacing="4">SCREAM</text>
-                      <text x="110" y="155" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="3">LA CHIAMATA</text>
-                      <text x="110" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="16" fill="rgba(184,178,201,.95)" letter-spacing="2">BRUNO HORROR</text>
-                    </g>
-
-                    <g transform="translate(500,0)">
-                      <rect x="0" y="0" width="220" height="320" rx="18" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
-                      <rect x="16" y="16" width="188" height="200" rx="14" fill="rgba(255,255,255,.06)" />
-                      <text x="110" y="118" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="24" fill="rgba(240,239,246,.95)" letter-spacing="4">ALTRO</text>
-                      <text x="110" y="155" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="3">SAGHE & ONE-NIGHT</text>
-                      <text x="110" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="16" fill="rgba(184,178,201,.95)" letter-spacing="2">BRUNOVERSE</text>
-                    </g>
+                <g transform="translate(90,90)">
+                  <!-- card A -->
+                  <g>
+                    <rect x="0" y="0" width="220" height="320" rx="18" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
+                    <rect x="16" y="16" width="188" height="200" rx="14" fill="url(#p2)" />
+                    <text x="110" y="120" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="28" fill="rgba(240,239,246,.95)" letter-spacing="4">DUNE</text>
+                    <text x="110" y="155" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="3">SABBIA • SPEZIA • DESTINO</text>
+                    <text x="110" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="16" fill="rgba(184,178,201,.95)" letter-spacing="2">BRUNO SPECIAL</text>
                   </g>
-                </svg>
-              </div>
 
-              <div class="content">
-                <p>
-                  Arrivano saghe e special night: <b>Dune</b>, <b>Scream</b> e altro.
-                  Non è una rassegna: è un <b>BrunoVerse</b>.
-                </p>
-              </div>
+                  <!-- card B -->
+                  <g transform="translate(250,0)">
+                    <rect x="0" y="0" width="220" height="320" rx="18" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
+                    <rect x="16" y="16" width="188" height="200" rx="14" fill="url(#p1)" />
+                    <text x="110" y="120" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="26" fill="rgba(240,239,246,.95)" letter-spacing="4">SCREAM</text>
+                    <text x="110" y="155" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="3">LA CHIAMATA</text>
+                    <text x="110" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="16" fill="rgba(184,178,201,.95)" letter-spacing="2">BRUNO HORROR</text>
+                  </g>
 
-              <div class="lockOverlay">
-                <div class="lockBox">
-                  <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
-                  <div class="small">Sblocca per vedere le saghe in arrivo.</div>
-                </div>
+                  <!-- card C -->
+                  <g transform="translate(500,0)">
+                    <rect x="0" y="0" width="220" height="320" rx="18" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
+                    <rect x="16" y="16" width="188" height="200" rx="14" fill="rgba(255,255,255,.06)" />
+                    <text x="110" y="118" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="24" fill="rgba(240,239,246,.95)" letter-spacing="4">ALTRO</text>
+                    <text x="110" y="155" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="3">SAGHE & ONE-NIGHT</text>
+                    <text x="110" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="16" fill="rgba(184,178,201,.95)" letter-spacing="2">BRUNOVERSE</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+
+            <div class="content">
+              <p>
+                Non una saga sola: un intero <b>BrunoVerse</b>.
+                Dune, Scream e altre sorprese (alcune… meglio non dirle ad alta voce).
+              </p>
+            </div>
+
+            <div class="lockOverlay">
+              <div class="lockBox">
+                <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
+                <div class="small">Sblocca per vedere le saghe in arrivo.</div>
               </div>
             </div>
           </article>
 
-          <!-- 5 -->
+          <!-- 5) Stay tuned -->
           <article class="card locked" data-step="5">
-            <div class="cardInner">
-              <div class="cardTop">
-                <div>
-                  <h2 class="cardTitle">Molto altro…</h2>
-                  <div class="pill" style="display:inline-flex; margin-top:8px;">Stay tuned</div>
-                </div>
-                <div class="cardNum">05/05</div>
+            <div class="cardTop">
+              <div>
+                <h2 class="cardTitle">Molto altro…</h2>
+                <div class="pill" style="display:inline-flex; margin-top:8px;">Stay tuned</div>
               </div>
+              <div class="cardNum">05/05</div>
+            </div>
 
-              <div class="media">
-                <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stay tuned">
-                  <defs>
-                    <linearGradient id="g" x1="0" x2="1">
-                      <stop offset="0%" stop-color="rgba(255,23,68,.22)"/>
-                      <stop offset="100%" stop-color="rgba(124,77,255,.22)"/>
-                    </linearGradient>
-                  </defs>
-                  <rect width="900" height="520" fill="rgba(0,0,0,0)"/>
-                  <rect x="90" y="120" width="720" height="280" rx="26" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
-                  <rect x="120" y="150" width="660" height="220" rx="22" fill="url(#g)" opacity=".8"/>
-                  <text x="450" y="250" text-anchor="middle" font-family="ui-sans-serif, system-ui"
-                        font-size="52" fill="rgba(240,239,246,.95)" letter-spacing="4">
-                    MOLTO ALTRO
-                  </text>
-                  <text x="450" y="310" text-anchor="middle" font-family="ui-sans-serif, system-ui"
-                        font-size="22" fill="rgba(240,239,246,.85)" letter-spacing="3">
-                    ARRIVERÀ… STAY TUNED
-                  </text>
-                </svg>
-              </div>
+            <div class="media">
+              <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stay tuned">
+                <defs>
+                  <linearGradient id="g" x1="0" x2="1">
+                    <stop offset="0%" stop-color="rgba(255,23,68,.22)"/>
+                    <stop offset="100%" stop-color="rgba(124,77,255,.22)"/>
+                  </linearGradient>
+                </defs>
+                <rect width="900" height="520" fill="rgba(0,0,0,0)"/>
+                <rect x="90" y="120" width="720" height="280" rx="26" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
+                <rect x="120" y="150" width="660" height="220" rx="22" fill="url(#g)" opacity=".8"/>
+                <text x="450" y="250" text-anchor="middle" font-family="ui-sans-serif, system-ui"
+                      font-size="52" fill="rgba(240,239,246,.95)" letter-spacing="4">
+                  MOLTO ALTRO
+                </text>
+                <text x="450" y="310" text-anchor="middle" font-family="ui-sans-serif, system-ui"
+                      font-size="22" fill="rgba(240,239,246,.85)" letter-spacing="3">
+                  ARRIVERÀ… STAY TUNED
+                </text>
+              </svg>
+            </div>
 
-              <div class="content">
-                <p>
-                  Questo è solo uno spoiler. Il resto… arriva quando Bruno decide. 👁️
-                </p>
-              </div>
+            <div class="content">
+              <p>
+                Questo è solo l’antipasto. Il resto arriverà quando Bruno deciderà che è il momento giusto. 👁️
+              </p>
+            </div>
 
-              <div class="lockOverlay">
-                <div class="lockBox">
-                  <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
-                  <div class="small">Sblocca per leggere l’ultimo messaggio.</div>
-                </div>
+            <div class="lockOverlay">
+              <div class="lockBox">
+                <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
+                <div class="small">Sblocca per leggere l’ultimo messaggio.</div>
               </div>
             </div>
           </article>
 
         </div>
-      </div>
 
-      <div class="nav">
-        <button class="btn" id="prev">⬅️</button>
-        <div class="counter" id="counter">FIGURINA 1 / 5</div>
-        <button class="btn" id="next">➡️</button>
-      </div>
+        <div class="navArrows">
+          <button class="btn" id="prev">⬅️</button>
+          <button class="btn" id="next">➡️</button>
+        </div>
 
-      <div class="footer">Tip: swipe su mobile — frecce su desktop — tastiera ← →.</div>
+        <div class="footer">© BrunoDay — spoiler controllati, hype garantito.</div>
+      </div>
     </section>
   </div>
 
   <script>
-    // ====== CONFIG ======
-    // Metti qui la cartella assets corretta:
-    // - se sei in /evento/spoiler.html e assets è /assets/ -> "../assets/"
-    // - se sei in /spoiler.html e assets è /assets/ -> "./assets/"
-    const ASSET_BASE = "../assets/";
-    const LOGO_FILE = "LogoPNG.png";
-    const BEAR_FILE = "bruno-bear.png"; // rinomina la tua immagine a questo nome
-
-    // ====== SLIDER + LOCK ======
-    const track = document.getElementById("track");
+    const carousel = document.getElementById("carousel");
     const cards = [...document.querySelectorAll(".card")].sort((a,b)=> (+a.dataset.step)-(+b.dataset.step));
-    const btnPrev = document.getElementById("prev");
-    const btnNext = document.getElementById("next");
     const btnUnlockNext = document.getElementById("unlockNext");
     const btnUnlockAll = document.getElementById("unlockAll");
     const btnReset = document.getElementById("reset");
-    const counter = document.getElementById("counter");
+    const btnPrev = document.getElementById("prev");
+    const btnNext = document.getElementById("next");
 
-    // inject asset href in SVG <image>
-    const setHref = (id, url) => {
-      const el = document.getElementById(id);
-      if (el) el.setAttribute("href", url);
-    };
-    setHref("logoInTrophy", ASSET_BASE + LOGO_FILE);
-    setHref("logoOnCap",   ASSET_BASE + LOGO_FILE);
-    setHref("bearOnTee",   ASSET_BASE + BEAR_FILE);
-
-    let index = 0;
-
-    function update(){
-      track.style.transform = `translateX(${-index * 100}%)`;
-      counter.textContent = `FIGURINA ${index+1} / ${cards.length}`;
+    function getLocked(){
+      return cards.filter(c => c.classList.contains("locked"));
     }
-
-    function go(dir){
-      const nextIndex = Math.max(0, Math.min(cards.length - 1, index + dir));
-      index = nextIndex;
-      update();
+    function nextLockedCard(){
+      return getLocked()[0] || null;
     }
-
-    function nextLocked(){
-      return cards.find(c => c.classList.contains("locked")) || null;
-    }
-
-    function reveal(card){
+    function revealCard(card){
       if(!card) return;
       card.classList.remove("locked");
-      const ov = card.querySelector(".lockOverlay");
-      if(ov) ov.remove();
+      const overlay = card.querySelector(".lockOverlay");
+      if(overlay) overlay.remove();
+
+      card.classList.add("reveal");
+      setTimeout(()=> card.classList.remove("reveal"), 650);
+
+      card.scrollIntoView({behavior:"smooth", block:"nearest", inline:"center"});
     }
 
     function unlockNext(){
-      const locked = nextLocked();
+      const locked = nextLockedCard();
       if(!locked){
         btnUnlockNext.textContent = "✅ Tutto sbloccato";
         btnUnlockNext.disabled = true;
         btnUnlockNext.style.opacity = .7;
         return;
       }
-      reveal(locked);
-      // porta alla figurina appena sbloccata
-      const step = +locked.dataset.step;
-      index = step - 1;
-      update();
+      revealCard(locked);
     }
 
     function unlockAll(){
-      cards.forEach(c => {
-        c.classList.remove("locked");
-        const ov = c.querySelector(".lockOverlay");
-        if(ov) ov.remove();
-      });
+      getLocked().forEach(revealCard);
       btnUnlockNext.textContent = "✅ Tutto sbloccato";
       btnUnlockNext.disabled = true;
       btnUnlockNext.style.opacity = .7;
@@ -752,12 +703,17 @@
     function resetAll(){
       cards.forEach(c=>{
         const step = +c.dataset.step;
+        // step 1 unlocked, others locked
         if(step === 1){
           c.classList.remove("locked");
+          // ensure overlay removed
           const ov = c.querySelector(".lockOverlay");
           if(ov) ov.remove();
         } else {
-          c.classList.add("locked");
+          // rebuild overlay if missing
+          if(!c.classList.contains("locked")){
+            c.classList.add("locked");
+          }
           if(!c.querySelector(".lockOverlay")){
             const overlay = document.createElement("div");
             overlay.className = "lockOverlay";
@@ -766,57 +722,35 @@
                 <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
                 <div class="small">Sblocca per vedere lo spoiler.</div>
               </div>`;
-            c.querySelector(".cardInner").appendChild(overlay);
+            c.appendChild(overlay);
           }
         }
       });
+
       btnUnlockNext.textContent = "👁️ Sblocca il prossimo";
       btnUnlockNext.disabled = false;
       btnUnlockNext.style.opacity = 1;
-      index = 0;
-      update();
+      cards[0].scrollIntoView({behavior:"smooth", block:"nearest", inline:"center"});
     }
 
-    btnPrev.addEventListener("click", ()=>go(-1));
-    btnNext.addEventListener("click", ()=>go(1));
+    function scrollByCard(dir){
+      const cardWidth = cards[0].getBoundingClientRect().width + 16;
+      carousel.scrollBy({left: dir * cardWidth, behavior:"smooth"});
+    }
+
     btnUnlockNext.addEventListener("click", unlockNext);
     btnUnlockAll.addEventListener("click", unlockAll);
     btnReset.addEventListener("click", resetAll);
+    btnPrev.addEventListener("click", ()=>scrollByCard(-1));
+    btnNext.addEventListener("click", ()=>scrollByCard(1));
 
-    // keyboard arrows
-    window.addEventListener("keydown", (e)=>{
-      if(e.key === "ArrowLeft") go(-1);
-      if(e.key === "ArrowRight") go(1);
+    // start centered on first card
+    window.addEventListener("load", ()=> {
+      cards[0].scrollIntoView({behavior:"instant", block:"nearest", inline:"center"});
     });
-
-    // swipe support (drag)
-    let startX = 0;
-    let dragging = false;
-
-    track.addEventListener("pointerdown", (e)=>{
-      dragging = true;
-      startX = e.clientX;
-      track.setPointerCapture(e.pointerId);
-    });
-
-    track.addEventListener("pointerup", (e)=>{
-      if(!dragging) return;
-      dragging = false;
-      const dx = e.clientX - startX;
-      const threshold = 50; // px
-      if(dx > threshold) go(-1);
-      else if(dx < -threshold) go(1);
-      else update();
-    });
-
-    track.addEventListener("pointercancel", ()=>{
-      dragging = false;
-      update();
-    });
-
-    update();
   </script>
 </body>
 </html>
+
 
 
