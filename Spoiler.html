@@ -188,6 +188,13 @@
       overflow:hidden;
     }
 
+    .media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
     .content{
       padding:14px 16px 18px;
     }
@@ -262,7 +269,7 @@
       </div>
 
       <div class="topActions">
-        <a class="btn" href="../index.html">⟵ Home</a>
+        <a class="btn" href="./index.html">⟵ Home</a>
         <button class="btn primary" id="unlockNext">👁️ Sblocca il prossimo</button>
         <button class="btn" id="unlockAll">🔓 Sblocca tutto</button>
         <button class="btn" id="reset">🧽 Reset</button>
@@ -298,62 +305,13 @@
             </div>
 
             <div class="media">
-              <!-- Trophy SVG (orso + logo) -->
-              <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Statuetta orso BrunoOscar">
-                <defs>
-                  <radialGradient id="gGold" cx="30%" cy="25%">
-                    <stop offset="0%" stop-color="#ffe6a6"/>
-                    <stop offset="55%" stop-color="#ffcc4d"/>
-                    <stop offset="100%" stop-color="#b07a00"/>
-                  </radialGradient>
-                  <linearGradient id="gBase" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stop-color="#14131a"/>
-                    <stop offset="100%" stop-color="#07060a"/>
-                  </linearGradient>
-                  <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="rgba(0,0,0,.65)"/>
-                  </filter>
-                </defs>
-
-                <rect x="0" y="0" width="900" height="520" fill="rgba(0,0,0,0)"/>
-                <g filter="url(#shadow)" transform="translate(0,0)">
-                  <!-- pedestal -->
-                  <path d="M290 430 Q450 495 610 430 L590 365 Q450 410 310 365 Z" fill="url(#gBase)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
-                  <rect x="340" y="380" width="220" height="52" rx="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
-                  <text x="450" y="414" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="22" fill="rgba(240,239,246,.9)" letter-spacing="3">BRUNOOSCAR</text>
-
-                  <!-- body -->
-                  <path d="M390 330 Q450 360 510 330 Q545 260 505 210 Q450 160 395 210 Q355 260 390 330 Z"
-                        fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
-                  <!-- head -->
-                  <path d="M330 210 Q450 80 570 210 Q560 320 450 330 Q340 320 330 210 Z"
-                        fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
-                  <!-- ears -->
-                  <path d="M320 190 Q320 125 375 130 Q400 140 395 185 Q360 205 320 190 Z" fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
-                  <path d="M580 190 Q580 125 525 130 Q500 140 505 185 Q540 205 580 190 Z" fill="url(#gGold)" stroke="rgba(0,0,0,.35)" stroke-width="6"/>
-
-                  <!-- snout + nose -->
-                  <path d="M410 240 Q450 270 490 240 Q495 300 450 302 Q405 300 410 240 Z"
-                        fill="rgba(0,0,0,.18)" stroke="rgba(0,0,0,.25)" stroke-width="4"/>
-                  <path d="M435 240 Q450 228 465 240 Q462 255 450 258 Q438 255 435 240 Z" fill="rgba(0,0,0,.55)"/>
-
-                  <!-- logo badge (uses your LogoPNG.png) -->
-                  <circle cx="450" cy="305" r="38" fill="rgba(0,0,0,.18)" stroke="rgba(255,255,255,.22)" stroke-width="2"/>
-                  <image href="../assets/LogoPNG.png" x="420" y="275" width="60" height="60" preserveAspectRatio="xMidYMid meet"/>
-                </g>
-
-                <text x="450" y="70" text-anchor="middle"
-                      font-family="ui-sans-serif, system-ui" font-size="34"
-                      fill="rgba(240,239,246,.92)" letter-spacing="2">
-                  “Stasera non posso… c’è il BrunoOscar.”
-                </text>
-              </svg>
+              <img src="assets/images/brunooscar-trophy.png" alt="Statuetta BrunoOscar">
             </div>
 
             <div class="content">
               <p>
                 Una notte “Oscar” in stile BrunoDay: premi improbabili, categorie assurde,
-                clip iconiche, e una statuetta ufficiale: <b>l’Orso d’Oro Bruno</b> 🐻✨
+                e una statuetta ufficiale: <b>l’Orso d’Oro Bruno</b> 🐻✨
               </p>
             </div>
           </article>
@@ -369,51 +327,12 @@
             </div>
 
             <div class="media">
-              <!-- Simple mockups: tee + cap (SVG) -->
-              <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mockup maglietta e cappellino BrunoDay">
-                <defs>
-                  <filter id="ds" x="-40%" y="-40%" width="180%" height="180%">
-                    <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="rgba(0,0,0,.65)"/>
-                  </filter>
-                </defs>
-
-                <rect width="900" height="520" fill="rgba(0,0,0,0)"/>
-
-                <!-- T-shirt -->
-                <g filter="url(#ds)" transform="translate(130,70)">
-                  <path d="M130 70 L200 20 L280 20 L350 70 L300 120 L300 340 Q240 375 180 340 L180 120 Z"
-                        fill="#0f0f14" stroke="rgba(255,255,255,.18)" stroke-width="3" />
-                  <path d="M222 20 Q240 60 258 20" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="10" stroke-linecap="round"/>
-
-                  <!-- print (your bear image) -->
-                  <rect x="205" y="135" width="120" height="120" rx="18" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
-                  <image href="../assets/bruno-bear.png" x="212" y="142" width="106" height="106" preserveAspectRatio="xMidYMid meet"/>
-                  <text x="265" y="285" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="18" fill="rgba(240,239,246,.85)" letter-spacing="2">
-                    TEE “BRUNO”
-                  </text>
-                </g>
-
-                <!-- Cap -->
-                <g filter="url(#ds)" transform="translate(520,140)">
-                  <path d="M70 140 Q130 40 250 80 Q315 105 300 175 Q210 220 110 190 Q55 175 70 140 Z"
-                        fill="#0f0f14" stroke="rgba(255,255,255,.18)" stroke-width="3"/>
-                  <path d="M40 170 Q120 160 220 190 Q280 205 320 195"
-                        fill="none" stroke="rgba(0,0,0,.5)" stroke-width="24" stroke-linecap="round"/>
-                  <path d="M40 170 Q120 160 220 190 Q280 205 320 195"
-                        fill="none" stroke="rgba(255,255,255,.10)" stroke-width="3" stroke-linecap="round"/>
-
-                  <circle cx="175" cy="135" r="32" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
-                  <image href="../assets/LogoPNG.png" x="150" y="110" width="50" height="50" preserveAspectRatio="xMidYMid meet"/>
-                  <text x="175" y="245" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="18" fill="rgba(240,239,246,.85)" letter-spacing="2">
-                    CAP “LOGO”
-                  </text>
-                </g>
-              </svg>
+              <img src="assets/images/shop-merch-hero.png" alt="Mini Shop BrunoDay (merch)">
             </div>
 
             <div class="content">
               <p>
-                Presto potrai prendere <b>merch BrunoDay</b>: magliette, cappellini e chicche limitate.
+                Presto potrai prendere <b>merch BrunoDay</b>: magliette, cappellini e gadget.
                 Roba da indossare quando vuoi dire: “Stasera non posso… c’è il BrunoDay.” 😎
               </p>
             </div>
@@ -431,96 +350,26 @@
             <div class="cardTop">
               <div>
                 <h2 class="cardTitle">Cinema sotto le Stelle</h2>
-                <div class="pill" style="display:inline-flex; margin-top:8px;">Giardino, lucine, proiettore</div>
+                <div class="pill" style="display:inline-flex; margin-top:8px;">Open-air, notte, stelle</div>
               </div>
               <div class="cardNum">03/05</div>
             </div>
 
             <div class="media">
-              <!-- Garden + projector (SVG) -->
-              <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cinema sotto le stelle">
-                <defs>
-                  <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stop-color="#0b0b18"/>
-                    <stop offset="55%" stop-color="#070612"/>
-                    <stop offset="100%" stop-color="#04040a"/>
-                  </linearGradient>
-                  <radialGradient id="starGlow" cx="50%" cy="40%">
-                    <stop offset="0%" stop-color="rgba(255,255,255,.55)"/>
-                    <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-                  </radialGradient>
-                  <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="2"/>
-                  </filter>
-                </defs>
-
-                <rect width="900" height="520" fill="url(#sky)"/>
-
-                <!-- stars -->
-                <g opacity=".9">
-                  <circle cx="120" cy="90" r="2" fill="white"/>
-                  <circle cx="220" cy="70" r="1.6" fill="white"/>
-                  <circle cx="310" cy="120" r="1.3" fill="white"/>
-                  <circle cx="430" cy="80" r="1.8" fill="white"/>
-                  <circle cx="560" cy="110" r="1.4" fill="white"/>
-                  <circle cx="710" cy="70" r="1.6" fill="white"/>
-                  <circle cx="820" cy="130" r="1.2" fill="white"/>
-                  <circle cx="760" cy="160" r="1.2" fill="white"/>
-                  <circle cx="620" cy="170" r="1.2" fill="white"/>
-                  <circle cx="190" cy="160" r="1.2" fill="white"/>
-                  <circle cx="380" cy="170" r="1.2" fill="white"/>
-                </g>
-                <circle cx="450" cy="140" r="140" fill="url(#starGlow)" opacity=".16"/>
-
-                <!-- garden ground -->
-                <path d="M0 360 Q220 310 450 350 Q700 400 900 340 L900 520 L0 520 Z" fill="#07120a"/>
-
-                <!-- fairy lights -->
-                <path d="M120 280 Q260 240 420 275 Q560 305 720 255 Q800 230 860 250"
-                      fill="none" stroke="rgba(255,255,255,.18)" stroke-width="4" stroke-linecap="round"/>
-                <g filter="url(#soft)">
-                  <circle cx="160" cy="272" r="7" fill="rgba(255,200,80,.9)"/>
-                  <circle cx="240" cy="252" r="7" fill="rgba(255,200,80,.9)"/>
-                  <circle cx="325" cy="260" r="7" fill="rgba(255,200,80,.9)"/>
-                  <circle cx="410" cy="275" r="7" fill="rgba(255,200,80,.9)"/>
-                  <circle cx="495" cy="286" r="7" fill="rgba(255,200,80,.9)"/>
-                  <circle cx="585" cy="292" r="7" fill="rgba(255,200,80,.9)"/>
-                  <circle cx="675" cy="270" r="7" fill="rgba(255,200,80,.9)"/>
-                  <circle cx="760" cy="246" r="7" fill="rgba(255,200,80,.9)"/>
-                  <circle cx="840" cy="252" r="7" fill="rgba(255,200,80,.9)"/>
-                </g>
-
-                <!-- screen -->
-                <g>
-                  <rect x="110" y="250" width="260" height="150" rx="14" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.22)" stroke-width="3"/>
-                  <rect x="130" y="270" width="220" height="110" rx="10" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.10)"/>
-                  <text x="240" y="332" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="18" fill="rgba(240,239,246,.9)" letter-spacing="2">
-                    BRUNODAY OPEN AIR
-                  </text>
-                </g>
-
-                <!-- projector -->
-                <g>
-                  <rect x="620" y="320" width="150" height="80" rx="16" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
-                  <circle cx="650" cy="360" r="18" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
-                  <circle cx="710" cy="360" r="18" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
-                  <path d="M770 350 Q860 335 900 320" fill="none" stroke="rgba(124,77,255,.25)" stroke-width="22" stroke-linecap="round"/>
-                  <path d="M770 350 Q860 335 900 320" fill="none" stroke="rgba(255,23,68,.18)" stroke-width="12" stroke-linecap="round"/>
-                </g>
-              </svg>
+              <img src="assets/images/cinema-openair-night.png" alt="Cinema sotto le stelle">
             </div>
 
             <div class="content">
               <p>
-                Una serata open-air: giardino, lucine, proiettore e cielo pieno di stelle.
-                Il cinema diventa atmosfera. <b>Molto Bruno. Molto wow.</b>
+                Un vero <b>cinema all’aperto</b>: schermo, sedute, lucine calde e cielo stellato.
+                Ci si porta il plaid. E si resta fino all’ultimo frame.
               </p>
             </div>
 
             <div class="lockOverlay">
               <div class="lockBox">
                 <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
-                <div class="small">Sblocca per scoprire dove “sotto le stelle”.</div>
+                <div class="small">Sblocca per vedere il cinema sotto le stelle.</div>
               </div>
             </div>
           </article>
@@ -530,69 +379,26 @@
             <div class="cardTop">
               <div>
                 <h2 class="cardTitle">Saghe in Arrivo</h2>
-                <div class="pill red" style="display:inline-flex; margin-top:8px;">Dune, Scream… e altro</div>
+                <div class="pill red" style="display:inline-flex; margin-top:8px;">Horror + Sci-Fi</div>
               </div>
               <div class="cardNum">04/05</div>
             </div>
 
             <div class="media">
-              <!-- Original “poster-like” cards (no real posters) -->
-              <svg width="100%" height="100%" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Saghe in arrivo">
-                <defs>
-                  <linearGradient id="p1" x1="0" x2="1">
-                    <stop offset="0%" stop-color="rgba(255,23,68,.35)"/>
-                    <stop offset="100%" stop-color="rgba(0,0,0,.2)"/>
-                  </linearGradient>
-                  <linearGradient id="p2" x1="0" x2="1">
-                    <stop offset="0%" stop-color="rgba(124,77,255,.35)"/>
-                    <stop offset="100%" stop-color="rgba(0,0,0,.2)"/>
-                  </linearGradient>
-                </defs>
-
-                <rect width="900" height="520" fill="rgba(0,0,0,0)"/>
-
-                <g transform="translate(90,90)">
-                  <!-- card A -->
-                  <g>
-                    <rect x="0" y="0" width="220" height="320" rx="18" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
-                    <rect x="16" y="16" width="188" height="200" rx="14" fill="url(#p2)" />
-                    <text x="110" y="120" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="28" fill="rgba(240,239,246,.95)" letter-spacing="4">DUNE</text>
-                    <text x="110" y="155" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="3">SABBIA • SPEZIA • DESTINO</text>
-                    <text x="110" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="16" fill="rgba(184,178,201,.95)" letter-spacing="2">BRUNO SPECIAL</text>
-                  </g>
-
-                  <!-- card B -->
-                  <g transform="translate(250,0)">
-                    <rect x="0" y="0" width="220" height="320" rx="18" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
-                    <rect x="16" y="16" width="188" height="200" rx="14" fill="url(#p1)" />
-                    <text x="110" y="120" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="26" fill="rgba(240,239,246,.95)" letter-spacing="4">SCREAM</text>
-                    <text x="110" y="155" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="3">LA CHIAMATA</text>
-                    <text x="110" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="16" fill="rgba(184,178,201,.95)" letter-spacing="2">BRUNO HORROR</text>
-                  </g>
-
-                  <!-- card C -->
-                  <g transform="translate(500,0)">
-                    <rect x="0" y="0" width="220" height="320" rx="18" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
-                    <rect x="16" y="16" width="188" height="200" rx="14" fill="rgba(255,255,255,.06)" />
-                    <text x="110" y="118" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="24" fill="rgba(240,239,246,.95)" letter-spacing="4">ALTRO</text>
-                    <text x="110" y="155" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="12" fill="rgba(240,239,246,.85)" letter-spacing="3">SAGHE & ONE-NIGHT</text>
-                    <text x="110" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="16" fill="rgba(184,178,201,.95)" letter-spacing="2">BRUNOVERSE</text>
-                  </g>
-                </g>
-              </svg>
+              <img src="assets/images/saghe-split-original.png" alt="Saghe in arrivo (split)">
             </div>
 
             <div class="content">
               <p>
-                Non una saga sola: un intero <b>BrunoVerse</b>.
-                Dune, Scream e altre sorprese (alcune… meglio non dirle ad alta voce).
+                Nuove saghe in arrivo: vibe <b>Horror</b> e vibe <b>Sci-Fi</b>.
+                Una parte urla… l’altra sussurra nel deserto. 👁️
               </p>
             </div>
 
             <div class="lockOverlay">
               <div class="lockBox">
                 <div style="font-size:20px; font-weight:900;">🔒 Censurato</div>
-                <div class="small">Sblocca per vedere le saghe in arrivo.</div>
+                <div class="small">Sblocca per scoprire quali saghe arrivano.</div>
               </div>
             </div>
           </article>
@@ -703,17 +509,12 @@
     function resetAll(){
       cards.forEach(c=>{
         const step = +c.dataset.step;
-        // step 1 unlocked, others locked
         if(step === 1){
           c.classList.remove("locked");
-          // ensure overlay removed
           const ov = c.querySelector(".lockOverlay");
           if(ov) ov.remove();
         } else {
-          // rebuild overlay if missing
-          if(!c.classList.contains("locked")){
-            c.classList.add("locked");
-          }
+          if(!c.classList.contains("locked")) c.classList.add("locked");
           if(!c.querySelector(".lockOverlay")){
             const overlay = document.createElement("div");
             overlay.className = "lockOverlay";
@@ -744,13 +545,13 @@
     btnPrev.addEventListener("click", ()=>scrollByCard(-1));
     btnNext.addEventListener("click", ()=>scrollByCard(1));
 
-    // start centered on first card
     window.addEventListener("load", ()=> {
       cards[0].scrollIntoView({behavior:"instant", block:"nearest", inline:"center"});
     });
   </script>
 </body>
 </html>
+
 
 
 
