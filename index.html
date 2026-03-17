@@ -452,6 +452,185 @@
       transition: 0.2s;
     }
 
+    /* ===== BRUNO OSCAR HOME – TRAILER STYLE ===== */
+    .oscar-home {
+      margin-top: 8px;
+      margin-bottom: 6px;
+    }
+
+    .oscar-trailer {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      min-height: 300px;
+      text-decoration: none;
+      color: var(--bd-light);
+      border: 1px solid rgba(247, 199, 68, 0.24);
+      box-shadow: 0 24px 46px rgba(0,0,0,0.8);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(211,19,47,0.30), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(22,135,200,0.24), transparent 34%),
+        linear-gradient(135deg, rgba(0,0,0,0.55), rgba(3,6,14,0.8)),
+        url('assets/images/brunooscar-home.jpg') center/cover no-repeat;
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease, filter 0.28s ease;
+    }
+
+    .oscar-trailer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.55) 38%, rgba(0,0,0,0.28) 100%);
+      z-index: 1;
+    }
+
+    .oscar-trailer::after {
+      content: "";
+      position: absolute;
+      top: -35%;
+      left: -20%;
+      width: 32%;
+      height: 180%;
+      background: linear-gradient(120deg, transparent 0%, rgba(247,199,68,0.38) 45%, transparent 82%);
+      transform: translateX(-140%) rotate(8deg);
+      opacity: 0;
+      z-index: 2;
+    }
+
+    .oscar-trailer:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.92), 0 0 24px rgba(247,199,68,0.18);
+      border-color: rgba(247,199,68,0.42);
+      text-decoration: none;
+      filter: brightness(1.05);
+    }
+
+    .oscar-trailer:hover::after {
+      opacity: 1;
+      animation: oscarTrailerShine 1.2s ease forwards;
+    }
+
+    @keyframes oscarTrailerShine {
+      0%   { transform: translateX(-140%) rotate(8deg); opacity: 0; }
+      15%  { opacity: 0.2; }
+      50%  { opacity: 0.65; }
+      100% { transform: translateX(430%) rotate(8deg); opacity: 0; }
+    }
+
+    .oscar-trailer-inner {
+      position: relative;
+      z-index: 3;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 34px 30px;
+    }
+
+    .oscar-trailer-copy {
+      max-width: 600px;
+    }
+
+    .oscar-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.58);
+      border: 1px solid rgba(247,199,68,0.24);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--bd-light);
+      margin-bottom: 12px;
+    }
+
+    .oscar-kicker-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--bd-red);
+      box-shadow: 0 0 10px rgba(211,19,47,0.9);
+    }
+
+    .oscar-trailer-title {
+      font-family: "Anton", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 0.98;
+      color: var(--bd-yellow);
+      text-shadow: -2px 2px 0 #000, 0 0 24px rgba(0,0,0,0.85);
+      margin-bottom: 12px;
+    }
+
+    .oscar-trailer-text {
+      font-size: 0.98rem;
+      color: #e1dac4;
+      max-width: 560px;
+    }
+
+    .oscar-trailer-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .oscar-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.46);
+      border: 1px solid rgba(247,199,68,0.18);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #f1e7c0;
+    }
+
+    .oscar-trailer-side {
+      flex: 0 0 210px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .oscar-play {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.55);
+      border: 2px solid rgba(247,199,68,0.48);
+      box-shadow: 0 0 22px rgba(247,199,68,0.24), inset 0 0 24px rgba(255,255,255,0.04);
+      font-size: 2rem;
+      color: var(--bd-yellow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .oscar-trailer:hover .oscar-play {
+      transform: scale(1.08);
+      box-shadow: 0 0 28px rgba(247,199,68,0.32), inset 0 0 24px rgba(255,255,255,0.08);
+    }
+
+    .oscar-enter-label {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #efe3b6;
+      text-shadow: 0 0 10px rgba(0,0,0,0.8);
+    }
+
     .cta-fanclub {
       display: grid;
       grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.3fr);
@@ -619,6 +798,26 @@
       .hero-title::after { left: 50%; transform: translateX(-50%) skewX(-12deg); }
       .logo-box { flex: 0 0 90px; }
       .fancard-body { grid-template-columns: minmax(0, 1fr); justify-items: flex-start; }
+
+      .oscar-trailer-inner {
+        min-height: 280px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        padding: 24px 20px;
+      }
+
+      .oscar-trailer-side {
+        flex: 0 0 auto;
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .oscar-play {
+        width: 76px;
+        height: 76px;
+        font-size: 1.6rem;
+      }
     }
 
     /* ===== POPUP VACANZA (fino al 6 gennaio) ===== */
@@ -828,10 +1027,45 @@
         BRUNODAY EVENTI – CLICCA QUI
         <span class="event-banner-icon">🔪</span>
         <div class="event-banner-sub">
-          Nuovo evento speciale... 
+          Nuovo evento speciale...
         </div>
       </div>
     </a>
+
+    <!-- BRUNO OSCAR HOME – TRAILER -->
+    <section class="oscar-home">
+      <a href="brunooscar.html" class="oscar-trailer" aria-label="Apri BrunoOscar Night">
+        <div class="oscar-trailer-inner">
+          <div class="oscar-trailer-copy">
+            <div class="oscar-kicker">
+              <span class="oscar-kicker-dot"></span>
+              BrunoOscar Night
+            </div>
+
+            <h2 class="oscar-trailer-title">La notte più importante dell’anno BrunoDay</h2>
+
+            <p class="oscar-trailer-text">
+              Premi, votazioni Uwufufu, badge, classifica, poster dei vincitori e caos organizzato.
+              Il lato più serio del BrunoDay. Gestito nel modo meno serio possibile.
+            </p>
+
+            <div class="oscar-trailer-tags">
+              <span class="oscar-tag">🏆 Premi cinema</span>
+              <span class="oscar-tag">🎬 Uwufufu</span>
+              <span class="oscar-tag">🎖 Badge ufficiali</span>
+              <span class="oscar-tag">🍿 Premi partecipanti</span>
+            </div>
+          </div>
+
+          <div class="oscar-trailer-side">
+            <div>
+              <div class="oscar-play">▶</div>
+              <div class="oscar-enter-label">Entra nella notte</div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </section>
 
     <!-- Prossima proiezione -->
     <section id="next">
@@ -1154,16 +1388,14 @@
     }
 
     function toNumberVote(v) {
-  if (!v) return null;
+      if (!v) return null;
+      const s = String(v).trim().replace(",", ".");
+      const m = s.match(/-?\d+(?:\.\d+)?/);
+      if (!m) return null;
+      const n = Number(m[0]);
+      return Number.isFinite(n) ? n : null;
+    }
 
-  // prende il primo numero che trova (es. "7.0 / 10" -> 7.0, "Voto medio: 5,5" -> 5.5)
-  const s = String(v).trim().replace(",", ".");
-  const m = s.match(/-?\d+(?:\.\d+)?/);
-
-  if (!m) return null;
-  const n = Number(m[0]);
-  return Number.isFinite(n) ? n : null;
-}
     function renderFilmLi(title, year, vote, extraIcon) {
       const li = document.createElement("li");
 
@@ -1189,7 +1421,6 @@
       const allUl = document.getElementById("allList");
       const allCount = document.getElementById("allCount");
 
-      // placeholders
       topUl.innerHTML = `<li><span class="title">Caricamento…</span><span class="rating"></span></li>`;
       flopUl.innerHTML = `<li><span class="title">Caricamento…</span><span class="rating"></span></li>`;
       allUl.innerHTML = `<li><span class="title">Caricamento…</span><span class="rating"></span></li>`;
@@ -1202,7 +1433,6 @@
         const table = parseCSV(text);
         if (!table.length) throw new Error("CSV vuoto");
 
-        // rimuove header
         const data = table.slice(1);
 
         const films = data
@@ -1217,13 +1447,11 @@
 
         allCount.textContent = String(films.length);
 
-        // top/flop solo tra quelli con voto valido
         const rated = films.filter(f => f.votoNum !== null);
 
         const top = [...rated].sort((a,b) => b.votoNum - a.votoNum).slice(0,3);
         const flop = [...rated].sort((a,b) => a.votoNum - b.votoNum).slice(0,3);
 
-        // render TOP
         topUl.innerHTML = "";
         if (!top.length) {
           topUl.innerHTML = `<li><span class="title">Nessun voto disponibile.</span><span class="rating"></span></li>`;
@@ -1234,7 +1462,6 @@
           });
         }
 
-        // render FLOP
         flopUl.innerHTML = "";
         if (!flop.length) {
           flopUl.innerHTML = `<li><span class="title">Nessun voto disponibile.</span><span class="rating"></span></li>`;
@@ -1245,7 +1472,6 @@
           });
         }
 
-        // render ALL (ordinato per data? qui: come nel foglio, così com’è)
         allUl.innerHTML = "";
         films.forEach(f => {
           allUl.appendChild(renderFilmLi(f.titolo, f.anno, f.votoRaw, "🎬"));
@@ -1295,10 +1521,8 @@
     document.addEventListener("DOMContentLoaded", () => {
       loadFilms();
 
-      // Mostra popup fino al 6 gennaio (incluso)
-      // Nota: mese in JS è 0-based => Gennaio = 0
       const now = new Date();
-      const end = new Date(2026, 0, 6, 23, 59, 59); // 6 Gen 2026 fine giornata
+      const end = new Date(2026, 0, 6, 23, 59, 59);
 
       if (now <= end) {
         bdOpenVacanza();
