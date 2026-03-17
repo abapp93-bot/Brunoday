@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BrunoOscar Night — BrunoDay</title>
+
+  <style>
+    :root{
+      --bg:#05050a;
+      --bg2:#0b0813;
+      --ink:#f5f3fb;
+      --muted:#b8b2c9;
+      --line:rgba(255,255,255,.10);
+      --card:rgba(255,255,255,.05);
+      --card-2:rgba(255,255,255,.07);
+      --red:#ff1744;
+      --violet:#7c4dff;
+      --gold:#ffcc4d;
+      --shadow:0 24px 70px rgba(0,0,0,.60);
+      --radius:22px;
+      --radius-sm:16px;
+      --wrap:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 650px at 10% 10%, rgba(255,23,68,.12), transparent 55%),
+        radial-gradient(900px 650px at 90% 20%, rgba(124,77,255,.12), transparent 55%),
+        linear-gradient(180deg, #040409, #070612 42%, #040409);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .noise{
+      pointer-events:none;
+      position:fixed; inset:0;
+      opacity:.22;
+      mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    }
+
+    .wrap{
+      width:min(var(--wrap), calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    /* top nav */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:40;
+      backdrop-filter: blur(14px);
+      background:rgba(5,5,10,.55);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .topbar-inner{
+      width:min(var(--wrap), calc(100% - 32px));
+      margin:0 auto;
+      padding:14px 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:var(--ink);
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+    .brand-dot{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,.20), transparent 35%),
+        linear-gradient(135deg, rgba(255,23,68,.95), rgba(124,77,255,.80));
+      box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 18px 35px rgba(0,0,0,.35);
+    }
+
+    .nav-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--ink);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.05);
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:800;
+      transition: .18s ease;
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.24);
+    }
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(255,23,68,.95), rgba(124,77,255,.78));
+      border-color:rgba(255,255,255,.20);
+      box-shadow:0 12px 30px rgba(124,77,255,.18);
+    }
+
+    /* hero */
+    .hero{
+      position:relative;
+      padding:68px 0 42px;
+    }
+    .hero-shell{
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:30px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
+        linear-gradient(180deg, rgba(10,10,18,.92), rgba(5,5,9,.98));
+      box-shadow:var(--shadow);
+      min-height:560px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+    }
+
+    .hero-copy{
+      padding:56px 48px;
+      position:relative;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      width:max-content;
+      gap:8px;
+      align-items:center;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(245,243,251,.82);
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      border-radius:999px;
+      padding:9px 12px;
+      margin-bottom:18px;
+    }
+    .hero h1{
+      margin:0 0 16px;
+      font-size:clamp(38px, 6vw, 78px);
+      line-height:.95;
+      letter-spacing:-.03em;
+    }
+    .hero p{
+      margin:0;
+      max-width:58ch;
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.75;
+    }
+    .hero-cta{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:28px;
+    }
+
+    .hero-side{
+      position:relative;
+      min-height:460px;
+      overflow:hidden;
+      background:
+        linear-gradient(180deg, rgba(255,23,68,.10), rgba(124,77,255,.08)),
+        #090912;
+    }
+    .hero-side img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      opacity:.86;
+    }
+    .hero-side::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(500px 300px at 70% 22%, rgba(255,204,77,.16), transparent 45%),
+        linear-gradient(90deg, rgba(7,6,18,.85), rgba(7,6,18,.12) 38%, rgba(7,6,18,.18));
+    }
+
+    .hero-glow{
+      position:absolute;
+      inset:auto auto -80px -60px;
+      width:300px;
+      height:300px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,23,68,.22), transparent 66%);
+      filter:blur(24px);
+      pointer-events:none;
+    }
+
+    /* sections */
+    .section{
+      padding:26px 0;
+    }
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:18px;
+    }
+    .section h2{
+      margin:0;
+      font-size:clamp(24px, 3vw, 38px);
+      line-height:1;
+      letter-spacing:-.02em;
+    }
+    .section-sub{
+      color:var(--muted);
+      line-height:1.7;
+      max-width:68ch;
+      margin-top:10px;
+    }
+
+    /* feature cards */
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .uwu-panel{
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap:0;
+    }
+    .uwu-info{
+      padding:32px;
+      background:
+        radial-gradient(600px 400px at 10% 0%, rgba(255,23,68,.10), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    }
+    .uwu-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:16px 0 24px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border-radius:999px;
+      padding:9px 12px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:rgba(245,243,251,.88);
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+    }
+    .pill.red{
+      background:rgba(255,23,68,.10);
+      border-color:rgba(255,23,68,.22);
+    }
+    .pill.violet{
+      background:rgba(124,77,255,.10);
+      border-color:rgba(124,77,255,.22);
+    }
+    .uwu-info p{
+      color:var(--muted);
+      line-height:1.8;
+      margin:0;
+    }
+
+    .uwu-side{
+      padding:24px;
+      border-left:1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(700px 450px at 100% 0%, rgba(124,77,255,.12), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+    }
+    .quick-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:14px;
+    }
+    .mini-card{
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .mini-card .label{
+      display:block;
+      font-size:12px;
+      color:rgba(245,243,251,.72);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    .mini-card .value{
+      font-size:18px;
+      font-weight:900;
+      line-height:1.25;
+    }
+
+    /* posters */
+    .poster-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+    }
+    .poster-main{
+      position:relative;
+      min-height:460px;
+      overflow:hidden;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      box-shadow:var(--shadow);
+    }
+    .poster-main img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .poster-overlay{
+      position:absolute;
+      inset:auto 0 0 0;
+      padding:26px;
+      background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.72));
+    }
+    .poster-tag{
+      display:inline-flex;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,204,77,.12);
+      border:1px solid rgba(255,204,77,.24);
+      color:#ffe29a;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .poster-overlay h3{
+      margin:0 0 10px;
+      font-size:clamp(26px, 3vw, 40px);
+      line-height:1;
+    }
+    .poster-overlay p{
+      margin:0;
+      color:rgba(245,243,251,.84);
+      line-height:1.7;
+      max-width:52ch;
+    }
+
+    .future-posters{
+      display:grid;
+      gap:18px;
+    }
+    .future-card{
+      overflow:hidden;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      box-shadow:var(--shadow);
+      min-height:220px;
+      position:relative;
+    }
+    .future-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .future-card .future-label{
+      position:absolute;
+      left:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(5,5,10,.62);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    /* score board */
+    .score-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:16px;
+    }
+    .score-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .score-card::before{
+      content:"";
+      position:absolute;
+      inset:auto auto -20px -20px;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(124,77,255,.16), transparent 68%);
+      filter:blur(10px);
+    }
+    .score-rank{
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:rgba(245,243,251,.68);
+      margin-bottom:10px;
+    }
+    .score-name{
+      font-size:28px;
+      font-weight:900;
+      margin-bottom:8px;
+      line-height:1;
+    }
+    .score-points{
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    /* badge wall */
+    .badge-wall{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    .badge-chip{
+      padding:12px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 10px 24px rgba(0,0,0,.20);
+      font-weight:700;
+    }
+
+    /* awards layout */
+    .award-columns{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:18px;
+    }
+    .award-box{
+      padding:24px;
+      border-radius:24px;
+      background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.09);
+      box-shadow:var(--shadow);
+    }
+    .award-box h3{
+      margin:0 0 14px;
+      font-size:22px;
+    }
+    .award-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .award-list span{
+      display:inline-flex;
+      padding:10px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      color:rgba(245,243,251,.90);
+      font-size:14px;
+    }
+
+    /* future section */
+    .future-shell{
+      padding:28px;
+      border-radius:28px;
+      background:
+        radial-gradient(700px 400px at 0% 0%, rgba(255,23,68,.10), transparent 50%),
+        radial-gradient(700px 400px at 100% 100%, rgba(124,77,255,.10), transparent 50%),
+        linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:var(--shadow);
+    }
+    .future-shell p{
+      color:var(--muted);
+      line-height:1.8;
+      max-width:74ch;
+    }
+    .future-points{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:14px;
+    }
+    .future-points span{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+    }
+
+    footer{
+      padding:32px 0 60px;
+      color:rgba(184,178,201,.80);
+      text-align:center;
+      font-size:13px;
+    }
+
+    /* responsive */
+    @media (max-width: 980px){
+      .hero-shell,
+      .uwu-panel,
+      .poster-grid,
+      .award-columns{
+        grid-template-columns:1fr;
+      }
+
+      .hero-copy{
+        padding:34px 24px 22px;
+      }
+
+      .hero-side{
+        min-height:300px;
+      }
+
+      .uwu-side{
+        border-left:none;
+        border-top:1px solid rgba(255,255,255,.08);
+      }
+
+      .score-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 640px){
+      .topbar-inner{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .nav-actions{
+        width:100%;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .hero{
+        padding-top:24px;
+      }
+
+      .hero-shell{
+        border-radius:24px;
+      }
+
+      .hero-copy{
+        padding:26px 18px 18px;
+      }
+
+      .quick-grid{
+        grid-template-columns:1fr;
+      }
+
+      .poster-main{
+        min-height:360px;
+      }
+
+      .future-card{
+        min-height:180px;
+      }
+
+      .future-shell,
+      .award-box{
+        padding:20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./index.html">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>BrunoDay</span>
+      </a>
+
+      <div class="nav-actions">
+        <a class="btn" href="./index.html">⟵ Home</a>
+        <a class="btn" href="https://www.uwufufu.com/worldcup/brunoday-movie-challenge---1-cto10" target="_blank" rel="noopener noreferrer">🎬 Uwufufu</a>
+        <a class="btn primary" href="#winner">🏆 Vincitore</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+
+    <section class="hero">
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <span class="eyebrow">🏆 BrunoOscar Night • Official Page</span>
+          <h1>La notte<br>più seria.<br>Nel modo meno serio.</h1>
+          <p>
+            Il BrunoOscar è il momento in cui il cinema incontra il caos:
+            votazioni Uwufufu, premi improbabili, badge infami, classifiche storiche
+            e riconoscimenti che nessuno ha chiesto ma che tutti meritano.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn primary" href="https://www.uwufufu.com/worldcup/brunoday-movie-challenge---1-cto10" target="_blank" rel="noopener noreferrer">
+              🎬 Vai alla votazione Uwufufu
+            </a>
+            <a class="btn" href="#awards">🎥 Vedi i premi</a>
+          </div>
+
+          <div class="hero-glow"></div>
+        </div>
+
+        <div class="hero-side">
+          <img src="assets/images/brunooscar-hero.jpg" alt="BrunoOscar Night hero image">
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="panel uwu-panel">
+        <div class="uwu-info">
+          <h2>Uwufufu ufficiale BrunoDay</h2>
+          <p class="section-sub">
+            La sfida che decide i vincitori, accende le discussioni e crea
+            rivalità assolutamente sane. Qui parte tutto.
+          </p>
+
+          <div class="uwu-badges">
+            <span class="pill red">Movie Challenge</span>
+            <span class="pill violet">Votazione ufficiale</span>
+            <span class="pill">BrunoDay canon</span>
+          </div>
+
+          <p>
+            Ogni edizione può avere un vincitore iconico, un film che domina,
+            una scena che rimane e almeno una persona convinta di aver votato
+            meglio di tutti gli altri. Il BrunoOscar nasce qui.
+          </p>
+
+          <div style="margin-top:24px;">
+            <a class="btn primary" href="https://www.uwufufu.com/worldcup/brunoday-movie-challenge---1-cto10" target="_blank" rel="noopener noreferrer">
+              Apri Uwufufu
+            </a>
+          </div>
+        </div>
+
+        <div class="uwu-side">
+          <div class="quick-grid">
+            <div class="mini-card">
+              <span class="label">Link ufficiale</span>
+              <div class="value">BrunoDay Movie Challenge</div>
+            </div>
+            <div class="mini-card">
+              <span class="label">Formato</span>
+              <div class="value">Sfida + votazioni + winner reveal</div>
+            </div>
+            <div class="mini-card">
+              <span class="label">Output</span>
+              <div class="value">Poster vincitore + Hall of Fame</div>
+            </div>
+            <div class="mini-card">
+              <span class="label">Mood</span>
+              <div class="value">Premi seri, persone meno</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="winner">
+      <div class="section-head">
+        <div>
+          <h2>Poster del vincitore</h2>
+          <p class="section-sub">
+            Il film campione dell’edizione attuale entra nella Hall of Fame BrunoDay.
+            Qui sotto anche lo spazio per i prossimi vincitori.
+          </p>
+        </div>
+      </div>
+
+      <div class="poster-grid">
+        <div class="poster-main">
+          <img src="assets/images/uwufufu-winner-current.jpg" alt="Poster vincitore attuale Uwufufu">
+          <div class="poster-overlay">
+            <span class="poster-tag">🥇 Vincitore attuale</span>
+            <h3>Uwufufu Winner</h3>
+            <p>
+              Sostituisci questa immagine con il poster ufficiale del vincitore corrente.
+              Puoi aggiungere logo BrunoDay e un piccolo badge “Winner”.
+            </p>
+          </div>
+        </div>
+
+        <div class="future-posters">
+          <div class="future-card">
+            <img src="assets/images/uwufufu-future-1.jpg" alt="Poster futuro vincitore 1">
+            <span class="future-label">Future Winner #1</span>
+          </div>
+
+          <div class="future-card">
+            <img src="assets/images/uwufufu-future-2.jpg" alt="Poster futuro vincitore 2">
+            <span class="future-label">Future Winner #2</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Classifica BrunoDay</h2>
+          <p class="section-sub">
+            Il lato più importante del cinema: vincere punti totalmente arbitrari
+            e potersene vantare per mesi.
+          </p>
+        </div>
+      </div>
+
+      <div class="score-grid">
+        <div class="score-card">
+          <div class="score-rank">🥇 Primo posto</div>
+          <div class="score-name">Marco</div>
+          <div class="score-points">3 premi vinti • 1 badge storico • 1 reputazione discutibile</div>
+        </div>
+
+        <div class="score-card">
+          <div class="score-rank">🥈 Secondo posto</div>
+          <div class="score-name">Luca</div>
+          <div class="score-points">2 premi vinti • presenza costante • scelte spesso difese male</div>
+        </div>
+
+        <div class="score-card">
+          <div class="score-rank">🥉 Terzo posto</div>
+          <div class="score-name">Giulia</div>
+          <div class="score-points">1 premio vinto • ottimo caos • potenziale di crescita enorme</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Badge ufficiali</h2>
+          <p class="section-sub">
+            Alcuni si guadagnano con il talento. Altri con comportamenti molto più memorabili.
+          </p>
+        </div>
+      </div>
+
+      <div class="badge-wall">
+        <span class="badge-chip">🔊 Disturbatore certificato</span>
+        <span class="badge-chip">⏰ Ritardatario cronico</span>
+        <span class="badge-chip">😴 Dormiente seriale</span>
+        <span class="badge-chip">🍿 Mangiatore professionista</span>
+        <span class="badge-chip">🍺 Bevitore ufficiale</span>
+        <span class="badge-chip">🎬 Scelte discutibili</span>
+        <span class="badge-chip">🧠 Ha capito il film (forse)</span>
+        <span class="badge-chip">📢 Commenta ogni scena</span>
+        <span class="badge-chip">👑 Presenza iconica</span>
+      </div>
+    </section>
+
+    <section class="section" id="awards">
+      <div class="section-head">
+        <div>
+          <h2>Premi della notte</h2>
+          <p class="section-sub">
+            Una parte celebra il cinema. L’altra parte celebra tutto il resto.
+          </p>
+        </div>
+      </div>
+
+      <div class="award-columns">
+        <div class="award-box">
+          <h3>🎥 Premi Cinema</h3>
+          <div class="award-list">
+            <span>🎬 Miglior Regia</span>
+            <span>😂 Razzie Award</span>
+            <span>😱 Miglior Horror</span>
+            <span>💥 Miglior Jump Scare</span>
+            <span>🩸 Scena più disturbante</span>
+            <span>🎭 Personaggio più iconico</span>
+          </div>
+        </div>
+
+        <div class="award-box">
+          <h3>🍿 Premi Partecipanti</h3>
+          <div class="award-list">
+            <span>🔊 Persona più disturbatrice</span>
+            <span>⏰ Persona più ritardataria</span>
+            <span>😴 Persona che dorme sempre</span>
+            <span>🎬 Persona che sceglie i film peggiori</span>
+            <span>🍔 Persona che mangia di più</span>
+            <span>🍺 Persona che beve di più</span>
+            <span>📱 Più presente sul telefono</span>
+            <span>🫠 Più confuso a fine film</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="future-shell">
+        <h2>Next level BrunoOscar</h2>
+        <p>
+          Le prossime edizioni possono diventare ancora più folli: reveal live dei premi,
+          badge permanenti, classifica cumulativa annuale, poster winner ufficiali, categorie
+          speciali a sorpresa e una vera Hall of Fame BrunoDay.
+        </p>
+
+        <div class="future-points">
+          <span>🏆 Reveal dei premi uno alla volta</span>
+          <span>🎖 Badge permanenti annuali</span>
+          <span>📊 Classifica cumulativa</span>
+          <span>🖼 Poster per ogni winner</span>
+          <span>🎬 Storia delle edizioni</span>
+          <span>👁️ Night mode premium</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © BrunoDay — BrunoOscar Night. Premi seri. Persone meno.
+    </footer>
+  </main>
+</body>
+</html>
