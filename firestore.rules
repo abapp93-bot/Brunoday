@@ -1,8 +1,67 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // No browser may read/write private participant names, cards or allocations.
-    // Only privileged Cloud Functions (Admin SDK) access these collections.
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.token.admin == true; }
+    function bookingOpen() {
+      // Europe/Rome is UTC+1 throughout 15–30 November 2026.
+      return request.time >= timestamp.date(2026,11,14) + duration.value(23, 'h')
+        && request.time < timestamp.date(2026,11,30) + duration.value(23, 'h');
+    }
+    function validCard(card) {
+      return card is string && card.matches('^BD-0(0[1-9]|1[0-9]|2[0-2])$');
+    }
+    function validDay(day) { return day is int && day >= 3 && day <= 24; }
+    function cardPath(card) {
+      return /databases/$(database)/documents/advent_cards_2026/$(card);
+    }
+    function slotPath(day) {
+      return /databases/$(database)/documents/advent_slots_2026/$(day);
+    }
+    // The public can look up a known card, but cannot list all card records.
+    // Card numbers alone are not a secure identity: users who know/guess them
+    // can impersonate each other. This is a conscious product limitation.
+    match /advent_cards_2026/{card} {
+      allow get: if signedIn() && validCard(card);
+      allow list: if isAdmin();
+      allow create, delete: if false;
+      allow update: if signedIn() && !isAdmin() && bookingOpen()
+        && validCard(card)
+        && resource.data.keys().hasOnly(['day'])
+        && resource.data.day == null
+        && request.resource.data.keys().hasOnly(['day'])
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['day'])
+        && validDay(request.resource.data.day)
+        && !exists(slotPath(string(request.resource.data.day)))
+        && getAfter(slotPath(string(request.resource.data.day))).data.card == card;
+    }
+    match /advent_slots_2026/{day} {
+      allow get, list: if signedIn();
+      allow update, delete: if false;
+      allow create: if signedIn() && !isAdmin() && bookingOpen()
+        && day.matches('^([3-9]|1[0-9]|2[0-4])$')
+        && request.resource.data.keys().hasOnly(['card','bookedAt'])
+        && validCard(request.resource.data.card)
+        && request.resource.data.bookedAt == request.time
+        && exists(cardPath(request.resource.data.card))
+        && get(cardPath(request.resource.data.card)).data.day == null
+        && getAfter(cardPath(request.resource.data.card)).data.day == int(day);
+    }
+    // Names are never included in publicly readable slot/card documents.
+    // Once a card's selected date arrives (midnight Rome), its name is
+    // readable for the public reveal. No gifts are stored in Firestore.
+    match /advent_names_2026/{card} {
+      allow get: if isAdmin() ||
+        (signedIn() && validCard(card)
+          && exists(cardPath(card))
+          && get(cardPath(card)).data.day is int
+          && validDay(get(cardPath(card)).data.day)
+          && request.time >= timestamp.date(
+            2026,12,get(cardPath(card)).data.day
+          ) - duration.value(1,'h'));
+      allow list: if isAdmin();
+      allow create, update, delete: if false;
+    }
     match /{document=**} {
       allow read, write: if false;
     }
