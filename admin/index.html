@@ -5,15 +5,22 @@
 const notice=document.getElementById("notice"),login=document.getElementById("login"),reload=document.getElementById("reload"),results=document.getElementById("results"),rows=document.getElementById("rows");
 try{
  const {firebaseConfig}=await import("../avvento/firebase-config.js");
- const [{initializeApp},{getAuth,GoogleAuthProvider,signInWithPopup},{getFunctions,httpsCallable}]=await Promise.all([
+ const [{initializeApp},{getAuth,GoogleAuthProvider,signInWithPopup},{getFirestore,getDocs,collection}]=await Promise.all([
  import("https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"),
  import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"),
- import("https://www.gstatic.com/firebasejs/11.10.0/firebase-functions.js")]);
- const app=initializeApp(firebaseConfig),auth=getAuth(app),fn=httpsCallable(getFunctions(app,"europe-west1"),"adminOverview");
+ import("https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js")]);
+ const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
  async function display(){
   notice.textContent="Caricamento prenotazioni...";
   try{
-   const data=(await fn({})).data,byDay=new Map(data.slots.map(x=>[x.day,x]));
+   const [cards,slots,names]=await Promise.all([
+    getDocs(collection(db,"advent_cards_2026")),
+    getDocs(collection(db,"advent_slots_2026")),
+    getDocs(collection(db,"advent_names_2026"))
+   ]);
+   const byName=new Map(names.docs.map(x=>[x.id,x.data().name]));
+   const data={slots:slots.docs.map(x=>({day:Number(x.id),card:x.data().card,name:byName.get(x.data().card)||"—",bookedAt:x.data().bookedAt?.toDate?.()?.toISOString?.()||"—"}))};
+   const byDay=new Map(data.slots.map(x=>[x.day,x]));
    rows.replaceChildren();
    for(let day=3;day<=24;day++){
     const slot=byDay.get(day),tr=document.createElement("tr");
