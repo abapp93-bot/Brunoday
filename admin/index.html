@@ -1,0 +1,40 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Babbo BrunoDay — Organizzatore</title>
+<style>body{margin:0;background:#110c11;color:#f2e7df;font:15px/1.5 system-ui,sans-serif}main{max-width:950px;margin:45px auto;padding:24px}h1{font-family:Georgia,serif;font-size:2.2rem}button{border:0;border-radius:7px;background:#a63145;color:white;font:inherit;padding:12px 18px;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}#notice{color:#ebc78c}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{border-bottom:1px solid #67404a;text-align:left;padding:10px}th{color:#edc3ac}a{color:#e8c49e}.hidden{display:none}</style></head>
+<body><main><a href="../avvento/">← Calendario</a><h1>🎄 Organizzatore Babbo BrunoDay</h1><p>Questa pagina mostra le prenotazioni soltanto all'account Google autorizzato come amministratore nel backend Firebase.</p><button id="login" disabled>Accesso organizzatore con Google</button> <button id="reload" class="hidden">Aggiorna prenotazioni</button><p id="notice">Configurazione Firebase non ancora attiva.</p><section id="results" class="hidden"><h2>Stato delle 22 caselle</h2><p id="summary"></p><table><thead><tr><th>Giorno</th><th>Nome</th><th>Tessera</th><th>Ora prenotazione (UTC)</th></tr></thead><tbody id="rows"></tbody></table></section></main>
+<script type="module">
+const notice=document.getElementById("notice"),login=document.getElementById("login"),reload=document.getElementById("reload"),results=document.getElementById("results"),rows=document.getElementById("rows");
+try{
+ const {firebaseConfig}=await import("../avvento/firebase-config.js");
+ const [{initializeApp},{getAuth,GoogleAuthProvider,signInWithPopup},{getFirestore,getDocs,collection}]=await Promise.all([
+ import("https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"),
+ import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"),
+ import("https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js")]);
+ const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+ async function display(){
+  notice.textContent="Caricamento prenotazioni...";
+  try{
+   const [cards,slots,names]=await Promise.all([
+    getDocs(collection(db,"advent_cards_2026")),
+    getDocs(collection(db,"advent_slots_2026")),
+    getDocs(collection(db,"advent_names_2026"))
+   ]);
+   const byName=new Map(names.docs.map(x=>[x.id,x.data().name]));
+   const data={slots:slots.docs.map(x=>({day:Number(x.id),card:x.data().card,name:byName.get(x.data().card)||"—",bookedAt:x.data().bookedAt?.toDate?.()?.toISOString?.()||"—"}))};
+   const byDay=new Map(data.slots.map(x=>[x.day,x]));
+   rows.replaceChildren();
+   for(let day=3;day<=24;day++){
+    const slot=byDay.get(day),tr=document.createElement("tr");
+    for(const value of [day+" dicembre",slot?.name||"—",slot?.card||"—",slot?.bookedAt||"—"]){
+     const td=document.createElement("td");td.textContent=value;tr.append(td);
+    }rows.append(tr);
+   }
+   document.getElementById("summary").textContent=data.slots.length+" prenotate / 22 — "+(22-data.slots.length)+" libere.";
+   results.classList.remove("hidden");notice.textContent="Dashboard aggiornata.";
+  }catch(e){notice.textContent="Accesso negato o errore di connessione. Verifica il ruolo amministratore. "+String(e.code||"");results.classList.add("hidden");}
+ }
+ login.disabled=false;
+ login.addEventListener("click",async()=>{try{await signInWithPopup(auth,new GoogleAuthProvider());reload.classList.remove("hidden");await display();}catch(e){notice.textContent="Impossibile effettuare l'accesso: "+String(e.code||"errore");}});
+ reload.addEventListener("click",display);
+ notice.textContent="Accedi con il tuo account Google autorizzato per vedere le prenotazioni.";
+}catch(e){notice.textContent="Firebase non configurato: la dashboard non è ancora attiva.";}
+</script></body></html>

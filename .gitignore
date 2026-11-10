@@ -1,0 +1,11 @@
+node_modules/
+.firebase/
+.firebaserc
+setup/.private/
+setup/private-participants.json
+setup/service-account*.json
+private-participants.json
+service-account*.json
+*.local.json
+.env
+.env.*

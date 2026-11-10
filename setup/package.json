@@ -1,0 +1,14 @@
+{
+  "name": "brunoday-spark-setup",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "seed": "node seed.js",
+    "admin": "node set-admin.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.0.0"
+  }
+}
