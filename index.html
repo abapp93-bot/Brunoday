@@ -1045,7 +1045,7 @@ section{margin-top:clamp(30px,5vw,58px);}
 .bd2-advent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
 .bd2-advent-grid span{height:45px;border-radius:4px;border:1px solid #ad4859;background:#51212e;display:grid;place-items:center;font-family:"Anton",sans-serif;color:#eed1cf;font-size:1.25rem;}
 .bd2-advent-grid span:nth-child(3n){background:#7c2b3d;}
-.bd2-advent .bd2-btn{pointer-events:none;opacity:.75;cursor:default;}
+.bd2-advent .bd2-btn{pointer-events:auto;opacity:1;cursor:pointer;}
 #rules .card{max-width:100%;}
 #archive .film-list{line-height:1.7;}
 #fanclub .fancard-mock{box-shadow:0 14px 35px #0005;}
@@ -1108,7 +1108,7 @@ footer{border-top:1px solid #6c3440;margin-top:65px;}
   <div class="bd2-links">
     <a href="#next">Prossimo film</a><a href="#oscar-winners">Vincitori</a><a href="#archive">Archivio</a>
     <a href="#rules">Regole</a><a href="#fanclub">Fan Club</a><a href="#members">Area membri</a>
-    <a class="bd2-nav-advent" href="#advent">Avvento 🎁</a>
+    <a class="bd2-nav-advent" href="avvento/">Calendario 🎄</a>
   </div>
 </nav>
 
@@ -1150,7 +1150,7 @@ footer{border-top:1px solid #6c3440;margin-top:65px;}
           e parte il film horror. Se sei qui, fai parte del cerchio.
         </p>
         <div class="slasher-label">Fan club ufficiale • ingresso su invito</div>
-        <div class="bd2-hero-actions"><a class="bd2-btn" href="#next">Prossima proiezione ↓</a><a class="bd2-btn secondary" href="#advent">Babbo BrunoDay 🎁</a></div>
+        <div class="bd2-hero-actions"><a class="bd2-btn" href="#next">Prossima proiezione ↓</a><a class="bd2-btn secondary" href="avvento/">Babbo BrunoDay 🎁</a></div>
       </div>
     </header>
 
@@ -1166,9 +1166,9 @@ footer{border-top:1px solid #6c3440;margin-top:65px;}
       <div><strong id="bd2-seconds">--</strong><span>Secondi</span></div>
     </div>
     <div id="bd2-booking-status" class="bd2-booking-status" aria-live="polite">Apertura prenotazioni: 15 novembre 2026, ore 00:00.</div>
-    <span class="bd2-btn bd2-disabled" aria-label="Registrazione calendario non ancora disponibile">Prenotazioni in preparazione</span>
+    <a class="bd2-btn" href="avvento/" aria-label="Apri il calendario natalizio Babbo BrunoDay">🎄 Entra nel calendario</a>
     <small>Periodo previsto per le prenotazioni: 15–30 novembre 2026 (ora italiana).
-    Il modulo sarà attivato soltanto dopo i controlli del sistema di registrazione.</small>
+    Accedi al calendario per vedere le 22 caselle e gli indizi horror. Le prenotazioni saranno disponibili soltanto nella finestra prevista.</small>
   </div>
   <div class="bd2-advent-grid" aria-hidden="true">
     <span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
