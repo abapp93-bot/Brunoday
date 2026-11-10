@@ -146,7 +146,7 @@ cardForm.addEventListener("submit",async(e)=>{
  try{
   const info=await firebaseApi.lookup(card);
   activeCard=card;myDay=info.day;
-  accessMessage.textContent="Bentornato/a, "+info.name+"!";
+  accessMessage.textContent="Tessera "+card+" riconosciuta.";
   yourBooking.textContent=myDay?"Hai già prenotato il "+myDay+" dicembre. La prenotazione è definitiva.":"Non hai ancora prenotato nessuna casella.";
   sessionStorage.setItem("bdAdventCard",card);
  }catch(e){activeCard=null;myDay=null;accessMessage.textContent=explainError(e);yourBooking.textContent="";}
@@ -159,7 +159,7 @@ reserveButton.addEventListener("click",async()=>{
   const reservation=await firebaseApi.book(activeCard,selectedDay);
   myDay=reservation.day;
   yourBooking.textContent="Prenotazione confermata: "+myDay+" dicembre. Il regalo resta segreto!";
-  accessMessage.textContent="Prenotazione registrata per "+reservation.name+".";
+  accessMessage.textContent="Prenotazione registrata per "+activeCard+".";
   dlg.close();
   await refreshState();
  }catch(e){document.getElementById("dialogHint").textContent=explainError(e);await refreshState();}
@@ -167,22 +167,51 @@ reserveButton.addEventListener("click",async()=>{
 });
 (async function connectFirebase(){
  try{
-  // firebase-config.js is not committed. Deploy it only after the Firebase project is configured.
+  // Public web app configuration (no admin credentials).
   const {firebaseConfig}=await import("./firebase-config.js");
   if(!firebaseConfig||!firebaseConfig.projectId||firebaseConfig.projectId.startsWith("REPLACE"))return;
-  const [{initializeApp},{getAuth,signInAnonymously},{getFunctions,httpsCallable}]=await Promise.all([
+  const [{initializeApp},{getAuth,signInAnonymously},{getFirestore,doc,getDoc,collection,getDocs,runTransaction,serverTimestamp}]=await Promise.all([
     import("https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"),
     import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"),
-    import("https://www.gstatic.com/firebasejs/11.10.0/firebase-functions.js")
+    import("https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js")
   ]);
   const app=initializeApp(firebaseConfig),auth=getAuth(app);
   await signInAnonymously(auth);
-  const fx=getFunctions(app,"europe-west1");
+  const db=getFirestore(app);
   firebaseApi={
-    state:async()=> (await httpsCallable(fx,"calendarState")({})).data,
-    lookup:async(card)=> (await httpsCallable(fx,"myReservation")({card})).data,
-    book:async(card,day)=> (await httpsCallable(fx,"reserveDay")({card,day})).data
+    state:async()=>{
+      const all=await getDocs(collection(db,"advent_slots_2026"));
+      const entries=all.docs.map(x=>({day:Number(x.id),reserved:true,card:x.data().card}));
+      const d=romanDateKey();
+      await Promise.all(entries.map(async(item)=>{
+        if(d<"2026-12-"+String(item.day).padStart(2,"0"))return;
+        try{
+          const nameDoc=await getDoc(doc(db,"advent_names_2026",item.card));
+          if(nameDoc.exists())item.recipientName=nameDoc.data().name;
+        }catch(error){console.warn("Reveal non ancora disponibile",item.day,error.code);}
+      }));
+      return {slots:entries};
+    },
+    lookup:async(card)=>{
+      const cardDoc=await getDoc(doc(db,"advent_cards_2026",card));
+      if(!cardDoc.exists())throw {code:"not-found"};
+      return {day:cardDoc.data().day||null};
+    },
+    book:async(card,day)=>{
+      // Atomic transaction: rules require both card update and slot creation.
+      const c=doc(db,"advent_cards_2026",card),slot=doc(db,"advent_slots_2026",String(day));
+      await runTransaction(db,async(transaction)=>{
+        const me=await transaction.get(c),taken=await transaction.get(slot);
+        if(!me.exists())throw {code:"not-found"};
+        if(me.data().day!==null&&me.data().day!==undefined)throw {code:"already-exists"};
+        if(taken.exists())throw {code:"already-exists"};
+        transaction.update(c,{day});
+        transaction.set(slot,{card,bookedAt:serverTimestamp()});
+      });
+      return {day};
+    }
   };
+  // Booking controls remain disabled until all 22 cards have been securely initialized.
   cardButton.disabled=false;
   accessMessage.textContent="Inserisci la tua tessera BrunoDay per entrare.";
   await refreshState();
