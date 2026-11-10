@@ -1065,6 +1065,23 @@ footer{border-top:1px solid #6c3440;margin-top:65px;}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bd2-btn,.bd2-event-card{transition:none}}
 
+
+/* ===== AGGIORNAMENTO 2: COUNTDOWN E HALL OF FAME ===== */
+.bd2-countdown{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:440px;margin:16px 0 11px;}
+.bd2-countdown>div{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:72px;border:1px solid #9a4252;border-radius:6px;background:#190e16b8;}
+.bd2-countdown strong{font-family:"Anton",sans-serif;font-size:clamp(1.5rem,3vw,2.25rem);color:#fff1e8;font-variant-numeric:tabular-nums;line-height:1.1;}
+.bd2-countdown span{color:#cdb3b4;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;}
+.bd2-booking-status{font-size:.9rem;color:#f0d0cc;margin:8px 0 18px;font-weight:700;}
+.bd2-disabled{pointer-events:none;cursor:not-allowed;opacity:.8;}
+.bd2-winners-section{margin-top:35px;}
+.bd2-winner-head p{color:#cbb9b6;font-size:.9rem;}
+.bd2-winner-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:760px;margin-top:18px;}
+.bd2-winner{display:flex;flex-direction:column;overflow:hidden;background:#21121a;border:1px solid #6e3543;border-radius:9px;transition:transform .2s,border-color .2s;}
+.bd2-winner:hover{transform:translateY(-3px);border-color:#d4546b;text-decoration:none;}
+.bd2-winner img{width:100%;max-height:420px;aspect-ratio:3/4;object-fit:contain;background:#100b10;display:block;}
+.bd2-winner span{padding:12px;color:#efddd6;font-family:"Anton",sans-serif;letter-spacing:.07em;}
+@media(max-width:480px){.bd2-winner-grid{grid-template-columns:1fr 1fr;gap:10px;}.bd2-winner span{font-size:.8rem}.bd2-countdown>div{min-height:63px}.bd2-countdown{gap:5px}}
+
   </style>
 </head>
 
@@ -1072,7 +1089,7 @@ footer{border-top:1px solid #6c3440;margin-top:65px;}
   <nav class="bd2-nav" aria-label="Navigazione principale">
   <a class="bd2-brand" href="#home">BRUNODAY / II</a>
   <div class="bd2-links">
-    <a href="#next">Prossimo film</a><a href="#events">Eventi</a><a href="#archive">Archivio</a>
+    <a href="#next">Prossimo film</a><a href="#oscar-winners">Vincitori</a><a href="#archive">Archivio</a>
     <a href="#rules">Regole</a><a href="#fanclub">Fan Club</a><a href="#members">Area membri</a>
     <a class="bd2-nav-advent" href="#advent">Avvento 🎁</a>
   </div>
@@ -1122,73 +1139,45 @@ footer{border-top:1px solid #6c3440;margin-top:65px;}
 
 <section id="advent" class="bd2-advent" aria-labelledby="advent-title">
   <div>
-    <div class="bd2-kicker">Evento speciale · Natale 2026</div>
+    <div class="bd2-kicker">Natale 2026 · 22 sorprese</div>
     <h2 id="advent-title">BABBO BRUNODAY</h2>
-    <p>22 caselle, 22 regali misteriosi, 22 fortunati sventurati.
-       Prenotazioni dal 15 al 30 novembre. Dal 3 al 24 dicembre, una sorpresa al giorno.</p>
-    <span class="bd2-btn" aria-label="Calendario in preparazione">Calendario in preparazione</span>
-    <small>Il collegamento diventerà attivo quando la pagina calendario e il sistema di prenotazione saranno pronti.</small>
+    <p>22 caselle, 22 regali misteriosi. Dal 3 al 24 dicembre, una sorpresa al giorno.</p>
+    <div class="bd2-countdown" role="timer" aria-label="Conto alla rovescia prenotazioni">
+      <div><strong id="bd2-days">--</strong><span>Giorni</span></div>
+      <div><strong id="bd2-hours">--</strong><span>Ore</span></div>
+      <div><strong id="bd2-minutes">--</strong><span>Minuti</span></div>
+      <div><strong id="bd2-seconds">--</strong><span>Secondi</span></div>
+    </div>
+    <div id="bd2-booking-status" class="bd2-booking-status" aria-live="polite">Apertura prenotazioni: 15 novembre 2026, ore 00:00.</div>
+    <span class="bd2-btn bd2-disabled" aria-label="Registrazione calendario non ancora disponibile">Prenotazioni in preparazione</span>
+    <small>Periodo previsto per le prenotazioni: 15–30 novembre 2026 (ora italiana).
+    Il modulo sarà attivato soltanto dopo i controlli del sistema di registrazione.</small>
   </div>
   <div class="bd2-advent-grid" aria-hidden="true">
     <span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
   </div>
 </section>
 
-    <!-- Banner Eventi -->
-    <a href="standby.html" class="event-banner">
-      <div class="event-banner-content">
-        <span class="event-banner-icon">🔪</span>
-        BRUNODAY EVENTI – CLICCA QUI
-        <span class="event-banner-icon">🔪</span>
-        <div class="event-banner-sub">
-          Nuovo evento speciale...
+    <!-- BRUNO OSCAR: SOLO I POSTER DEI VINCITORI. Eventi e promo sospesi. -->
+    <section id="oscar-winners" aria-labelledby="oscar-winners-title" class="bd2-winners-section">
+      <div class="bd2-winner-head">
+        <div>
+          <div class="bd2-kicker">Hall of Fame · BrunoOscar</div>
+          <h2 id="oscar-winners-title" class="section-title">I vincitori</h2>
+          <p>I poster dei campioni. Il resto della cerimonia resta in archivio.</p>
         </div>
       </div>
-    </a>
-
-    <!-- BRUNO OSCAR HOME – TRAILER -->
-    <section class="oscar-home">
-      <a href="brunooscar.html" class="oscar-trailer" aria-label="Apri BrunoOscar Night">
-        <div class="oscar-trailer-inner">
-          <div class="oscar-trailer-copy">
-            <div class="oscar-kicker">
-              <span class="oscar-kicker-dot"></span>
-              BrunoOscar Night
-            </div>
-
-            <h2 class="oscar-trailer-title">La notte più importante dell’anno BrunoDay</h2>
-
-            <p class="oscar-trailer-text">
-              Premi, votazioni Uwufufu, badge, classifica, poster dei vincitori e caos organizzato.
-              Il lato più serio del BrunoDay. Gestito nel modo meno serio possibile.
-            </p>
-
-            <div class="oscar-trailer-tags">
-              <span class="oscar-tag">🏆 Premi cinema</span>
-              <span class="oscar-tag">🎬 Uwufufu</span>
-              <span class="oscar-tag">🎖 Badge ufficiali</span>
-              <span class="oscar-tag">🍿 Premi partecipanti</span>
-            </div>
-          </div>
-
-          <div class="oscar-trailer-side">
-            <div>
-              <div class="oscar-play">▶</div>
-              <div class="oscar-enter-label">Entra nella notte</div>
-            </div>
-          </div>
-        </div>
-      </a>
+      <div class="bd2-winner-grid">
+        <a href="assets/images/uwufufu-winner1.jpg" class="bd2-winner" target="_blank" rel="noopener" aria-label="Apri il poster del primo vincitore">
+          <img src="assets/images/uwufufu-winner1.jpg" alt="Poster del primo vincitore BrunoOscar Uwufufu" loading="lazy">
+          <span>01 · Primo vincitore</span>
+        </a>
+        <a href="assets/images/uwufufu-future-1.jpg" class="bd2-winner" target="_blank" rel="noopener" aria-label="Apri il poster del secondo vincitore">
+          <img src="assets/images/uwufufu-future-1.jpg" alt="Poster del secondo vincitore BrunoOscar" loading="lazy">
+          <span>02 · Secondo vincitore</span>
+        </a>
+      </div>
     </section>
-
-<section id="events" aria-labelledby="events-title">
-  <h2 id="events-title" class="section-title">Eventi speciali</h2>
-  <div class="bd2-event-grid">
-    <a class="bd2-event-card" href="brunooscar.html"><strong>BrunoOscar Night</strong><span>Premi, votazioni e follia cinematografica →</span></a>
-    <a class="bd2-event-card" href="evento-lotr.html"><strong>La notte della Terra di Mezzo</strong><span>Riscopri l'evento speciale →</span></a>
-    <a class="bd2-event-card" href="eventonatale.html"><strong>Il Natale BrunoDay</strong><span>Apri la pagina dell'evento →</span></a>
-  </div>
-</section>
 
     <!-- Prossima proiezione -->
     <section id="next">
@@ -1639,6 +1628,36 @@ footer{border-top:1px solid #6c3440;margin-top:65px;}
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && bdAnyPopupOpen()) bdCloseVacanza();
     });
+
+
+    // ===== BABBO BRUNODAY — countdown in orario italiano (CET, novembre 2026) =====
+    // 15 novembre ore 00:00 Europe/Rome = 14 novembre 23:00 UTC.
+    // La fine del 30 novembre (1 dicembre ore 00:00 Europe/Rome) = 30 novembre 23:00 UTC.
+    // Il countdown è informativo: non abilita prenotazioni senza backend.
+    (function initBrunoAdventCountdown(){
+      const start=Date.parse('2026-11-14T23:00:00Z');
+      const end=Date.parse('2026-11-30T23:00:00Z');
+      const ids=['bd2-days','bd2-hours','bd2-minutes','bd2-seconds'];
+      const els=ids.map(id=>document.getElementById(id));
+      const status=document.getElementById('bd2-booking-status');
+      if(!status||els.some(el=>!el))return;
+      function refresh(){
+        const now=Date.now();
+        const before=now<start;
+        const active=now>=start&&now<end;
+        const remaining=before?start-now:active?end-now:0;
+        const sec=Math.max(0,Math.floor(remaining/1000));
+        const values=[Math.floor(sec/86400),Math.floor(sec%86400/3600),Math.floor(sec%3600/60),sec%60];
+        values.forEach((v,i)=>els[i].textContent=String(v).padStart(2,'0'));
+        status.textContent=before
+          ? 'Le prenotazioni sono previste dal 15 novembre 2026 alle ore 00:00.'
+          : active
+            ? 'Periodo prenotazioni: dal 15 al 30 novembre. Il modulo di registrazione è in preparazione.'
+            : 'Prenotazioni chiuse: il periodo terminava il 30 novembre 2026.';
+      }
+      refresh();
+      setInterval(refresh,1000);
+    })();
 
     // ========= INIT =========
     document.addEventListener("DOMContentLoaded", () => {
