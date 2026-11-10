@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // No browser may read/write private participant names, cards or allocations.
+    // Only privileged Cloud Functions (Admin SDK) access these collections.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
