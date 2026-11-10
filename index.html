@@ -2,7 +2,9 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>BrunoDay – Fan Club & Horror Nights</title>
+  <title>BrunoDay 2.0 – Horror Nights</title>
+  <meta name="theme-color" content="#100a0e" />
+  <meta name="description" content="BrunoDay: horror, proiezioni, archivio film ed eventi speciali. Benvenuti nel covo." />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
@@ -974,10 +976,107 @@
       .bd-pop-img{ max-width: 240px; margin: 0 auto; }
       .bd-pop-foot{ justify-content: center; }
     }
+
+/* ===== BRUNODAY 2.0 — HORROR EDITION / PREVIEW BRANCH ===== */
+:root {
+  --bd-blue:#b64a58; --bd-yellow:#eddfd1; --bd-red:#a72535;
+  --bd-dark:#0a070b; --bd-light:#f0e7df;
+}
+html { scroll-behavior:smooth; scroll-padding-top:90px; }
+body {
+  background: radial-gradient(ellipse at 50% -5%, #451821 0%, #170c12 34%, #08070a 76%),
+              #08070a;
+  color:#f0e7df;
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.13; z-index:0;
+  background-image:repeating-linear-gradient(90deg,transparent 0 3px,#e4b7af09 4px 5px);
+}
+.page-wrap {position:relative; z-index:1; max-width:1160px; padding:30px clamp(16px,4vw,48px) 65px;}
+a {color:#dfaaa7}
+a:hover {color:#fff}
+.bd2-nav {
+  position:sticky; top:0; z-index:100; display:flex; align-items:center;
+  justify-content:space-between; gap:14px; padding:12px clamp(16px,4vw,48px);
+  background:rgba(12,8,12,.93); border-bottom:1px solid #6b2735;
+  backdrop-filter:blur(16px);
+}
+.bd2-brand{font-family:"Anton",sans-serif;color:#f3e7e2;font-size:1.25rem;letter-spacing:.14em;text-transform:uppercase;}
+.bd2-links{display:flex;flex-wrap:wrap;gap:9px 17px;align-items:center;}
+.bd2-links a{color:#d3c0be;font-size:.78rem;letter-spacing:.04em;}
+.bd2-links a:hover{color:#fff;text-decoration:none}
+.bd2-links .bd2-nav-advent{background:#922735;color:#fff;padding:8px 13px;border-radius:4px;}
+.page-wrap > header{
+  background:linear-gradient(100deg,rgba(14,8,12,.97),rgba(55,12,23,.7)),
+    url("brunoday_lotr_banner.png") center/cover;
+  border:1px solid #652837; border-bottom:2px solid #ab3c4b;
+  min-height:390px; padding:clamp(22px,5vw,60px);
+  border-radius:12px; gap:clamp(20px,4vw,50px); box-shadow:0 24px 70px #0008;
+}
+.logo-box{flex:0 0 clamp(112px,21vw,195px);}
+.logo-box img{filter:drop-shadow(0 14px 18px #000);box-shadow:none; border-radius:3px;}
+.hero-title{color:#f5e6df;font-size:clamp(3.4rem,8vw,6.5rem);line-height:1.03;letter-spacing:.055em;text-shadow:0 5px 28px #000;}
+.hero-title::after{height:3px;box-shadow:none;background:#b8394d;}
+.hero-subtitle{color:#de8791;font-size:.78rem;letter-spacing:.23em;}
+.hero-tagline{max-width:600px;color:#e3d0ce;font-size:clamp(.96rem,1.7vw,1.12rem);}
+.slasher-label{background:#67232f;box-shadow:none;transform:none;margin-top:16px;}
+.bd2-hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px;}
+.bd2-btn{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:10px 20px;background:#a52a3e;color:white!important;border:1px solid #c44b5d;border-radius:5px;font-weight:700;font-size:.86rem;transition:transform .2s,background .2s;}
+.bd2-btn:hover{text-decoration:none;background:#bf374b;transform:translateY(-2px);}
+.bd2-btn.secondary{background:#1b1119;border-color:#87515b;}
+section{margin-top:clamp(30px,5vw,58px);}
+.section-title{color:#e9ddd6;font-size:clamp(1.5rem,3vw,2.15rem);letter-spacing:.09em;text-shadow:none;}
+.section-title::after{background:#a72e3f;}
+.card,.oscar-trailer,.event-banner{border-radius:10px;}
+.card{background:linear-gradient(150deg,#21151d,#130e13);border:1px solid #56303a;box-shadow:0 14px 35px #0003;}
+.event-banner{border-color:#873944;}
+.oscar-home{margin-top:28px;}
+.oscar-trailer{border:1px solid #76303c;}
+.bd2-event-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:15px;}
+.bd2-event-card{min-height:120px;padding:18px;background:linear-gradient(145deg,#301720,#150e13);border:1px solid #65313e;border-radius:9px;display:flex;flex-direction:column;justify-content:space-between;gap:15px;}
+.bd2-event-card strong{font-family:"Anton",sans-serif;color:#f2e4de;letter-spacing:.06em;font-size:1.12rem;}
+.bd2-event-card span{color:#c6b1ae;font-size:.78rem;}
+.bd2-event-card:hover{border-color:#cf5a6c;text-decoration:none;transform:translateY(-2px);}
+.bd2-advent{position:relative;overflow:hidden;padding:clamp(22px,4vw,35px);border:1px solid #a33c4d;border-radius:12px;background:radial-gradient(circle at 88% 12%,#743140 0,transparent 34%),linear-gradient(120deg,#270e19,#120b12);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(180px,.7fr);gap:25px;align-items:center;}
+.bd2-kicker{color:#e5a1a7;text-transform:uppercase;letter-spacing:.2em;font-size:.75rem;font-weight:700;}
+.bd2-advent h2{font-family:"Anton",sans-serif;font-size:clamp(2rem,4.2vw,3.3rem);letter-spacing:.055em;line-height:1.1;color:#f7e7e0;margin:10px 0;}
+.bd2-advent p{max-width:560px;color:#dfc9c5;font-size:.94rem;margin-bottom:17px;}
+.bd2-advent small{color:#bda4a6;display:block;margin-top:12px;}
+.bd2-advent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
+.bd2-advent-grid span{height:45px;border-radius:4px;border:1px solid #ad4859;background:#51212e;display:grid;place-items:center;font-family:"Anton",sans-serif;color:#eed1cf;font-size:1.25rem;}
+.bd2-advent-grid span:nth-child(3n){background:#7c2b3d;}
+.bd2-advent .bd2-btn{pointer-events:none;opacity:.75;cursor:default;}
+#rules .card{max-width:100%;}
+#archive .film-list{line-height:1.7;}
+#fanclub .fancard-mock{box-shadow:0 14px 35px #0005;}
+#eco{opacity:.88;}
+footer{border-top:1px solid #6c3440;margin-top:65px;}
+@media(max-width:780px){
+ .bd2-nav{position:relative;flex-direction:column;align-items:flex-start;}
+ .bd2-links{gap:9px 14px;}
+ .page-wrap > header{min-height:0;display:flex;flex-direction:column;text-align:center;background-position:center;}
+ .hero-text{min-width:0;}
+ .hero-title{font-size:clamp(3rem,12vw,5rem);}
+ .hero-tagline{margin-inline:auto;}
+ .logo-box{flex:0 0 auto;width:110px;}
+ .bd2-hero-actions{justify-content:center;}
+ .bd2-event-grid{grid-template-columns:1fr;}
+ .bd2-advent{grid-template-columns:1fr;}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bd2-btn,.bd2-event-card{transition:none}}
+
   </style>
 </head>
 
 <body>
+  <nav class="bd2-nav" aria-label="Navigazione principale">
+  <a class="bd2-brand" href="#home">BRUNODAY / II</a>
+  <div class="bd2-links">
+    <a href="#next">Prossimo film</a><a href="#events">Eventi</a><a href="#archive">Archivio</a>
+    <a href="#rules">Regole</a><a href="#fanclub">Fan Club</a><a href="#members">Area membri</a>
+    <a class="bd2-nav-advent" href="#advent">Avvento 🎁</a>
+  </div>
+</nav>
 
   <!-- POPUP VACANZA (FINO AL 6 GENNAIO) -->
   <div id="bdPopVacanza" class="bd-pop-overlay" role="dialog" aria-modal="true">
@@ -1005,7 +1104,7 @@
   </div>
 
   <div class="page-wrap">
-    <header>
+    <header id="home">
       <div class="logo-box">
         <img src="logo-brunoday.png" alt="BrunoDay Logo" />
       </div>
@@ -1017,8 +1116,23 @@
           e parte il film horror. Se sei qui, fai parte del cerchio.
         </p>
         <div class="slasher-label">Fan club ufficiale • ingresso su invito</div>
+        <div class="bd2-hero-actions"><a class="bd2-btn" href="#next">Prossima proiezione ↓</a><a class="bd2-btn secondary" href="#advent">Babbo BrunoDay 🎁</a></div>
       </div>
     </header>
+
+<section id="advent" class="bd2-advent" aria-labelledby="advent-title">
+  <div>
+    <div class="bd2-kicker">Evento speciale · Natale 2026</div>
+    <h2 id="advent-title">BABBO BRUNODAY</h2>
+    <p>22 caselle, 22 regali misteriosi, 22 fortunati sventurati.
+       Prenotazioni dal 15 al 30 novembre. Dal 3 al 24 dicembre, una sorpresa al giorno.</p>
+    <span class="bd2-btn" aria-label="Calendario in preparazione">Calendario in preparazione</span>
+    <small>Il collegamento diventerà attivo quando la pagina calendario e il sistema di prenotazione saranno pronti.</small>
+  </div>
+  <div class="bd2-advent-grid" aria-hidden="true">
+    <span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
+  </div>
+</section>
 
     <!-- Banner Eventi -->
     <a href="standby.html" class="event-banner">
@@ -1066,6 +1180,15 @@
         </div>
       </a>
     </section>
+
+<section id="events" aria-labelledby="events-title">
+  <h2 id="events-title" class="section-title">Eventi speciali</h2>
+  <div class="bd2-event-grid">
+    <a class="bd2-event-card" href="brunooscar.html"><strong>BrunoOscar Night</strong><span>Premi, votazioni e follia cinematografica →</span></a>
+    <a class="bd2-event-card" href="evento-lotr.html"><strong>La notte della Terra di Mezzo</strong><span>Riscopri l'evento speciale →</span></a>
+    <a class="bd2-event-card" href="eventonatale.html"><strong>Il Natale BrunoDay</strong><span>Apri la pagina dell'evento →</span></a>
+  </div>
+</section>
 
     <!-- Prossima proiezione -->
     <section id="next">
@@ -1522,7 +1645,7 @@
       loadFilms();
 
       const now = new Date();
-      const end = new Date(2026, 0, 6, 23, 59, 59);
+      const end = new Date(2026, 0, 6, 23, 59, 59); // legacy vacation notice
 
       if (now <= end) {
         bdOpenVacanza();
