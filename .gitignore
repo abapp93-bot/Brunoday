@@ -1,9 +1,11 @@
 node_modules/
 .firebase/
 .firebaserc
-functions/.private/
-functions/service-account*.json
-avvento/firebase-config.js
+setup/.private/
+setup/private-participants.json
+setup/service-account*.json
+private-participants.json
+service-account*.json
 *.local.json
 .env
 .env.*
